@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.aorora.interfaces.GeoCoordsCallback;
+import com.example.aorora.model.LocalUpdate;
 import com.example.aorora.network.CheckConnectivity;
 import com.example.aorora.network.GetConnInfo;
 import com.example.aorora.network.GetDataService;
@@ -31,7 +35,23 @@ import android.location.LocationListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.lang.reflect.Type;
+import java.nio.Buffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 
 /*Eventual Gateway to M4, which will take 10 pollen from the user and launch the necessary activity
@@ -205,9 +225,80 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
         Log.d("GetConnInfo", "Is connected? " + isConnected.toString());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void writeFileTest(){
+        //Create localupdate object.
+        LocalUpdate localUpdate = new LocalUpdate(MainActivity.user_info.getUser_pollen());
+
+        //Init gson instance
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+
+        String fileName = "localupdate.json";
+        File file = new File(fileName);
+
+        File localFilesDir = ARScreen.this.getFilesDir();
+        String localFilesPath = localFilesDir.toString() + "/";
+
+        //Make buffered writer for efficient writing
+        try {
+            //Get a writer to the desired location to write our file named above.
+            String path = ARScreen.this.getFilesDir() + "/" + fileName;
+
+            Writer writer = Files.newBufferedWriter(Paths.get(path));
+
+
+            Log.d("path", path);
+
+            //Log.d("FILE WRITING", "Wrote file at path" + path);
+            //Convert to json and write the file
+           // Log.d("GSON json", gson.toJson(localUpdate));
+            gson.toJson(localUpdate, writer);
+            //Close our writer
+            writer.close();
+
+            Log.d("Files", "Path: " + path);
+            File directory = new File(localFilesPath);
+            File[] files = directory.listFiles();
+            Log.d("Files", "Size: "+ files.length);
+            FileReader reader = new FileReader(path);
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            while((line = br.readLine()) != null){
+                System.out.println(line);
+            }
+
+            for (int i = 0; i < files.length; i++)
+            {
+                Log.d("Files", "FileName: " + files[i].getName());
+
+            }
 
 
 
+            //Open and read the file
+            File jsonInputFile = new File(path);
+
+            BufferedReader brJson = new BufferedReader(new FileReader(path));
+            Type type = new TypeToken<LocalUpdate>(){}.getType();
+            LocalUpdate newUpdate = gson.fromJson(brJson, type);
+
+
+            Log.d("LOCALUPDATEOBJ", "LocalUpdate object from json: " + newUpdate.toString());
+
+
+        }
+        //Couldn't open or write to the file.
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
         int view_id = v.getId();
@@ -235,6 +326,7 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
             startActivity(to_navigate);
         }
         else if(view_id == coordsBtn.getId()){
+            writeFileTest();
             runConnCheck();
             if(!isConnected) {
                 Toast.makeText(this, "Not connected!", Toast.LENGTH_SHORT).show();
