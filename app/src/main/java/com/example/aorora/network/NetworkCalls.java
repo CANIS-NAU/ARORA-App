@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.aorora.ARScreen;
 import com.example.aorora.MainActivity;
 import com.example.aorora.model.DailyTask;
 import com.example.aorora.model.DailyTaskReturn;
@@ -16,13 +17,19 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,7 +75,6 @@ public class NetworkCalls {
                 if(response.isSuccess())
                 {
                     Toast.makeText(context, " POLLEN UPDATED Updated Successfuly", Toast.LENGTH_SHORT).show();
-
                 }
                 else
                 {
@@ -79,8 +85,41 @@ public class NetworkCalls {
             @Override
             public void onFailure(Call call, Throwable t) {
                 Toast.makeText(context, "Points update failed, writing to file.", Toast.LENGTH_SHORT).show();
-                //Make local update object file
+                writeLocalUpdate(context);
+                try {
+                    throw t;
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+            }
+        });
+    }
+    //This method will use the retrofitResponseListener to communicate the status of the request back to the calling function.
+    public static void updateUserCurrentPoints(RetrofitResponseListener retrofitResponseListener, int user_id, int user_pollen, final Context context) {
 
+        Call call = service.updateUserPollen(user_id, user_pollen);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.isSuccess())
+                {
+                    Toast.makeText(context, " POLLEN UPDATED Updated Successfuly", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(context, "Points update failed, writing to file.", Toast.LENGTH_SHORT).show();
+                writeLocalUpdate(context);
+                try {
+                    throw t;
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
             }
         });
     }
@@ -103,26 +142,70 @@ public class NetworkCalls {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                try {
-                    //FileWriter file = new FileWriter("../../res/raw/backendUpdates.txt");
-                    String path = "../../res/raw/backendUpdates.json";
-                    //We failed, create a LocalUpdate object to serialize to json via gson
-                    LocalUpdate localUpdate = new LocalUpdate(MainActivity.user_info.getUser_pollen());
-                    //Init gson converter
-                    Gson gson = new Gson();
-                    //Init file writer
-                    Writer writer = new BufferedWriter(new PrintWriter(path));
-                /*Type gsonType = new TypeToken<HashMap>(){}.getType();
-                String gsonString = gson.toJson(MainActivity.user_info.get_local_atrium(), gsonType);
-                Log.d("updateUserAtrium", "Json version of atrium" + gsonString);*/
-                    Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    Log.d("updateUserAtrium", "Error writing to file");
-                    e.printStackTrace();
-                }
-
+                Toast.makeText(context, "Storing local update as network failed", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    //This method will use the retrofitResponseListener to communicate the status of the request back to the calling function.
+    public static void updateUserAtrium(RetrofitResponseListener retrofitResponseListener, int user_id, Map<String, Integer> counts, final Context context) {
+        Call call = service.updateUserAtrium(user_id, counts);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.isSuccess())
+                {
+                    Toast.makeText(context, " Atrium Counts Updated Successfuly", Toast.LENGTH_SHORT).show();
+
+                }
+                else
+                {
+                    Toast.makeText(context, "Atrium Update FAILED!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(context, "Storing local update as network failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public static void writeLocalUpdate(final Context context){
+        Log.d("LOCAL UPDATE", "Writing Local update as network failed");
+        //Make local update object file, holds pollen and atrium from UserInfo locally.
+        LocalUpdate localUpdate = new LocalUpdate();
+
+        //Init gson instance
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+
+        String fileName = "localupdate.json";
+        //Use the passed context to find the location to write the json file.
+        File localFilesDir = context.getFilesDir();
+        //String localFilesPath = localFilesDir.toString() + "/";
+
+        //Make buffered writer for efficient writing
+        try {
+            //Get a writer to the desired location to write our file named above.
+            String pathStr = localFilesDir + "/" + fileName;
+            Path pathObj = Paths.get(pathStr);
+
+            Writer writer = Files.newBufferedWriter(pathObj);
+            Log.d("path", pathStr);
+            Log.d("FILE WRITING", "Wrote file at path" + pathStr);
+            //Convert to json and write the file
+            Log.d("GSON json printed", gson.toJson(localUpdate));
+            gson.toJson(localUpdate, writer);
+            //Close our writer
+            writer.close();
+        }
+        //Couldn't open or write to the file.
+        catch (IOException e) {
+            e.printStackTrace();
+            //TODO retry here.
+        }
     }
 
     public static void getUserInfo(int user_id, final Context context)
@@ -135,7 +218,7 @@ public class NetworkCalls {
                 if(response.isSuccess())
                 //response.body().getUsername()
                 {
-                    //Use static variable exposed from mainactivity to store the user_info and access
+                    //Use static variable exposed from MainActivity to store the user_info and access
                     //Across all activities.
                     MainActivity.user_info = response.body();
                     //Since the user's atrium map is not a serialized value from the backend, we must initialize
@@ -309,4 +392,44 @@ public class NetworkCalls {
     }
 
     //public static void updateLike(int )
+
+    //Network failure response
+    public static void checkLocalUpdates(final Context context){
+        String updateFileName = "localupdate.json";
+        //Use the passed context to find the location to write the json file.
+        File localFilesDir = context.getFilesDir();
+        String pathStr = localFilesDir + "/" + updateFileName;
+        Path pathObj = Paths.get(pathStr);
+
+        if(Files.exists(pathObj)){
+            Toast.makeText(context, "Local Update Detected!", Toast.LENGTH_SHORT).show();
+        }
+
+        Gson gson = new GsonBuilder()
+        .setPrettyPrinting()
+        .create();
+
+
+        BufferedReader brJson = null;
+        try {
+            brJson = new BufferedReader(new FileReader(pathStr));
+            Type type = new TypeToken<LocalUpdate>(){}.getType();
+            LocalUpdate newUpdate = gson.fromJson(brJson, type);
+            Log.d("LOCALUPDATEOBJ Network", "LocalUpdate object from json: " + newUpdate.toString());
+            //Now that we have the local updates, lets push the values to the backend.
+            NetworkCalls.updateUserCurrentPoints(MainActivity.user_info.getUser_id(), newUpdate.getPollenScore(), context);
+            NetworkCalls.updateUserAtrium(MainActivity.user_info.getUser_id(), newUpdate.getUserAtrium(), context);
+            //Update local model values as well.
+            MainActivity.user_info.setUser_pollen(newUpdate.getPollenScore());
+            MainActivity.user_info.update_local_atrium(newUpdate.getUserAtrium());
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
 }

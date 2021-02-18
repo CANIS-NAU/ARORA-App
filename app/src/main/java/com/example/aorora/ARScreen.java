@@ -131,7 +131,6 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
                 //Otherwise, we have enough pollen, decrement it and update the backend.
                 userPollen -= 10;
                 Toast.makeText(ARScreen.this, "Spending pollen to access AR butterflies for one day.", Toast.LENGTH_SHORT).show();
-                //TODO: Add one day activation of butterfly activity, perhaps in MainActivity or UserInfo?
                 //Finally do the PUT request with the new pollen value. May need to refresh the UI.
                 MainActivity.user_info.setUser_pollen(userPollen);
                 //This will update the backend and set the current pollen to our decremented value.
@@ -225,10 +224,9 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
         Log.d("GetConnInfo", "Is connected? " + isConnected.toString());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void writeFileTest(){
         //Create localupdate object.
-        LocalUpdate localUpdate = new LocalUpdate(MainActivity.user_info.getUser_pollen());
+        LocalUpdate localUpdate = new LocalUpdate();
 
         //Init gson instance
         Gson gson = new GsonBuilder()
@@ -244,11 +242,9 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
         //Make buffered writer for efficient writing
         try {
             //Get a writer to the desired location to write our file named above.
-            String path = ARScreen.this.getFilesDir() + "/" + fileName;
+            String path = localFilesDir + "/" + fileName;
 
             Writer writer = Files.newBufferedWriter(Paths.get(path));
-
-
             Log.d("path", path);
 
             //Log.d("FILE WRITING", "Wrote file at path" + path);
@@ -276,17 +272,12 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
             }
 
 
-
-            //Open and read the file
-            File jsonInputFile = new File(path);
-
             BufferedReader brJson = new BufferedReader(new FileReader(path));
             Type type = new TypeToken<LocalUpdate>(){}.getType();
             LocalUpdate newUpdate = gson.fromJson(brJson, type);
 
 
             Log.d("LOCALUPDATEOBJ", "LocalUpdate object from json: " + newUpdate.toString());
-
 
         }
         //Couldn't open or write to the file.
