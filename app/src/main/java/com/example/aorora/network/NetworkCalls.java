@@ -95,7 +95,7 @@ public class NetworkCalls {
         });
     }
     //This method will use the retrofitResponseListener to communicate the status of the request back to the calling function.
-    public static void updateUserCurrentPoints(RetrofitResponseListener retrofitResponseListener, int user_id, int user_pollen, final Context context) {
+    public static void updateUserCurrentPoints( int user_id, int user_pollen, final Context context, final RetrofitResponseListener retrofitResponseListener) {
 
         Call call = service.updateUserPollen(user_id, user_pollen);
         call.enqueue(new Callback() {
@@ -104,6 +104,7 @@ public class NetworkCalls {
                 if(response.isSuccess())
                 {
                     Toast.makeText(context, " POLLEN UPDATED Updated Successfuly", Toast.LENGTH_SHORT).show();
+                    retrofitResponseListener.onSuccess();
                 }
                 else
                 {
@@ -113,13 +114,8 @@ public class NetworkCalls {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(context, "Points update failed, writing to file.", Toast.LENGTH_SHORT).show();
-                writeLocalUpdate(context);
-                try {
-                    throw t;
-                } catch (Throwable throwable) {
-                    throwable.printStackTrace();
-                }
+                Toast.makeText(context, "Points update failed again, keeping json.", Toast.LENGTH_SHORT).show();
+                retrofitResponseListener.onFailure();
             }
         });
     }
@@ -148,7 +144,7 @@ public class NetworkCalls {
     }
 
     //This method will use the retrofitResponseListener to communicate the status of the request back to the calling function.
-    public static void updateUserAtrium(RetrofitResponseListener retrofitResponseListener, int user_id, Map<String, Integer> counts, final Context context) {
+    public static void updateUserAtrium(int user_id, Map<String, Integer> counts, final Context context, final RetrofitResponseListener retrofitResponseListener) {
         Call call = service.updateUserAtrium(user_id, counts);
         call.enqueue(new Callback() {
             @Override
@@ -156,6 +152,7 @@ public class NetworkCalls {
                 if(response.isSuccess())
                 {
                     Toast.makeText(context, " Atrium Counts Updated Successfuly", Toast.LENGTH_SHORT).show();
+                    retrofitResponseListener.onSuccess();
 
                 }
                 else
@@ -166,7 +163,8 @@ public class NetworkCalls {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(context, "Storing local update as network failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Atrium update failed again, keeping local json.", Toast.LENGTH_SHORT).show();
+                retrofitResponseListener.onFailure();
             }
         });
     }
@@ -391,37 +389,79 @@ public class NetworkCalls {
         });*/
     }
 
-    //public static void updateLike(int )
 
-    //Network failure response
+    //Local Update Check and Response
     public static void checkLocalUpdates(final Context context){
         String updateFileName = "localupdate.json";
         //Use the passed context to find the location to write the json file.
         File localFilesDir = context.getFilesDir();
         String pathStr = localFilesDir + "/" + updateFileName;
-        Path pathObj = Paths.get(pathStr);
+        final Path pathObj = Paths.get(pathStr);
 
-        if(Files.exists(pathObj)){
-            Toast.makeText(context, "Local Update Detected!", Toast.LENGTH_SHORT).show();
+        //If we have no JSON file stored, do nothing.
+        if(!Files.exists(pathObj)){
+            Toast.makeText(context, "Local Update NOT Detected!", Toast.LENGTH_SHORT).show();
+            Log.d("CheckLocalUpdates", "No update detected");
+            return;
         }
+        //Otherwise there is a local update ready to parse.
+        Toast.makeText(context, "Local Update Detected!", Toast.LENGTH_SHORT).show();
 
+        //Init gson to read to object
         Gson gson = new GsonBuilder()
         .setPrettyPrinting()
         .create();
-
-
+        //Init buffered reader to read json file.
         BufferedReader brJson = null;
         try {
+            //Open up a reader to be used by gson to parse the file to the LocalUpdate object.
             brJson = new BufferedReader(new FileReader(pathStr));
+            //This type token tells gson that we want to parse JSON into a LocalUpdate object.
             Type type = new TypeToken<LocalUpdate>(){}.getType();
-            LocalUpdate newUpdate = gson.fromJson(brJson, type);
+            //Create a LocalUpdate object using gson and our reader and type fields.
+            final LocalUpdate newUpdate = gson.fromJson(brJson, type);
+            final boolean finished = false;
             Log.d("LOCALUPDATEOBJ Network", "LocalUpdate object from json: " + newUpdate.toString());
             //Now that we have the local updates, lets push the values to the backend.
-            NetworkCalls.updateUserCurrentPoints(MainActivity.user_info.getUser_id(), newUpdate.getPollenScore(), context);
-            NetworkCalls.updateUserAtrium(MainActivity.user_info.getUser_id(), newUpdate.getUserAtrium(), context);
-            //Update local model values as well.
-            MainActivity.user_info.setUser_pollen(newUpdate.getPollenScore());
-            MainActivity.user_info.update_local_atrium(newUpdate.getUserAtrium());
+            NetworkCalls.updateUserCurrentPoints(MainActivity.user_info.getUser_id(), newUpdate.getPollenScore(), context, new RetrofitResponseListener() {
+                @Override
+                public void onSuccess() {
+                    //Update local model values as well.
+                    MainActivity.user_info.setUser_pollen(newUpdate.getPollenScore());
+
+                    //That worked, now update the Atrium too.
+                    NetworkCalls.updateUserAtrium(MainActivity.user_info.getUser_id(), newUpdate.getUserAtrium(), context, new RetrofitResponseListener() {
+                        @Override
+                        public void onSuccess() {
+                            MainActivity.user_info.update_local_atrium(newUpdate.getUserAtrium());
+                            //Since both calls have succeeded, delete our local file.
+                            try {
+                                Files.deleteIfExists(pathObj);
+                                Toast.makeText(context, "All updates successful, deleting json.", Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                Log.d("checkLocalUpdates", "Couldn't find json to delete????");
+                                e.printStackTrace();
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Log.d("Pollen Local Update", "NETWORK UPDATE OF ATRIUM FAILED FROM LOCAL FILE.");
+                            return;
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure() {
+                    Log.d("Pollen Local Update", "NETWORK UPDATE OF POLLEN FAILED FROM LOCAL FILE.");
+                    return;
+                }
+            });
+
+
 
 
         } catch (FileNotFoundException e) {

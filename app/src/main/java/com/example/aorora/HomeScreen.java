@@ -432,6 +432,6 @@ public class HomeScreen extends AppCompatActivity implements GestureDetector.OnG
     protected void onResume() {
         super.onResume();
         //TODO: Push local updates to the backend, keep trying. Userinfo call should do it.
-        NetworkCalls.checkLocalUpdates(HomeScreen.this);
+        //NetworkCalls.checkLocalUpdates(HomeScreen.this);
     }
 }
