@@ -55,7 +55,13 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 /*Eventual Gateway to M4, which will take 10 pollen from the user and launch the necessary activity
-for the AR or 2D gamification element where users catch butterflies.
+for the AR or 2D gamification element where users catch butterflies. This is also a test page for
+new features, such as geocooordinates, json storage of local values, and internet connectivity checks.
+These feature tests are run onclick of the get coordinates button.
+
+This class implements both the onclicklistener interface and GetConnInfo. The important interface,
+GetConnInfo, is used to return geocoordinates to this Activity from the AsyncTask CheckConnectivity
+after waiting for it to complete. TODO: Refactor usage of interface to remove direct implementation.
  */
 public class ARScreen extends AppCompatActivity implements View.OnClickListener, GetConnInfo {
     //User account info
@@ -79,10 +85,6 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
     ButterflyStops butterflyStops;
     Boolean isConnected;
     CheckConnectivity connCheck;
-
-    //Local GPS Variables
-    protected LocationManager locationManagerLocal;
-    protected LocationListener locationListenerLocal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,10 +122,11 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
         community_button_bottombar.setOnClickListener(this);
         quest_button_bottombar.setOnClickListener(this);
 
-
+        //This onClickListener will spend pollen if the user has at least 10 of it.
         spendPollenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (!hasEnoughPollen()) {
                     Toast.makeText(ARScreen.this, "Sorry! Not enough pollen! Complete some quests!", Toast.LENGTH_SHORT).show();
                     return;
@@ -158,14 +161,19 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
         connCheck.execute();
     }
 
+    /*Suppress this lint warning, I call hasPermissions and get all needed permissions, or disallow
+      the user to continue if they do not accept them.
+    */
     @SuppressLint("MissingPermission")
     private void getUserLocation(final GeoCoordsCallback geoCallback) {
         Toast.makeText(this, "Getting user coordinates", Toast.LENGTH_SHORT).show();
         String[] permissionsNeeded = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
         Location currentLocation;
+        //Check if we have permissions, if not, ask for them.
         if (!hasPermissions(this, permissionsNeeded)) {
             ActivityCompat.requestPermissions(this, permissionsNeeded, 1);
         }
+        //After we request the permissions, check again. If they are not provided display a Toast.
         if(!hasPermissions(this, permissionsNeeded)){
             Toast.makeText(this, "You must provide permissions to use the location services.", Toast.LENGTH_SHORT).show();
         }
@@ -185,7 +193,7 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
                     });
         }
     }
-
+    //Function to check for permissions passed to it to see if they are granted or not.
     public Boolean hasPermissions(Context ct, String[] inputPermissions) {
         //Make sure we have a context and permission list.
         if(ct != null && inputPermissions != null){
@@ -200,6 +208,17 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
         return true;
     }
 
+    //Check called before launching the game.
+    public boolean hasEnoughPollen() {
+        return userPollen >= 10;
+    }
+
+
+    /*
+    This function will check if we are nearby any butterflystops, if so, it returns which ones.
+    TODO: Make butterfly location subclass that holds the type of butterflies to spawn and related
+    info at a location.
+     */
     private Map<String, Location> findNearbyLocations(Location currLocation) {
         Log.d("KEYS", butterflyStops.getCoordinateMap().keySet().toString());
         for(Map.Entry<String,Location> currEntry : butterflyStops.getCoordinateMap().entrySet()) {
@@ -211,13 +230,10 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
         return null;
         }
 
-
-
-
-    public boolean hasEnoughPollen() {
-        return userPollen >= 10;
-    }
-
+    /*
+    Implemented interface function that receives a boolean from the AsyncTask CheckConnectivity, which
+    takes the GetConnInfo interface as a class member to communicate it back here.
+     */
     @Override
     public void getConnInfo(Boolean isConnected){
         this.isConnected = isConnected;
@@ -288,9 +304,7 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
     }
 
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
+   @Override
     public void onClick(View v) {
         int view_id = v.getId();
         Intent to_navigate;
