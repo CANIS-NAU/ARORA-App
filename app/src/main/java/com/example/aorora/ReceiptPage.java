@@ -116,6 +116,11 @@ public class ReceiptPage extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
+    public void onBackPressed() {
+        //Do nothing. Do not pop the stack and go back into the mindfulness activity.
+    }
+
+    @Override
     public void onClick(View v) {
         int view_id = v.getId();
         Intent to_navigate;

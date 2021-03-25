@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+
 public class UserInfo {
     @SerializedName("user_info_id")
     private Integer user_info_id;
@@ -47,6 +48,7 @@ public class UserInfo {
     private Integer user_b4_count;
     //Non-serialzed value for use in storing each count locally.
     private Map<String, Integer> local_atrium;
+
     @SerializedName("user_name")
     private String user_name;
     @SerializedName("email")
@@ -255,6 +257,7 @@ public class UserInfo {
     }
     //Might not be what I want to do, but good in case. Will refactor later if needed.
     public Map<String, Integer> get_local_atrium(){return local_atrium;}
+
 
     public void setUser_b4_count(Integer user_b4_count) {
         this.user_b4_count = user_b4_count;
