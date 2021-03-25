@@ -1,5 +1,6 @@
 package com.example.aorora.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -167,7 +168,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     }
 
     @Override
-    public void onBindViewHolder(final CustomViewHolder holder, final int position) {
+    public void onBindViewHolder(final CustomViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         String desc = accomplishment_description[quest_type_ids.get(position)-1];
         holder.txtTitle.setText(desc);
         holder.bindItem( position );

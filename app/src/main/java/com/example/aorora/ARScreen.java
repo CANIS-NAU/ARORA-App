@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.aorora.interfaces.GeoCoordsCallback;
 import com.example.aorora.model.LocalUpdate;
+import com.example.aorora.model.Butterfly;
 import com.example.aorora.network.CheckConnectivity;
 import com.example.aorora.network.GetConnInfo;
 import com.example.aorora.network.GetDataService;
@@ -133,11 +134,13 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
                 }
                 //Otherwise, we have enough pollen, decrement it and update the backend.
                 userPollen -= 10;
-                Toast.makeText(ARScreen.this, "Spending pollen to access AR butterflies for one day.", Toast.LENGTH_SHORT).show();
                 //Finally do the PUT request with the new pollen value. May need to refresh the UI.
                 MainActivity.user_info.setUser_pollen(userPollen);
                 //This will update the backend and set the current pollen to our decremented value.
                 NetworkCalls.updateUserCurrentPoints(userId, userPollen, ARScreen.this);
+
+                //intent to butterfly game
+                startActivity(new Intent(arScreen, ButterflyGameActivity.class));
             }
         });
 

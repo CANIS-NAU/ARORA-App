@@ -255,6 +255,7 @@ public class UserInfo {
     public Integer getUser_b4_count() {
         return user_b4_count;
     }
+    
     //Might not be what I want to do, but good in case. Will refactor later if needed.
     public Map<String, Integer> get_local_atrium(){return local_atrium;}
 
@@ -283,6 +284,13 @@ public class UserInfo {
         for(Map.Entry<String,Integer> currEntry : atriumUpdates.entrySet()) {
             String currKey = currEntry.getKey();
             Integer currVal = currEntry.getValue();
+
+            //if key is already initialized then add previous value
+            if(local_atrium.containsKey(currKey))
+            {
+                currVal += local_atrium.get(currKey);
+            }
+
             this.local_atrium.put(currKey, currVal);
         }
         //Log.d("USERINFO ATRIUM UPDATE", "update_local_atrium: Current UserInfo atrium: " + Arrays.asList(this.local_atrium) );

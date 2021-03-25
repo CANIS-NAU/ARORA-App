@@ -129,7 +129,7 @@ public class NetworkCalls {
             public void onResponse(Call call, Response response) {
                 if(response.isSuccess())
                 {
-                    Toast.makeText(context, " Atrium Counts Updated Successfuly", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, " Atrium Counts Updated Successfully", Toast.LENGTH_SHORT).show();
 
                 }
                 else

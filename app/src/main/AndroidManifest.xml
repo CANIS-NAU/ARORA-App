@@ -20,8 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AtriumDetail"></activity>
+        <activity android:name=".AtriumDetail"/>
         <activity android:name=".ARScreen" />
+        <activity android:name=".ButterflyGameActivity"/>
         <activity android:name=".MindfulnessMeditationGame_R" />
         <activity
             android:name=".ReceiptPage"

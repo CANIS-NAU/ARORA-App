@@ -45,7 +45,11 @@ public class DailyQuestPage extends AppCompatActivity implements View.OnClickLis
         profile_button_bottombar.setOnClickListener(this);
         community_button_bottombar.setOnClickListener(this);
         quest_button_bottombar.setOnClickListener(this);
-        com.example.aorora.network.GetDataService service = com.example.aorora.network.RetrofitClientInstance.getRetrofitInstance().create(com.example.aorora.network.GetDataService.class);
+
+        com.example.aorora.network.GetDataService service =
+                com.example.aorora.network.RetrofitClientInstance
+                        .getRetrofitInstance()
+                        .create(com.example.aorora.network.GetDataService.class);
 
         Call<List<RetroPhoto>> call = service.getAllPhotos();
         call.enqueue(new Callback<List<RetroPhoto>>() {

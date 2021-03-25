@@ -58,36 +58,27 @@ public class ReceiptPage extends AppCompatActivity implements View.OnClickListen
         receipt_desc_tv = findViewById(R.id.receipt_desc_text_view);
         receipt_desc_tv_2 = findViewById(R.id.receipt_desc_text_view_2);
         pollenEarnedScoreTv = findViewById(R.id.pollen_earnedcount_tv);
-        pollenTotalCountTv =  findViewById(R.id.pollen_totalcount_tv);
+        pollenTotalCountTv = findViewById(R.id.pollen_totalcount_tv);
 
         continue_button.setOnClickListener(this);
         replay_button.setOnClickListener(this);
         home_button.setOnClickListener(this);
         jar_button.setOnClickListener(this);
         Intent current_intent = this.getIntent();
-        if(current_intent.hasExtra("NavigatedFrom"))
-        {
+        if (current_intent.hasExtra("NavigatedFrom")) {
             coming_from = current_intent.getIntExtra("NavigatedFrom", 1);
             Log.e("NAVIGATED FROM", "" + coming_from);
-            if(coming_from == 1)
-            {
-                if(current_intent.hasExtra("GAME"))
-                {
+            if (coming_from == 1) {
+                if (current_intent.hasExtra("GAME")) {
                     game_settings = current_intent.getIntExtra("GAME", 1);
                 }
-            }
-            else if(coming_from == 2)
-            {
-                if(current_intent.hasExtra("Game Theme"))
-                {
-                    game_theme = current_intent.getIntExtra("Game Theme",1);
+            } else if (coming_from == 2) {
+                if (current_intent.hasExtra("Game Theme")) {
+                    game_theme = current_intent.getIntExtra("Game Theme", 1);
                 }
-            }
-            else
-            {
-                if(current_intent.hasExtra("Game Theme"))
-                {
-                    game_theme = current_intent.getIntExtra("Game Theme",1);
+            } else {
+                if (current_intent.hasExtra("Game Theme")) {
+                    game_theme = current_intent.getIntExtra("Game Theme", 1);
                 }
             }
         }
@@ -97,7 +88,7 @@ public class ReceiptPage extends AppCompatActivity implements View.OnClickListen
         //Make sure this is initialized so we don't display a null value without an extra.
         pollenPayout = 0;
         //Grab the actual payout value passed from the previous activity.
-        if(current_intent.hasExtra("PollenPayout")){
+        if (current_intent.hasExtra("PollenPayout")) {
             pollenPayout = current_intent.getIntExtra("PollenPayout", 1);
             //Set the amount of pollen earned in the textview
             pollenEarnedScoreTv.setText(pollenPayout.toString());
@@ -105,16 +96,10 @@ public class ReceiptPage extends AppCompatActivity implements View.OnClickListen
             pollen_score_tv.setText(userPollen.toString());
             NetworkCalls.updateUserCurrentPoints(MainActivity.user_info.getUser_id(), userPollen, this);
         }
-
-
     }
+
 
     //Intential override to prevent improper back button navigation.
-    @Override
-    public void onBackPressed() {
-        //Do nothing. Do not pop the stack and go back into the mindfulness activity.
-    }
-
     @Override
     public void onBackPressed() {
         //Do nothing. Do not pop the stack and go back into the mindfulness activity.

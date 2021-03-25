@@ -49,6 +49,7 @@ public class SurveyPage extends AppCompatActivity implements OnClickListener {
     Intent navigatedFrom;
     Boolean exitVisible;
     int from;
+
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +122,8 @@ public class SurveyPage extends AppCompatActivity implements OnClickListener {
         orange_mood_button.setOnClickListener(this);
         yellow_mood_button.setOnClickListener(this);
         green_mood_button.setOnClickListener(this);
+
+        //if survey is accessed through a mindfullness exercise return user to that page
         exitButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,9 +152,10 @@ public class SurveyPage extends AppCompatActivity implements OnClickListener {
                 R.anim.movefromnegative);
 
         move_from_animation.setAnimationListener(new Animation.AnimationListener() {
+
             @Override
             public void onAnimationStart(Animation animation) {
-            }
+            } //FIXME why is this empty?
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -222,11 +226,13 @@ public class SurveyPage extends AppCompatActivity implements OnClickListener {
         //v_id is the id of the view that is passed as a parameter
         int v_id = v.getId();
 
+
         if(exitVisible)
         {
             exitButton.setVisibility(View.INVISIBLE);
             exitVisible = false;
         }
+        //TODO change structure to switch case2
         if(v_id == red_mood_button.getId())
         {
             red_mood_button.setVisibility(View.INVISIBLE);

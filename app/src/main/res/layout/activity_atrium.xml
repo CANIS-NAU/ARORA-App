@@ -11,55 +11,62 @@
         android:id="@+id/back_button_atrium"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:layout_weight="1"
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/back_button"
+        app:layout_constraintBottom_toTopOf="@+id/atriumRecycler"
         app:layout_constraintEnd_toStartOf="@+id/textView13"
-        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Atrium"
         android:textColor="@color/colorWhite"
         android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/atriumRecycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="85dp"
         android:layout_height="52dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="40dp"
         android:text="Add butterflies"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="7dp"
-        android:visibility="visible"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/atriumRecycler"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.907"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/atriumRecycler"
-        android:layout_width="393dp"
-        android:layout_height="609dp"
+        android:layout_width="331dp"
+        android:layout_height="540dp"
         android:layout_marginStart="3dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginEnd="3dp"
         app:layout_constraintBottom_toTopOf="@+id/include"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.796" />
 
     <include
         android:id="@+id/include"

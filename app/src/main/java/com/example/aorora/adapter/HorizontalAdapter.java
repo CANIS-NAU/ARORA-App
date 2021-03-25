@@ -1,5 +1,6 @@
 package com.example.aorora.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -48,7 +49,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Ho
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HorizontalViewHolder horizontalViewHolder, final int position) {
+    public void onBindViewHolder(@NonNull HorizontalViewHolder horizontalViewHolder, @SuppressLint("RecyclerView") final int position) {
         Log.e("POSITION", "" + position);
         horizontalViewHolder.txtTitle.setVisibility(View.INVISIBLE);
         horizontalViewHolder.coverImage.setAlpha(0.3f);

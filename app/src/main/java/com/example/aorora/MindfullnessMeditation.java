@@ -239,7 +239,7 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
             }
 
             if(testMode){
-                duration_int = 2000;
+                duration_int = 10000;
             }
 
             to_navigate = new Intent(mindfulnessMeditation, MindfulnessMeditationGame_R.class);

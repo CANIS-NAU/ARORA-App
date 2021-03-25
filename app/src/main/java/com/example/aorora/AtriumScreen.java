@@ -46,9 +46,9 @@ public class AtriumScreen extends AppCompatActivity implements View.OnClickListe
     Button add_butterflies;
 
     //Images for the butterflies
-    int images[] = {R.drawable.red_butterfly_button, R.drawable.yellow_butterfly_button,
-            R.drawable.orange_butterfly_button, R.drawable.green_butterfly_button,
-            R.drawable.darkorange_butterfly_button};
+    int images[] = {R.drawable.red_butterfly, R.drawable.yellow_butterfly,
+            R.drawable.orange_butterfly, R.drawable.green_butterfly,
+            R.drawable.blue_butterfly};
 
     //Counts of each type of butterfly.
     int counts[];

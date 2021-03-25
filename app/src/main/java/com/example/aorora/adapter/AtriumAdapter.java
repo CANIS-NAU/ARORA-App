@@ -74,5 +74,6 @@ public class AtriumAdapter extends RecyclerView.Adapter<AtriumAdapter.AtriumView
             rowLayout = itemView.findViewById(R.id.row_layout);
 
         }
+
     }
 }

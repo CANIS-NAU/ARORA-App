@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MindfullnessMeditation"
-    android:background="@drawable/background">
+    android:background="@drawable/dusk_background">
 
     <TextView
         android:id="@+id/textView2"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="46dp"
         android:gravity="center_horizontal"
-        android:text="Focus on the meditation audio \n to regain your calm"
+        android:text="Focus on the meditation audio \n to regain your calm mind"
         android:textColor="#989898"
         android:textSize="7pt"
         app:layout_constraintEnd_toEndOf="parent"
