@@ -88,7 +88,7 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
         is_button_still_clicked = false;
         performed_click = false;
         pollen_payout = 10;
-        tempBreathCount = 10;
+        tempBreathCount = 2;
         LottieAnimationView animationView = findViewById(R.id.animation_view);
         animationView.setSpeed(1f);
         animationView.playAnimation();
