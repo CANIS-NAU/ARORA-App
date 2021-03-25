@@ -66,7 +66,6 @@ public class NetworkCalls {
                 if(response.isSuccess())
                 {
                     Toast.makeText(context, " POLLEN UPDATED Updated Successfuly", Toast.LENGTH_SHORT).show();
-
                 }
                 else
                 {
@@ -81,7 +80,6 @@ public class NetworkCalls {
         });
     }
 
-    //FIXME: this probably doesn't work yet, but its a good start.
     public static void updateUserAtrium(int user_id, Map<String, Integer> counts, final Context context) {
         Call call = service.updateUserAtrium(user_id, counts);
         call.enqueue(new Callback() {
@@ -108,6 +106,7 @@ public class NetworkCalls {
                 }
                 //Create json file with gson
                 Gson gson = new Gson();
+                //Create a gson string using a TypeToken of hashmap
                 Type gsonType = new TypeToken<HashMap>(){}.getType();
                 String gsonString = gson.toJson(MainActivity.user_info.get_local_atrium(), gsonType);
                 Log.d("updateUserAtrium", "Json version of atrium" + gsonString);
@@ -126,8 +125,7 @@ public class NetworkCalls {
                 if(response.isSuccess())
                 //response.body().getUsername()
                 {
-                    //PACKAGE GLOBAL USED WITHOUT DOCUMENTATION. BAD! Specify that user_info is from
-                    //MainActivity!
+                    //Access the user_info instance in MainActivity
                     MainActivity.user_info = response.body();
                     //Since the user's atrium map is not a serialized value from the backend, we must initialize
                     //it manually with this function.

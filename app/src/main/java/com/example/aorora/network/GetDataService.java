@@ -89,6 +89,9 @@ public interface GetDataService {
                                        @Field("quest_report_id") Integer quest_report_id,
                                        @Field("user_interaction_content") String content);
 
+    //Superfly session Calls
+    //Call<>
+
 
 
     //Uses server side filtering to get the notifications for the specific user and public notifications

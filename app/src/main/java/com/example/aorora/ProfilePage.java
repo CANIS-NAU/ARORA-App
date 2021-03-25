@@ -160,8 +160,6 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
             //getButterfly();
             //to_navigate = new Intent(profilePage, EndOfMindfulnessGamePage.class);
             //startActivity(to_navigate);
-
-
         }
         else if(view_id == pollen_button.getId())
         {
