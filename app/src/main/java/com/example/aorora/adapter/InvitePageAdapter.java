@@ -13,18 +13,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.aorora.AtriumDetail;
 import com.example.aorora.R;
 import com.example.aorora.SuperflyLobby;
 
 public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.InvitePageViewHolder> {
     Context context;
     //Number of current users out of 5
-    int counts[];
+    int playerCounts[];
 
     //This will take in the names, descs, and images to be held in our recyclerview.
     public InvitePageAdapter(Context ct, int inCounts[]){
-        counts = inCounts;
+        playerCounts = inCounts;
         context = ct;
     }
 
@@ -33,7 +32,7 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
     @Override
     public InvitePageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.atrium_row, parent, false);
+        View view = inflater.inflate(R.layout.invite_row, parent, false);
         InvitePageViewHolder invitePageViewHolder = new InvitePageViewHolder(view);
         return invitePageViewHolder;
     }
@@ -41,12 +40,11 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
     //declared final to use in the onclicklistener.
     @Override
     public void onBindViewHolder(@NonNull InvitePageViewHolder invitePageViewHolder, @SuppressLint("RecyclerView") final int position) {
-        invitePageViewHolder.butterflyCount.setText(Integer.toString(counts[position]));
+        invitePageViewHolder.playerCount.setText(Integer.toString(playerCounts[position]));
         invitePageViewHolder.rowLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, SuperflyLobby.class);
-
                 context.startActivity(intent);
             }
         });
@@ -54,19 +52,16 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
 
     @Override
     public int getItemCount() {
-        return counts.length;
+        return playerCounts.length;
     }
 
     public class InvitePageViewHolder extends RecyclerView.ViewHolder{
-        ImageView butterflyImage;
-        TextView butterflyCount;
+        TextView playerCount;
         LinearLayout rowLayout;
         public InvitePageViewHolder(@NonNull View itemView) {
             super(itemView);
-            butterflyImage = itemView.findViewById(R.id.butterfly_img);
-            butterflyCount = itemView.findViewById(R.id.butterfly_count);
+            playerCount = itemView.findViewById(R.id.participants_tv);
             rowLayout = itemView.findViewById(R.id.row_layout);
-
         }
 
     }

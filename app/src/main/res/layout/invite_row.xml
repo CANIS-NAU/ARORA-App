@@ -20,6 +20,7 @@
         android:src="@drawable/pollen_cluster" />
 
     <LinearLayout
+        android:id="@+id/text_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -30,8 +31,7 @@
             android:layout_width="354dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Invited to Superfly Session "
-            android:textFontWeight="bold"
+            android:text="Invited to Superfly Session"
             android:textSize="16dp" />
         <TextView
             android:layout_marginTop="5dp"
