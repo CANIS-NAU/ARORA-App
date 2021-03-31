@@ -1,5 +1,6 @@
 package com.example.aorora.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -57,7 +58,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.GridVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final GridViewAdapter.GridViewHolder customViewHolder, final int position) {
+    public void onBindViewHolder(@NonNull final GridViewAdapter.GridViewHolder customViewHolder, @SuppressLint("RecyclerView") final int position) {
         customViewHolder.userName.setText(dataList.get(position).getUser_name());
         int user_butterfly = dataList.get(position).getUser_current_butterfly();
         switch (user_butterfly){
