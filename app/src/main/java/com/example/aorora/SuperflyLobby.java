@@ -11,7 +11,7 @@ public class SuperflyLobby extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_atrium);
+        setContentView(R.layout.activity_superfly_lobby);
     }
 
     @Override
