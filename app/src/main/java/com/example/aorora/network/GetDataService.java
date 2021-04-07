@@ -10,6 +10,7 @@ import com.example.aorora.model.QuestReportCreateReturn;
 import com.example.aorora.model.Quest;
 import com.example.aorora.model.QuestReport;
 import com.example.aorora.model.RetroPhoto;
+import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.UserAuth;
 import com.example.aorora.model.UserIdReturn;
 import com.example.aorora.model.UserInfo;
@@ -90,8 +91,10 @@ public interface GetDataService {
                                        @Field("user_interaction_content") String content);
 
     //Superfly session Calls
-    //Call<>
-
+    //Call to create an initial superfly session by a user with the passed id.
+    @POST("/superflysession")
+    @FormUrlEncoded
+    Call<SuperflySession> createSession(@Field("participant_1") UserInfo participant_1);
 
 
     //Uses server side filtering to get the notifications for the specific user and public notifications
@@ -109,9 +112,6 @@ public interface GetDataService {
     //A UserInteraction with a type of 3 is a like, but we only want the like that the user has done.
     @GET("/userinteraction/{initiator_user_id}")
     Call<List<Notification>> getUserLikes(@Path("initiator_user_id") Integer user_id);
-
-    @GET("/questreports")
-    Call<List<QuestReport>> getAllQuestsInCommunity();
 
     @GET("/quest/{quest_id}")
     Call<Quest> getQuestInfo(@Path("quest_id") Integer quest_id);

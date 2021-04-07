@@ -1,6 +1,7 @@
 package com.example.aorora.network;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import com.example.aorora.model.LocalUpdate;
 import com.example.aorora.model.MoodReportIdReturn;
 import com.example.aorora.model.NotificationCreateReturn;
 import com.example.aorora.model.QuestReportCreateReturn;
+import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.UserInfo;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
@@ -267,6 +269,24 @@ public class NetworkCalls {
         });
     }
 
+    /**
+     * Call to post a new superfly session. This is not for when invites are accepted, use PATCH!
+     */
+    public static void createSuperflySession(UserInfo participant_1, final Context context){
+        Call<SuperflySession> call = service.createSession(participant_1);
+        call.enqueue(new Callback<SuperflySession>() {
+            @Override
+            public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+                Toast.makeText(context, "Superfly session created successfully!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<SuperflySession> call, Throwable t) {
+                Toast.makeText(context, "Superfly session did not work!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
     /**
      * To be used for when the user hits the like button on a notification
