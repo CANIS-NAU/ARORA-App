@@ -133,13 +133,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
-<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         android:background="#40ffffff">
-=======
-        app:layout_constraintTop_toBottomOf="@+id/survey_question_tv"
-        app:layout_constraintVertical_bias="0.091">
->>>>>>> 560f92cbe0edee71f141f5d384145b89f6cc908a
 
         <TextView
             android:id="@+id/mood_desc_tv_1"
@@ -185,13 +180,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.856"
         app:layout_constraintStart_toStartOf="parent"
-<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         android:background="#40ffffff">
-=======
-        app:layout_constraintTop_toBottomOf="@+id/survey_question_tv"
-        app:layout_constraintVertical_bias="0.056">
->>>>>>> 560f92cbe0edee71f141f5d384145b89f6cc908a
 
         <TextView
             android:id="@+id/mood_desc_stress_1"
