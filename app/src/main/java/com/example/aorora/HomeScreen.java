@@ -70,6 +70,8 @@ public class HomeScreen extends AppCompatActivity implements GestureDetector.OnG
         //Testing a refresh of userData here instead of in M1-M3
         //NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), HomeScreen.this);
         setContentView(R.layout.activity_home_screen);
+        //First check for local updates
+        NetworkCalls.checkLocalUpdates(HomeScreen.this);
         //Fetch userdata from the local user_info instance in MainActivity.
         userPollen = MainActivity.user_info.getUser_pollen();
         Log.d("OnCreate Pollen", "onCreate: Displayed userPollen: " + userPollen);
@@ -429,6 +431,7 @@ public class HomeScreen extends AppCompatActivity implements GestureDetector.OnG
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO: Refresh pollen values from backend. Userinfo call should do it.
+        //TODO: Push local updates to the backend, keep trying. Userinfo call should do it.
+        //NetworkCalls.checkLocalUpdates(HomeScreen.this);
     }
 }
