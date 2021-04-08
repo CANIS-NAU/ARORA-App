@@ -44,4 +44,26 @@
         <item></item>
     </string-array>
 
+
+    <string name="survey_question_1">What is your mood today?</string>
+    <string name="survey_question_2">What is your stress level?</string>
+    <string name="a_white_butterfly">a white butterfly</string>
+    <string name="a_black_butterfly">a black butterfly</string>
+
+    <string-array name="mood_array_pleasent_unpleasent">
+        <item>Very Unpleasent</item>
+        <item>Unpleasent</item>
+        <item>Neutral</item>
+        <item>Pleasant</item>
+        <item>Very Pleasant</item>
+    </string-array>
+
+    <string-array name="mood_array_calm_tense">
+        <item>Very Tensed</item>
+        <item>A bit tense</item>
+        <item>Neutral</item>
+        <item>Just Calm</item>
+        <item>Very Calm</item>
+    </string-array>
+
 </resources>

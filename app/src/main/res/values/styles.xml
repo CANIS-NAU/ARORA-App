@@ -12,4 +12,54 @@
 
     </style>
 
+    <style name="width_matchparent_height_wrapcontent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="survey_card_view">
+        <item name="android:layout_gravity">center</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="cardBackgroundColor">#40ffffff</item>
+        <item name="cardElevation">5dp</item>
+        <item name="android:layout_marginTop">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginLeft">@dimen/vertical_margin</item>
+        <item name="android:layout_marginRight">@dimen/vertical_margin</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="survey_card_linear_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+
+        <!--        android:layout_margin="4dp"-->
+    </style>
+
+    <style name="survey_card_question_text_view">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+        <item name="android:layout_marginBottom">8dp</item>
+
+    </style>
+
+    <style name="survey_card_seekbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:max">5</item>
+        <item name="android:min">1</item>
+    </style>
+
+    <style name="survey_card_answer_text_view" parent="width_matchparent_height_wrapcontent">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+    </style>
+
 </resources>

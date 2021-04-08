@@ -17,9 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AtriumDetail"/>
+        <activity android:name=".slider_survey_page">
+        </activity>
+        <activity android:name=".AtriumDetail" />
         <activity android:name=".ARScreen" />
-        <activity android:name=".ButterflyGameActivity"/>
+        <activity android:name=".ButterflyGameActivity" />
         <activity android:name=".MindfulnessMeditationGame_R" />
         <activity
             android:name=".ReceiptPage"
@@ -48,7 +50,9 @@
         <activity android:name=".CommunityPage" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".MindfullnessSelection" />
-        <activity android:name=".SurveyPage" />
+        <activity android:name=".SurveyPage">
+
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
