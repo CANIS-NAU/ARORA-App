@@ -94,7 +94,7 @@ public interface GetDataService {
     //Call to create an initial superfly session by a user with the passed id.
     @POST("/superflysession")
     @FormUrlEncoded
-    Call<SuperflySession> createSession(@Field("participant_1") UserInfo participant_1);
+    Call<SuperflySession> createSession(@Field("participant_0") Integer participant_0);
 
 
     //Uses server side filtering to get the notifications for the specific user and public notifications

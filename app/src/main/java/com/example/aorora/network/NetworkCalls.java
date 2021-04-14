@@ -2,6 +2,7 @@ package com.example.aorora.network;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -272,12 +273,13 @@ public class NetworkCalls {
     /**
      * Call to post a new superfly session. This is not for when invites are accepted, use PATCH!
      */
-    public static void createSuperflySession(UserInfo participant_1, final Context context){
-        Call<SuperflySession> call = service.createSession(participant_1);
+    public static void createSuperflySession(int participant_0, final Context context){
+        Call<SuperflySession> call = service.createSession(participant_0);
         call.enqueue(new Callback<SuperflySession>() {
             @Override
             public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
                 Toast.makeText(context, "Superfly session created successfully!", Toast.LENGTH_SHORT).show();
+                Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
             }
 
             @Override
@@ -285,6 +287,23 @@ public class NetworkCalls {
                 Toast.makeText(context, "Superfly session did not work!", Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+
+    /**
+     * Call to get the current status of a superfly session
+     */
+    public static void getSuperflySession(Integer session_id, final Context context){
+        //TODO: GET request.
+    }
+
+    /**
+     * PATCHES a user into the new session
+     * @param session_id Session primary key for the target session to join
+     * @param new_participant The user who seeks to join the superfly session
+     * @param context Where this call came from.
+     */
+    public static void joinSession(Integer session_id, Integer new_participant, final Context context){
 
     }
 
@@ -340,6 +359,7 @@ public class NetworkCalls {
      *     model since the last network connection.
      * @param context Context of the calling activity.
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static void checkLocalUpdates(final Context context){
         String updateFileName = "localupdate.json";
         //Use the passed context to find the location to write the json file.

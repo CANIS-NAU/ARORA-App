@@ -178,7 +178,6 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         }
         else if(view_id == superfly_button.getId())
         {
-            Toast.makeText(ProfilePage.this, "Daily Quests are under maintenance.", Toast.LENGTH_SHORT).show();
             to_navigate = new Intent(profilePage, SuperflyInvites.class);
 
             startActivity(to_navigate);
