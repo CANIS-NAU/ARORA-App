@@ -4,11 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -19,33 +19,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.aorora.R;
+
 import com.example.aorora.adapter.CustomAdapter;
 import com.example.aorora.adapter.GridViewAdapter;
 import com.example.aorora.interfaces.OnLikeListener;
 import com.example.aorora.interfaces.OnItemClickListener;
-import com.example.aorora.model.Butterfly;
-import com.example.aorora.model.ButterflyLike;
 import com.example.aorora.model.Notification;
-import com.example.aorora.model.UserInteraction;
-import com.example.aorora.model.Quest;
-import com.example.aorora.model.QuestReport;
-import com.example.aorora.model.RetroPhoto;
 import com.example.aorora.model.UserInfo;
 import com.example.aorora.network.GetDataService;
-import com.example.aorora.network.NetworkCalls;
 import com.example.aorora.network.RetrofitClientInstance;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.aorora.MainActivity.user_info;
-import static java.lang.Boolean.TRUE;
 import static java.lang.Math.min;
 
 public class CommunityPage extends AppCompatActivity implements View.OnClickListener {

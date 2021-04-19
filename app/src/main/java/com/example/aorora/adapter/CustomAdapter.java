@@ -2,28 +2,17 @@ package com.example.aorora.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aorora.MainActivity;
-import com.example.aorora.CommunityPage;
 import com.example.aorora.R;
-import com.example.aorora.interfaces.OnItemClickListener;
 import com.example.aorora.interfaces.OnLikeListener;
-import com.example.aorora.model.ButterflyLike;
-import com.example.aorora.model.QuestReport;
-import com.example.aorora.interfaces.OnLikeListener;
-import com.example.aorora.model.UserInteraction;
-import com.jakewharton.picasso.OkHttp3Downloader;
-import com.squareup.picasso.Picasso;
-import com.example.aorora.model.RetroPhoto;
 import com.example.aorora.model.Notification;
 import com.example.aorora.network.GetDataService;
 import com.example.aorora.network.RetrofitClientInstance;
@@ -35,7 +24,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.aorora.MainActivity.user_info;
 import static java.lang.Math.min;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {

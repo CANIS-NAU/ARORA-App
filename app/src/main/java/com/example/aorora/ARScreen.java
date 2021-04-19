@@ -6,12 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 import com.example.aorora.interfaces.GeoCoordsCallback;
 import com.example.aorora.model.LocalUpdate;
-import com.example.aorora.model.Butterfly;
 import com.example.aorora.network.CheckConnectivity;
 import com.example.aorora.network.GetConnInfo;
 import com.example.aorora.network.GetDataService;
@@ -29,8 +27,6 @@ import com.example.aorora.network.RetrofitClientInstance;
 import com.example.aorora.utils.ButterflyStops;
 //Local GPS Packages
 import android.location.Location;
-import android.location.LocationManager;
-import android.location.LocationListener;
 
 //Networked GPS Packages
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,16 +37,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Writer;
 import java.lang.reflect.Type;
-import java.nio.Buffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
