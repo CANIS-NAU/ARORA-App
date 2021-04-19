@@ -73,7 +73,7 @@ public interface GetDataService {
     @FormUrlEncoded
     Call<MoodReportIdReturn> createMoodReport(@Field("user_id") Integer user_id,
                                               @Field("q1_response") Integer q1_response,
-                                              @Field("q1_response") Integer q2_response);
+                                              @Field("q2_response") Integer q2_response);
 
     // WORKS
 

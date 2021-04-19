@@ -3,11 +3,14 @@ package com.example.aorora;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.example.aorora.network.NetworkCalls;
 
 public class slider_survey_page extends AppCompatActivity {
 
@@ -26,7 +29,7 @@ public class slider_survey_page extends AppCompatActivity {
 
 //    String[] moodsArrayPleasent_Unpleasent = getResources().getStringArray(R.array.mood_array_pleasent_unpleasent);
 //    String[] moodsArrayHappy_sad = getResources().getStringArray(R.array.mood_array_pleasent_unpleasent);
-
+    int q1_response = 3, q2_response = 3 ;
     int initial_location = 3;
 
     @Override
@@ -46,6 +49,7 @@ public class slider_survey_page extends AppCompatActivity {
                 textview_question_1_value_seekbar.setText(getResources().getStringArray(R.array.mood_array_pleasent_unpleasent)[progress-1]);
                 imageview_butterfly_question_1.setImageAlpha(getImageAlpha(progress));
                 imageview_butterfly_question_1_black.setImageAlpha(getImageAlpha(5-progress));
+                q1_response = progress;
             }
 
             @Override
@@ -66,6 +70,7 @@ public class slider_survey_page extends AppCompatActivity {
                 textview_question_2_value_seekbar.setText(getResources().getStringArray(R.array.mood_array_calm_tense)[progress-1]);
                 imageview_butterfly_question_2.setImageAlpha(getImageAlpha(progress));
                 imageview_butterfly_question_2_black.setImageAlpha(getImageAlpha(5-progress));
+                q2_response = progress;
             }
 
             @Override
@@ -90,7 +95,11 @@ public class slider_survey_page extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.v("RESPONSE INTEGER 1", String.valueOf(q1_response));
+                Log.v("RESPONSE INTEGER 2", String.valueOf(q2_response));
+                NetworkCalls.createMoodReport(MainActivity.user_info.getUser_id(), q1_response, q2_response, slider_survey_page.this);
+                Intent homeAcivity = new Intent(slider_survey_page.this, HomeScreen.class);
+                startActivity(homeAcivity);
             }
         });
     }
