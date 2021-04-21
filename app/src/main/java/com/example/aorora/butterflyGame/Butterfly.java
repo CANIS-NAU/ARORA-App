@@ -1,8 +1,11 @@
 package com.example.aorora.butterflyGame;
 
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.annotation.NonNull;
+
+import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.aorora.R;
@@ -10,33 +13,69 @@ import com.example.aorora.R;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Butterfly is a extension of a ImageView with predefined types each with unique
  * names, imageResource and id. Butterflies also have built in animations
  */
+@SuppressLint("ViewConstructor")
 public class Butterfly extends androidx.appcompat.widget.AppCompatImageView {
 
     //TODO change the string name across this and back end for better readability
     public enum Type {
-        RED("user_b0_count", R.drawable.red_butterfly , 0),
-        YELLOW("user_b1_count", R.drawable.yellow_butterfly, 1),
-        ORANGE("user_b2_count", R.drawable.orange_butterfly,2),
-        GREEN("user_b3_count", R.drawable.green_butterfly,3),
-        BLUE("user_b4_count", R.drawable.blue_butterfly,4);
+        RED(
+                "user_b0_count",
+                new int[]{
+                        R.drawable.red_1,
+                        R.drawable.red_2,
+                        R.drawable.red_3},
+                0),
+        YELLOW(
+                "user_b1_count",
+                new int[]{
+                        R.drawable.yellow_1,
+                        R.drawable.yellow_2,
+                        R.drawable.yellow_3
+                },
+                1),
+        VIOLET(
+                "user_b2_count",
+                new int[]{
+                        R.drawable.violet_1,
+                        R.drawable.violet_2,
+                        R.drawable.violet_3
+                },
+                2),
+        GREEN(
+                "user_b3_count",
+                new int[]{
+                        R.drawable.violet_1,
+                        R.drawable.violet_2,
+                        R.drawable.violet_3,
 
+                },
+                3),
+        BLUE("user_b4_count",
+                new int[]{
+                        R.drawable.blue_1,
+                        R.drawable.blue_2,
+                        R.drawable.blue_3,
+                },
+                4);
 
-        private String dbField; //database string for backend fields | needed to update server
+        final String dbField; //database string for backend fields | needed to update server
+        final int[] imageResources;
         private int imageResource;
-        private int id;
+        final int id;
 
-        private static Map map = new HashMap<>();
+        final static Map<Integer, Butterfly.Type> map = new HashMap<>();
 
-        private Type(String dbField, int imageResource, int id)
+        private Type(String dbField, int[] imageResources, int id)
         {
             this.dbField = dbField;
             this.id = id;
-            this.imageResource = imageResource;
+            this.imageResources = imageResources;
         }
 
         static {
@@ -56,9 +95,9 @@ public class Butterfly extends androidx.appcompat.widget.AppCompatImageView {
             return Type.values().length;
         }
 
-        public int getImageResource()
+        public int getImageResource(int index)
         {
-            return imageResource;
+            return imageResources[index];
         }
 
         public int getId(){
@@ -87,15 +126,30 @@ public class Butterfly extends androidx.appcompat.widget.AppCompatImageView {
     public int typeId;
     public String dbField;
 
+
     public Butterfly(Context context, Type type){
         super(context);
+        initButterfly(type);
+    }
 
+    public Butterfly(Context context, AttributeSet attrs, Type type) {
+        super(context, attrs);
+        initButterfly(type);
+    }
+
+    public Butterfly(Context context, AttributeSet attrs, int defStyle, Type type) {
+        super(context, attrs, defStyle);
+        initButterfly(type);
+    }
+
+    private void initButterfly(Type type) {
+        seed = new Random();
         typeId = type.getId();
         dbField = type.getDbField();
         typeString = type.toString();
-        this.setImageResource(type.getImageResource());
 
-        seed = new Random();
+        int randomIndex = seed.nextInt(type.imageResources.length);
+        this.setImageResource(type.getImageResource(randomIndex));
     }
 
     //TODO: implement bounds better
@@ -119,7 +173,7 @@ public class Butterfly extends androidx.appcompat.widget.AppCompatImageView {
             this.animate()
                     .translationX(randX - xBound/4)
                     .translationY(randY - yBound/4)
-                    .setDuration(Math.round(distance / 0.5) ) // t=d/v
+                    .setDuration(Math.round(distance / 0.3) ) // t=d/v
                     .setListener(new AnimatorListenerAdapter() {
 
                         @Override

@@ -52,12 +52,13 @@ public class Basket extends androidx.appcompat.widget.AppCompatImageButton {
     }
 
     public void expandBasket(float scale) {
+
         if (!isViewExpanding) {
             isViewExpanding = true;
             this.animate()
                     .scaleXBy(scale)
                     .scaleYBy(scale)
-                    .setDuration(100)
+                    .setDuration(10)
                     .setListener(new AnimatorListenerAdapter() {
 
                         @Override
@@ -70,12 +71,13 @@ public class Basket extends androidx.appcompat.widget.AppCompatImageButton {
     }
 
     public void collapseBasket(float scale) {
+
         if (!isViewExpanding) {
             isViewExpanding = true;
             this.animate()
                     .scaleXBy(-scale)
                     .scaleYBy(-scale)
-                    .setDuration(100)
+                    .setDuration(10)
                     .setListener(new AnimatorListenerAdapter() {
 
                         @Override
