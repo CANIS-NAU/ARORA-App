@@ -1,6 +1,8 @@
 package com.example.aorora.network;
 
 import android.content.Context;
+import android.os.Build;
+import androidx.annotation.RequiresApi;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,8 +24,10 @@ import retrofit2.Response;
 
 /*These network calls are NOT meant to be called by any activity. They will be called from NetworkCalls.java
 as supporting utilities such as writing local updates and communicating those updates to the backend after
-the user reconnects to a network. Questions? Email Joe Vargovich: jrv233@nau.edu */
-public class NetworkCallsInternal {
+the user reconnects to a network. Thus this class is package private.
+Questions? Email Joe Vargovich: jrv233@nau.edu */
+
+class NetworkCallsInternal {
     //Service interface for network calls via retrofit
     public static GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
 
@@ -32,6 +36,7 @@ public class NetworkCallsInternal {
      *   to the backend due to network failure.
      * @param context The context of the calling Activity viewcontroller class.
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static void writeLocalUpdate(final Context context){
         Log.d("LOCAL UPDATE", "Writing Local update as network failed");
         //Make local update object file, holds pollen and atrium from UserInfo locally.

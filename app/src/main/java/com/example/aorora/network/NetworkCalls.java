@@ -1,10 +1,11 @@
 package com.example.aorora.network;
 
 import android.content.Context;
+import android.os.Build;
+import androidx.annotation.RequiresApi;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.aorora.ARScreen;
 import com.example.aorora.MainActivity;
 import com.example.aorora.model.DailyTask;
 import com.example.aorora.model.DailyTaskReturn;
@@ -12,27 +13,21 @@ import com.example.aorora.model.LocalUpdate;
 import com.example.aorora.model.MoodReportIdReturn;
 import com.example.aorora.model.NotificationCreateReturn;
 import com.example.aorora.model.QuestReportCreateReturn;
+import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.UserInfo;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
-
 import java.util.Map;
 
 import retrofit2.Call;
@@ -267,6 +262,42 @@ public class NetworkCalls {
         });
     }
 
+    /**
+     * Call to post a new superfly session. This is not for when invites are accepted, use PATCH!
+     */
+    public static void createSuperflySession(int participant_0, final Context context){
+        Call<SuperflySession> call = service.createSession(participant_0);
+        call.enqueue(new Callback<SuperflySession>() {
+            @Override
+            public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+                Toast.makeText(context, "Superfly session created successfully!", Toast.LENGTH_SHORT).show();
+                Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<SuperflySession> call, Throwable t) {
+                Toast.makeText(context, "Superfly session did not work!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    /**
+     * Call to get the current status of a superfly session
+     */
+    public static void getSuperflySession(Integer session_id, final Context context){
+        //TODO: GET request.
+    }
+
+    /**
+     * PATCHES a user into the new session
+     * @param session_id Session primary key for the target session to join
+     * @param new_participant The user who seeks to join the superfly session
+     * @param context Where this call came from.
+     */
+    public static void joinSession(Integer session_id, Integer new_participant, final Context context){
+
+    }
 
     /**
      * To be used for when the user hits the like button on a notification
@@ -320,6 +351,7 @@ public class NetworkCalls {
      *     model since the last network connection.
      * @param context Context of the calling activity.
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static void checkLocalUpdates(final Context context){
         String updateFileName = "localupdate.json";
         //Use the passed context to find the location to write the json file.

@@ -47,9 +47,6 @@ import java.util.concurrent.ExecutionException;
  */
 public class ButterflyGameActivity extends AppCompatActivity {
 
-    //FIXME: add back button override
-    //FIXME: add pause override
-
     Context mContext;
 
     ConstraintLayout layout;

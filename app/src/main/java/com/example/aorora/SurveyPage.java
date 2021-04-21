@@ -265,6 +265,7 @@ public class SurveyPage extends AppCompatActivity implements OnClickListener {
         }
         else
         {
+            //POST the new mood report to the backend.
             NetworkCalls.createMoodReport(MainActivity.user_info.getUser_id(), q1_response,q2_response, surveyPage);
 
             Intent navigated_from = getIntent();

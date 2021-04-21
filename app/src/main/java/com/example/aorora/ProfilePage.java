@@ -47,6 +47,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
     ImageButton jar_button;
     ImageButton settings_button;
     ImageButton pollen_button;
+    ImageButton superfly_button;
     TextView user_name_tv;
     TextView user_score_tv;
     TextView butterfly_name_tv;
@@ -72,6 +73,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         jar_button = (ImageButton) findViewById(R.id.jar_button_profile_page);
         pollen_button = (ImageButton) findViewById(R.id.pollen_button_profile_page);
         settings_button = (ImageButton) findViewById(R.id.settings_button_profile_page);
+        superfly_button = (ImageButton) findViewById(R.id.superfly_button);
         user_name_tv = (TextView) findViewById(R.id.profile_user_name_tv);
         user_score_tv = (TextView) findViewById(R.id.profile_user_score);
         profilePage = this;
@@ -87,6 +89,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         butterfly_selection_button.setOnClickListener(this);
         settings_button.setOnClickListener(this);
         pollen_button.setOnClickListener(this);
+        superfly_button.setOnClickListener(this);
         gestureDetector = new GestureDetector(profilePage, ProfilePage.this);
 
         switch ( MainActivity.user_info.getUser_current_butterfly()){
@@ -154,8 +157,6 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
             //getButterfly();
             //to_navigate = new Intent(profilePage, EndOfMindfulnessGamePage.class);
             //startActivity(to_navigate);
-
-
         }
         else if(view_id == pollen_button.getId())
         {
@@ -169,12 +170,11 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
             //Toast.makeText(ProfilePage.this, "Pollen page is under development", Toast.LENGTH_SHORT).show();
             //Toast.makeText(ProfilePage.this, "Settings is under maintenance", Toast.LENGTH_SHORT).show();
         }
-        else if(view_id == pollen_button.getId())
+        else if(view_id == superfly_button.getId())
         {
-            Toast.makeText(ProfilePage.this, "Daily Quests are under maintenance.", Toast.LENGTH_SHORT).show();
-            //to_navigate = new Intent(profilePage, PollenStoreDailyQuestPage.class);
-            //to_navigate.putExtra("NavigatedFrom", 2);
-            //startActivity(to_navigate);
+            to_navigate = new Intent(profilePage, SuperflyInvites.class);
+
+            startActivity(to_navigate);
         }
     }
 
