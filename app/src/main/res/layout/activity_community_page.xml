@@ -102,7 +102,7 @@
             android:gravity="center_horizontal"/>
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/customRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
         android:background="#00000000"
         android:foregroundGravity="center_vertical">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <ImageView
 

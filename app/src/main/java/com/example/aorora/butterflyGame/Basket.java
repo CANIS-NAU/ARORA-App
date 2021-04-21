@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by Darius Dumel on 2/10/2021. any questions? get help @ dtd66@nau.edu
  */
-public class Basket extends android.support.v7.widget.AppCompatImageButton {
+public class Basket extends androidx.appcompat.widget.AppCompatImageButton {
 
     final private int IMAGE_RESOURCE = R.drawable.jar_button;
 

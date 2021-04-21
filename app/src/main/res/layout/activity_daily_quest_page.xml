@@ -60,7 +60,7 @@
             android:textSize="10pt"
             android:textStyle="bold" />
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylerView_daily_quest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
         android:foregroundGravity="center_vertical"
         >
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
     <include
         android:id="@+id/quest_page_bottom_menu_bar"
         layout="@layout/bottom_menu_bar"

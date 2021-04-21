@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
@@ -13,10 +13,8 @@ import android.widget.TextView;
 import com.example.aorora.butterflyGame.Basket;
 import com.example.aorora.butterflyGame.Butterfly;
 import com.example.aorora.butterflyGame.ButterflyBasketOnDragListener;
-import com.example.aorora.model.UserInfo;
 import com.example.aorora.network.NetworkCalls;
 
-import java.util.Map;
 import java.util.Random;
 
 /**

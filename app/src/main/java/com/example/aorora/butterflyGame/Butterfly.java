@@ -2,7 +2,7 @@ package com.example.aorora.butterflyGame;
 
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 
 import com.example.aorora.R;
@@ -15,7 +15,7 @@ import java.util.Random;
  * Butterfly is a extension of a ImageView with predefined types each with unique
  * names, imageResource and id. Butterflies also have built in animations
  */
-public class Butterfly extends android.support.v7.widget.AppCompatImageView {
+public class Butterfly extends androidx.appcompat.widget.AppCompatImageView {
 
     //TODO change the string name across this and back end for better readability
     public enum Type {

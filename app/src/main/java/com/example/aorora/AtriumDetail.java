@@ -2,14 +2,13 @@ package com.example.aorora;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 /*
 This class is navigated to once the user taps on a butterfly in their atrium.
 It takes in the image associated with the atrium entry and displays it in the middle of this page.

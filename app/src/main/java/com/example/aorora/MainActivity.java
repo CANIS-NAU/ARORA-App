@@ -1,10 +1,8 @@
 package com.example.aorora;
 
-import android.Manifest;
-import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.aorora.model.DailyTask;
-import com.example.aorora.model.RetroPhoto;
 import com.example.aorora.model.UserAuth;
 import com.example.aorora.model.UserInfo;
 import com.example.aorora.network.GetDataService;
@@ -21,7 +18,6 @@ import com.example.aorora.network.NetworkCalls;
 import com.example.aorora.network.RetrofitClientInstance;
 
 import java.io.IOException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

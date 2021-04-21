@@ -2,8 +2,8 @@ package com.example.aorora.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +13,6 @@ import android.widget.TextView;
 
 import com.example.aorora.R;
 import com.example.aorora.interfaces.OnItemClickListener;
-import com.example.aorora.model.RetroPhoto;
-
-import java.util.List;
 
 public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.HorizontalViewHolder> {
 

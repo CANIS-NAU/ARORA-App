@@ -2,11 +2,10 @@ package com.example.aorora.network;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.aorora.ARScreen;
 import com.example.aorora.MainActivity;
 import com.example.aorora.model.DailyTask;
 import com.example.aorora.model.DailyTaskReturn;
@@ -21,21 +20,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
-
 import java.util.Map;
 
 import retrofit2.Call;
