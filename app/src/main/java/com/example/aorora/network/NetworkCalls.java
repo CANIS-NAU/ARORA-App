@@ -270,8 +270,15 @@ public class NetworkCalls {
         call.enqueue(new Callback<SuperflySession>() {
             @Override
             public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
-                Toast.makeText(context, "Superfly session created successfully!", Toast.LENGTH_SHORT).show();
-                Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                if(response.code() == 200){
+                    Toast.makeText(context, "Superfly session created successfully!", Toast.LENGTH_SHORT).show();
+                    Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                    SuperflySession newSession = response.body();
+                    Log.d("NEWSESSION", "Current_id of new session:  " + newSession.getSession_id().toString());
+                    //Set the current session
+                    MainActivity.user_info.setCurrentSession(newSession);
+                }
+
             }
 
             @Override

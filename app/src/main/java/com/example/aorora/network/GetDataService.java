@@ -96,6 +96,41 @@ public interface GetDataService {
     @FormUrlEncoded
     Call<SuperflySession> createSession(@Field("participant_0") Integer participant_0);
 
+    @GET("/superflysession")
+    Call<SuperflySession> getSession();
+
+    //Adds participant 1 (0 is added on creation of a session)
+    @PATCH("/superflysession")
+    @FormUrlEncoded
+    Call<SuperflySession> addParticipant1(@Path("session_id") Integer session_id,
+                                        @Field("participant_1") Integer participant_1);
+    //Adds participant 2
+    @PATCH("/superflysession")
+    @FormUrlEncoded
+    Call<SuperflySession> addParticipant2(@Path("session_id") Integer session_id,
+                                          @Field("participant_1") Integer participant_1);
+    //Adds participant 3
+    @PATCH("/superflysession")
+    @FormUrlEncoded
+    Call<SuperflySession> addParticipant3(@Path("session_id") Integer session_id,
+                                          @Field("participant_1") Integer participant_1);
+    //Adds participant 4
+    @PATCH("/superflysession")
+    @FormUrlEncoded
+    Call<SuperflySession> addParticipant4(@Path("session_id") Integer session_id,
+                                          @Field("participant_1") Integer participant_1);
+
+
+    //Updates the number of contributed butterflies. 
+    @PATCH("/superflysession")
+    @FormUrlEncoded
+    Call<SuperflySession> updateSuperflyProgress(@Path("session_id") Integer session_id,
+                                                 @Field("current_b0_count") Integer current_b0_count,
+                                                 @Field("current_b1_count") Integer current_b1_count,
+                                                 @Field("current_b2_count") Integer current_b2_count,
+                                                 @Field("current_b3_count") Integer current_b3_count,
+                                                 @Field("current_b4_count") Integer current_b4_count);
+
 
     //Uses server side filtering to get the notifications for the specific user and public notifications
     @GET("/userinteraction_get_notif/{receiver_user_id}")
@@ -124,6 +159,8 @@ public interface GetDataService {
     @FormUrlEncoded
     Call<UserIdReturn> updateUserCurrentButterfly(@Path("user_id") Integer user_id,
                                     @Field("user_current_butterfly") Integer user_current_butterfly);
+
+
     //This needed to be a PATCH, not a PUT! 
     @PATCH("/userinfo/{user_id}")
     @FormUrlEncoded

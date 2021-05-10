@@ -13,6 +13,8 @@ public class LocalUpdate implements Serializable {
     private Integer pollenScore;
     @SerializedName("userAtrium")
     private Map<String, Integer> userAtrium;
+    @SerializedName("moodReport")
+    private MoodReport moodReport;
 
     public LocalUpdate(){
         this.pollenScore = MainActivity.user_info.getUser_pollen();

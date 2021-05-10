@@ -48,6 +48,8 @@ public class UserInfo {
     private Integer user_b4_count;
     //Non-serialzed value for use in storing each count locally.
     private Map<String, Integer> local_atrium;
+    //Current session object for the user?
+    private SuperflySession currentSession;
 
     @SerializedName("user_name")
     private String user_name;
@@ -322,4 +324,8 @@ public class UserInfo {
             }
         }
     }
+
+    public SuperflySession getCurrentSession () {return this.currentSession;}
+    //Set the copy of the current session here.
+    public void setCurrentSession (SuperflySession newSession) {this.currentSession = newSession;}
 }
