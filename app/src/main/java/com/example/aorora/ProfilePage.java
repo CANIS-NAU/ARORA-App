@@ -172,7 +172,14 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         }
         else if(view_id == superfly_button.getId())
         {
-            to_navigate = new Intent(profilePage, SuperflyInvites.class);
+            //If we aren't in a session right now, go to the invites/creation page.
+            if(MainActivity.user_info.getUser_superflysession_id() == -1){
+                to_navigate = new Intent(profilePage, SuperflyInvites.class);
+            }
+            //Go to our current superfly session instead of the invites page.
+            else{
+                to_navigate = new Intent(profilePage, SuperflyLobby.class);
+            }
 
             startActivity(to_navigate);
         }

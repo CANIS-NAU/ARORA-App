@@ -1,5 +1,7 @@
 package com.example.aorora.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 /*This is an instance of the superfly creation game. This groups users together to create
@@ -132,7 +134,13 @@ public class SuperflySession {
     public void setCurrent_b4_count(Integer current_b4_count) {
         this.current_b4_count = current_b4_count;
     }
-
-
-
+    //Prints the id and all counts
+    //TODO: Print other participants and their info.
+    @NonNull
+    @Override
+    public String toString() {
+        return "session_id: " + session_id + " current_b0: " + current_b0_count +  " current_b1: " + current_b1_count +
+                " current_b2: " + current_b2_count + " current_b3: " + current_b3_count
+                + " current_b4: " + current_b4_count;
+    }
 }

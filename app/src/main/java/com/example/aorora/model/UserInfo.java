@@ -46,6 +46,12 @@ public class UserInfo {
     private Integer user_b3_count;
     @SerializedName("user_b4_count")
     private Integer user_b4_count;
+
+
+
+    @SerializedName("user_superflysession_id")
+    private Integer user_superflysession_id;
+
     //Non-serialzed value for use in storing each count locally.
     private Map<String, Integer> local_atrium;
     //Current session object for the user?
@@ -267,6 +273,12 @@ public class UserInfo {
     }
 
     public int get_butterflytype_count(){return local_atrium.keySet().size();}
+
+    public Integer getUser_superflysession_id() { return user_superflysession_id;}
+
+    public void setUser_superflysession_id(Integer user_superflysession_id) {
+        this.user_superflysession_id = user_superflysession_id;
+    }
 
     public void build_atrium(){
         //Init local inventory hashmap

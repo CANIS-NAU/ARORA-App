@@ -166,7 +166,6 @@ public class NetworkCalls {
                 if(response.isSuccess())
                 //response.body().getUsername()
                 {
-
                     //Toast.makeText(context, "Mood Report Created", Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -274,9 +273,10 @@ public class NetworkCalls {
                     Toast.makeText(context, "Superfly session created successfully!", Toast.LENGTH_SHORT).show();
                     Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
                     SuperflySession newSession = response.body();
-                    Log.d("NEWSESSION", "Current_id of new session:  " + newSession.getSession_id().toString());
+                    Log.d("NEWSESSION", "Current_id of new session:  " + newSession.toString());
                     //Set the current session
                     MainActivity.user_info.setCurrentSession(newSession);
+
                 }
 
             }
@@ -287,6 +287,24 @@ public class NetworkCalls {
             }
         });
 
+    }
+    //Used to either:
+        //1. Set the user in a new session
+        //2. Remove them since the session is expired (And set them in a session with -1 as the id)
+    public static void updateUserSuperflySession(int user_id, int session_id, final Context context){
+        Call call = service.updateUserSession(user_id, session_id);
+        call.enqueue(new Callback<UserInfo>() {
+            @Override
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                Log.d("SuperflySessionUpdate", "Sent request to store session_id");
+            }
+
+            @Override
+            public void onFailure(Call<UserInfo> call, Throwable t) {
+                //Try again recursively using clone.
+                call.clone();
+            }
+        });
     }
 
     /**

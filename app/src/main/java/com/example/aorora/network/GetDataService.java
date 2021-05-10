@@ -167,6 +167,12 @@ public interface GetDataService {
     Call<UserIdReturn> updateUserPollen(@Path("user_id") Integer user_id,
                                         @Field("user_pollen") Integer user_pollen);
 
+    //Used to set the superfly session that a user currently is a part of.
+    @PATCH("/userinfo/{user_id}")
+    @FormUrlEncoded
+    Call<UserIdReturn> updateUserSession(@Path("user_id") Integer user_id,
+                                        @Field("user_superflysession_id") Integer session_id);
+
     //Patch request to update user_b0_count through user_b4_count in the backend.
     @PATCH("/userinfo/{user_id}")
     @FormUrlEncoded
