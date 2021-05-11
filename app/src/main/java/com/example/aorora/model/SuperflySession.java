@@ -27,8 +27,8 @@ public class SuperflySession {
     private UserInfo participant_4;
     @SerializedName("participant_5")
     private UserInfo participant_5;
-    //@SerializedName("superfly_recipe")
-   // private Superfly superfly_recipe;
+    @SerializedName("superfly_recipe")
+    private Superfly superfly_recipe;
 
     //Current progress and counts of butterflies for the recipe.
     @SerializedName("current_b0_count")
@@ -135,13 +135,13 @@ public class SuperflySession {
         this.participant_5 = participant_5;
     }
 
-    /*public Superfly getSuperfly_recipe() {
+    public Superfly getSuperfly_recipe() {
         return superfly_recipe;
     }
 
     public void setSuperfly_recipe(Superfly superfly_recipe) {
         this.superfly_recipe = superfly_recipe;
-    }*/
+    }
 
     public Integer getCurrent_b0_count() {
         return current_b0_count;
@@ -189,6 +189,6 @@ public class SuperflySession {
     public String toString() {
         return "session_id: " + session_id + " current_b0: " + current_b0_count +  " current_b1: " + current_b1_count +
                 " current_b2: " + current_b2_count + " current_b3: " + current_b3_count
-                + " current_b4: " + current_b4_count;
+                + " current_b4: " + current_b4_count + "\n Superfly recipe: " + superfly_recipe.toString();
     }
 }

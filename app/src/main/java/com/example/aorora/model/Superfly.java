@@ -17,6 +17,8 @@ public class Superfly {
     private Integer b2_count;
     @SerializedName("b3_count")
     private Integer b3_count;
+    @SerializedName("b4_count")
+    private Integer b4_count;
 
 
     public Superfly(Integer superfly_id, String superfly_name, String superfly_photo, Integer b0_count, Integer b1_count, Integer b2_count, Integer b3_count, Integer b4_count) {
@@ -30,6 +32,19 @@ public class Superfly {
         this.b4_count = b4_count;
     }
 
+    @Override
+    public String toString() {
+        return "Superfly{" +
+                "superfly_id=" + superfly_id +
+                ", superfly_name='" + superfly_name + '\'' +
+                ", superfly_photo='" + superfly_photo + '\'' +
+                ", b0_count=" + b0_count +
+                ", b1_count=" + b1_count +
+                ", b2_count=" + b2_count +
+                ", b3_count=" + b3_count +
+                ", b4_count=" + b4_count +
+                '}';
+    }
 
     public Integer getSuperfly_id() {
         return superfly_id;
@@ -95,8 +110,7 @@ public class Superfly {
         this.b4_count = b4_count;
     }
 
-    @SerializedName("b4_count")
-    private Integer b4_count;
+
 
 
 
