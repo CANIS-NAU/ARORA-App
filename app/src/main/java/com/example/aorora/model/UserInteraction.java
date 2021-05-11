@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserInteraction
 {
-
     @SerializedName("user_interaction_id")
     private Integer user_interaction_id;
     @SerializedName("user_interaction_type_id")

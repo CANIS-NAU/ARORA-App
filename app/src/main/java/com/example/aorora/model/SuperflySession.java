@@ -10,6 +10,12 @@ public class SuperflySession {
     //Id of the session
     @SerializedName("session_id")
     private Integer session_id;
+    @SerializedName("session_start_date")
+    private String session_start_date;
+    @SerializedName("session_participant_count")
+    private Integer session_participant_count;
+
+
     //Participants in the superfly session.
     @SerializedName("participant_1")
     private UserInfo participant_1;
@@ -21,8 +27,8 @@ public class SuperflySession {
     private UserInfo participant_4;
     @SerializedName("participant_5")
     private UserInfo participant_5;
-    @SerializedName("superfly_recipe")
-    private Superfly superfly_recipe;
+    //@SerializedName("superfly_recipe")
+   // private Superfly superfly_recipe;
 
     //Current progress and counts of butterflies for the recipe.
     @SerializedName("current_b0_count")
@@ -33,8 +39,33 @@ public class SuperflySession {
     private Integer current_b2_count;
     @SerializedName("current_b3_count")
     private Integer current_b3_count;
+
+    public SuperflySession(Integer session_id, String session_start_date, Integer session_participant_count,
+                           UserInfo participant_1, UserInfo participant_2, UserInfo participant_3,
+                           UserInfo participant_4, UserInfo participant_5, //Superfly superfly_recipe,
+                           Integer current_b0_count, Integer current_b1_count, Integer current_b2_count,
+                           Integer current_b3_count, Integer current_b4_count) {
+        this.session_id = session_id;
+        this.session_start_date = session_start_date;
+        this.session_participant_count = session_participant_count;
+        this.participant_1 = participant_1;
+        this.participant_2 = participant_2;
+        this.participant_3 = participant_3;
+        this.participant_4 = participant_4;
+        this.participant_5 = participant_5;
+       // this.superfly_recipe = superfly_recipe;
+        this.current_b0_count = current_b0_count;
+        this.current_b1_count = current_b1_count;
+        this.current_b2_count = current_b2_count;
+        this.current_b3_count = current_b3_count;
+        this.current_b4_count = current_b4_count;
+    }
+
     @SerializedName("current_b4_count")
     private Integer current_b4_count;
+
+
+
 
     /**
      * Getters and setters for all attributes
@@ -46,6 +77,23 @@ public class SuperflySession {
     public void setSession_id(Integer session_id) {
         this.session_id = session_id;
     }
+
+    public String getSession_start_date() {
+        return session_start_date;
+    }
+
+    public void setSession_start_date(String session_start_date) {
+        this.session_start_date = session_start_date;
+    }
+
+    public Integer getSession_participant_count() {
+        return session_participant_count;
+    }
+
+    public void setSession_participant_count(Integer session_participant_count) {
+        this.session_participant_count = session_participant_count;
+    }
+
 
     public UserInfo getParticipant_1() {
         return participant_1;
@@ -87,13 +135,13 @@ public class SuperflySession {
         this.participant_5 = participant_5;
     }
 
-    public Superfly getSuperfly_recipe() {
+    /*public Superfly getSuperfly_recipe() {
         return superfly_recipe;
     }
 
     public void setSuperfly_recipe(Superfly superfly_recipe) {
         this.superfly_recipe = superfly_recipe;
-    }
+    }*/
 
     public Integer getCurrent_b0_count() {
         return current_b0_count;
