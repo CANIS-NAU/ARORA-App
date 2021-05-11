@@ -46,13 +46,10 @@ public class UserInfo {
     private Integer user_b3_count;
     @SerializedName("user_b4_count")
     private Integer user_b4_count;
-
-
-
     @SerializedName("user_superflysession_id")
     private Integer user_superflysession_id;
 
-    //Non-serialzed value for use in storing each count locally.
+    //Non-serialized value for use in storing each count locally.
     private Map<String, Integer> local_atrium;
     //Current session object for the user?
     private SuperflySession currentSession;
@@ -63,6 +60,21 @@ public class UserInfo {
     private String email;
     @SerializedName("password")
     private String password;
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "user_id=" + user_id +
+                ", user_b0_count=" + user_b0_count +
+                ", user_b1_count=" + user_b1_count +
+                ", user_b2_count=" + user_b2_count +
+                ", user_b3_count=" + user_b3_count +
+                ", user_b4_count=" + user_b4_count +
+                ", user_superflysession_id=" + user_superflysession_id +
+                ", user_name='" + user_name + '\'' +
+                '}';
+    }
+
 
     public UserInfo(Integer user_info_id,
                     String user_name_of_strength,
@@ -81,7 +93,6 @@ public class UserInfo {
                     Integer user_b2_count,
                     Integer user_b3_count,
                     Integer user_b4_count,
-                    String username,
                     String user_name, String email,
                     String password) {
         this.user_info_id = user_info_id;
