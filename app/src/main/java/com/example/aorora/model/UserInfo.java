@@ -13,8 +13,6 @@ import java.util.Map;
 public class UserInfo {
     @SerializedName("user_info_id")
     private Integer user_info_id;
-    @SerializedName("user_name_of_strength")
-    private String user_name_of_strength;
     @SerializedName("user_id")
     private Integer user_id;
     @SerializedName("user_created_at")
@@ -23,18 +21,10 @@ public class UserInfo {
     private Integer user_current_mood;
     @SerializedName("user_current_mood_updated")
     private String user_current_mood_updated;
-    @SerializedName("user_current_location_lat")
-    private Integer user_current_location_lat;
-    @SerializedName("user_current_location_long")
-    private Integer user_current_location_long;
-    @SerializedName("user_current_location_updated")
-    private String user_current_location_updated;
     @SerializedName("user_current_butterfly")
     private Integer user_current_butterfly;
     @SerializedName("user_pollen")
     private Integer user_pollen;
-    @SerializedName("user_points")
-    private Integer user_points;
     //Counts of the first 5 types of butterflies.
     @SerializedName("user_b0_count")
     private Integer user_b0_count;
@@ -48,12 +38,6 @@ public class UserInfo {
     private Integer user_b4_count;
     @SerializedName("user_superflysession_id")
     private Integer user_superflysession_id;
-
-    //Non-serialized value for use in storing each count locally.
-    private Map<String, Integer> local_atrium;
-    //Current session object for the user?
-    private SuperflySession currentSession;
-
     @SerializedName("user_name")
     private String user_name;
     @SerializedName("email")
@@ -61,33 +45,28 @@ public class UserInfo {
     @SerializedName("password")
     private String password;
 
+    //Non-serialized value for use in storing each count locally.
+    private Map<String, Integer> local_atrium;
+    //Current session object for the user?
+    private SuperflySession currentSession;
+
+
     @Override
     public String toString() {
         return "UserInfo{" +
-                "user_id=" + user_id +
-                ", user_b0_count=" + user_b0_count +
-                ", user_b1_count=" + user_b1_count +
-                ", user_b2_count=" + user_b2_count +
-                ", user_b3_count=" + user_b3_count +
-                ", user_b4_count=" + user_b4_count +
-                ", user_superflysession_id=" + user_superflysession_id +
+                "user_superflysession_id=" + user_superflysession_id +
                 ", user_name='" + user_name + '\'' +
+                ", email='" + email + '\'' +
+                ", currentSession=" + currentSession +
                 '}';
     }
 
-
     public UserInfo(Integer user_info_id,
-                    String user_name_of_strength,
                     Integer user_id,
                     String user_created_at,
                     Integer user_current_mood,
-                    String user_current_mood_updated,
-                    Integer user_current_location_lat,
-                    Integer user_current_location_long,
-                    String user_current_location_updated,
                     Integer user_current_butterfly,
                     Integer user_pollen,
-                    Integer user_points,
                     Integer user_b0_count,
                     Integer user_b1_count,
                     Integer user_b2_count,
@@ -96,17 +75,12 @@ public class UserInfo {
                     String user_name, String email,
                     String password) {
         this.user_info_id = user_info_id;
-        this.user_name_of_strength = user_name_of_strength;
         this.user_id = user_id;
         this.user_created_at = user_created_at;
         this.user_current_mood = user_current_mood;
         this.user_current_mood_updated = user_current_mood_updated;
-        this.user_current_location_lat = user_current_location_lat;
-        this.user_current_location_long = user_current_location_long;
-        this.user_current_location_updated = user_current_location_updated;
         this.user_current_butterfly = user_current_butterfly;
         this.user_pollen = user_pollen;
-        this.user_points = user_points;
         this.user_b0_count = user_b0_count;
         this.user_b1_count = user_b1_count;
         this.user_b2_count = user_b2_count;
@@ -132,14 +106,6 @@ public class UserInfo {
 
     public void setUser_info_id(Integer user_info_id) {
         this.user_info_id = user_info_id;
-    }
-
-    public String getUser_name_of_strength() {
-        return user_name_of_strength;
-    }
-
-    public void setUser_name_of_strength(String user_name_of_strength) {
-        this.user_name_of_strength = user_name_of_strength;
     }
 
     public Integer getUser_id() {
@@ -174,29 +140,6 @@ public class UserInfo {
         this.user_current_mood_updated = user_current_mood_updated;
     }
 
-    public Integer getUser_current_location_lat() {
-        return user_current_location_lat;
-    }
-
-    public void setUser_current_location_lat(Integer user_current_location_lat) {
-        this.user_current_location_lat = user_current_location_lat;
-    }
-
-    public Integer getUser_current_location_long() {
-        return user_current_location_long;
-    }
-
-    public void setUser_current_location_long(Integer user_current_location_long) {
-        this.user_current_location_long = user_current_location_long;
-    }
-
-    public String getUser_current_location_updated() {
-        return user_current_location_updated;
-    }
-
-    public void setUser_current_location_updated(String user_current_location_updated) {
-        this.user_current_location_updated = user_current_location_updated;
-    }
 
     public Integer getUser_current_butterfly() {
         return user_current_butterfly;
@@ -212,14 +155,6 @@ public class UserInfo {
 
     public void setUser_pollen(Integer user_pollen) {
         this.user_pollen = user_pollen;
-    }
-
-    public Integer getUser_points() {
-        return user_points;
-    }
-
-    public void setUser_points(Integer user_points) {
-        this.user_points = user_points;
     }
 
     public String getEmail() {

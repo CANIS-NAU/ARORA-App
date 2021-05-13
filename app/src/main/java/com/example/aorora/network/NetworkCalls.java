@@ -13,6 +13,7 @@ import com.example.aorora.model.LocalUpdate;
 import com.example.aorora.model.MoodReportIdReturn;
 import com.example.aorora.model.NotificationCreateReturn;
 import com.example.aorora.model.QuestReportCreateReturn;
+import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.UserInfo;
 import com.google.gson.GsonBuilder;
@@ -28,6 +29,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -269,6 +271,7 @@ public class NetworkCalls {
         call.enqueue(new Callback<SuperflySession>() {
             @Override
             public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+                Log.d("Made it into onResponse with code", String.valueOf(response.code()));
                 if(response.code() == 200){
                     Toast.makeText(context, "Superfly session created successfully!", Toast.LENGTH_SHORT).show();
                     Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
@@ -290,6 +293,24 @@ public class NetworkCalls {
             }
         });
 
+    }
+
+
+    public static void loadInvites(int recipiant_id, final Context context){
+        Call call = service.getSuperflyInvites(recipiant_id);
+        call.enqueue(new Callback<List<SuperflyInvite>>() {
+            @Override
+            public void onResponse(Call<List<SuperflyInvite>> call, Response<List<SuperflyInvite>> response) {
+                for(SuperflyInvite currInvite : response.body()){
+                    Log.d("Invite Item", currInvite.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("INVITEGET", "Yeah it broke");
+            }
+        });
     }
     //Used to either:
         //1. Set the user in a new session

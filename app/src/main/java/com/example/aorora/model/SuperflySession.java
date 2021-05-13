@@ -14,19 +14,20 @@ public class SuperflySession {
     private String session_start_date;
     @SerializedName("session_participant_count")
     private Integer session_participant_count;
-
+    @SerializedName("session_started")
+    private Boolean session_started;
 
     //Participants in the superfly session.
     @SerializedName("participant_0")
-    private UserInfo participant_0;
+    private Integer participant_0;
     @SerializedName("participant_1")
-    private UserInfo participant_1;
+    private Integer participant_1;
     @SerializedName("participant_2")
-    private UserInfo participant_2;
+    private Integer participant_2;
     @SerializedName("participant_3")
-    private UserInfo participant_3;
+    private Integer participant_3;
     @SerializedName("participant_4")
-    private UserInfo participant_4;
+    private Integer participant_4;
 
 
 
@@ -49,13 +50,14 @@ public class SuperflySession {
 
 
     public SuperflySession(Integer session_id, String session_start_date, Integer session_participant_count,
-                           UserInfo participant_0, UserInfo participant_1, UserInfo participant_2,
-                           UserInfo participant_3, UserInfo participant_4, Superfly superfly_recipe,
-                           Integer current_b0_count, Integer current_b1_count, Integer current_b2_count,
-                           Integer current_b3_count, Integer current_b4_count ) {
+                           Boolean session_started, Integer participant_0, Integer participant_1,
+                           Integer participant_2, Integer participant_3, Integer participant_4,
+                           Superfly superfly_recipe, Integer current_b0_count, Integer current_b1_count,
+                           Integer current_b2_count, Integer current_b3_count, Integer current_b4_count) {
         this.session_id = session_id;
         this.session_start_date = session_start_date;
         this.session_participant_count = session_participant_count;
+        this.session_started = session_started;
         this.participant_0 = participant_0;
         this.participant_1 = participant_1;
         this.participant_2 = participant_2;
@@ -69,16 +71,25 @@ public class SuperflySession {
         this.current_b4_count = current_b4_count;
     }
 
-
-
     //Prints the id and all counts
-    //TODO: Print other participants and their info.
-    @NonNull
+
+
     @Override
     public String toString() {
-        return "session_id: " + session_id + " current_b0: " + current_b0_count +  " current_b1: " + current_b1_count +
-                " current_b2: " + current_b2_count + " current_b3: " + current_b3_count
-                + " current_b4: " + current_b4_count + "\n Superfly recipe: " + superfly_recipe.toString();
+        return "SuperflySession{" +
+                "session_id=" + session_id +
+                ", participant_0=" + participant_0 +
+                ", participant_1=" + participant_1 +
+                ", participant_2=" + participant_2 +
+                ", participant_3=" + participant_3 +
+                ", participant_4=" + participant_4 +
+                ", superfly_recipe=" + superfly_recipe +
+                ", current_b0_count=" + current_b0_count +
+                ", current_b1_count=" + current_b1_count +
+                ", current_b2_count=" + current_b2_count +
+                ", current_b3_count=" + current_b3_count +
+                ", current_b4_count=" + current_b4_count +
+                '}';
     }
 
     public Integer getSession_id() {
@@ -105,45 +116,14 @@ public class SuperflySession {
         this.session_participant_count = session_participant_count;
     }
 
-    public UserInfo getParticipant_0() {
-        return participant_0;
+    public Boolean getSession_started() {
+        return session_started;
     }
 
-    public void setParticipant_0(UserInfo participant_0) {
-        this.participant_0 = participant_0;
+    public void setSession_started(Boolean session_started) {
+        this.session_started = session_started;
     }
 
-    public UserInfo getParticipant_1() {
-        return participant_1;
-    }
-
-    public void setParticipant_1(UserInfo participant_1) {
-        this.participant_1 = participant_1;
-    }
-
-    public UserInfo getParticipant_2() {
-        return participant_2;
-    }
-
-    public void setParticipant_2(UserInfo participant_2) {
-        this.participant_2 = participant_2;
-    }
-
-    public UserInfo getParticipant_3() {
-        return participant_3;
-    }
-
-    public void setParticipant_3(UserInfo participant_3) {
-        this.participant_3 = participant_3;
-    }
-
-    public UserInfo getParticipant_4() {
-        return participant_4;
-    }
-
-    public void setParticipant_4(UserInfo participant_4) {
-        this.participant_4 = participant_4;
-    }
 
     public Superfly getSuperfly_recipe() {
         return superfly_recipe;
@@ -177,6 +157,46 @@ public class SuperflySession {
         this.current_b2_count = current_b2_count;
     }
 
+    public Integer getParticipant_0() {
+        return participant_0;
+    }
+
+    public void setParticipant_0(Integer participant_0) {
+        this.participant_0 = participant_0;
+    }
+
+    public Integer getParticipant_1() {
+        return participant_1;
+    }
+
+    public void setParticipant_1(Integer participant_1) {
+        this.participant_1 = participant_1;
+    }
+
+    public Integer getParticipant_2() {
+        return participant_2;
+    }
+
+    public void setParticipant_2(Integer participant_2) {
+        this.participant_2 = participant_2;
+    }
+
+    public Integer getParticipant_3() {
+        return participant_3;
+    }
+
+    public void setParticipant_3(Integer participant_3) {
+        this.participant_3 = participant_3;
+    }
+
+    public Integer getParticipant_4() {
+        return participant_4;
+    }
+
+    public void setParticipant_4(Integer participant_4) {
+        this.participant_4 = participant_4;
+    }
+
     public Integer getCurrent_b3_count() {
         return current_b3_count;
     }
@@ -192,5 +212,4 @@ public class SuperflySession {
     public void setCurrent_b4_count(Integer current_b4_count) {
         this.current_b4_count = current_b4_count;
     }
-
 }

@@ -61,7 +61,6 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
 
         //Init user account info
         userName = MainActivity.user_info.getUser_name();
-        userNamePower = MainActivity.user_info.getUser_name_of_strength();
         userPollen = MainActivity.user_info.getUser_pollen();
 
         home_button_bottombar = (ImageButton) findViewById(R.id.home_button_bottom_bar);
@@ -174,7 +173,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         {
             //If we aren't in a session right now, go to the invites/creation page.
             if(MainActivity.user_info.getUser_superflysession_id() == -1){
-                to_navigate = new Intent(profilePage, SuperflyInvites.class);
+                to_navigate = new Intent(profilePage, SuperflyInvitesPage.class);
             }
             //Go to our current superfly session instead of the invites page.
             else{

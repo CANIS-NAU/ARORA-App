@@ -76,7 +76,6 @@ public class HomeScreen extends AppCompatActivity implements GestureDetector.OnG
         userPollen = MainActivity.user_info.getUser_pollen();
         Log.d("OnCreate Pollen", "onCreate: Displayed userPollen: " + userPollen);
         userName = MainActivity.user_info.getUser_name();
-        userNamePower = MainActivity.user_info.getUser_name_of_strength();
 
         homeScreen = this;
         isButtonsPoppedUp = false;

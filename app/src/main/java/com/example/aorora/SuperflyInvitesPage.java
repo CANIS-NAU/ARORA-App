@@ -13,13 +13,14 @@ import android.widget.ImageButton;
 import com.example.aorora.adapter.InvitePageAdapter;
 import com.example.aorora.network.NetworkCalls;
 
-public class SuperflyInvites extends AppCompatActivity implements View.OnClickListener {
+public class SuperflyInvitesPage extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView inviteRecyclerView;
     InvitePageAdapter inviteAdapter;
     RecyclerView.LayoutManager layoutManager;
     ImageButton backButton;
     Button newSessionButton;
+    Button refreshButton;
 
     //TODO: Get this from the network/backend. Running counts of players in each invite.
     int playerCounts[] = {3};
@@ -30,8 +31,10 @@ public class SuperflyInvites extends AppCompatActivity implements View.OnClickLi
         //Get button ids
         backButton = findViewById(R.id.back_button_invite);
         newSessionButton = findViewById(R.id.new_session_button);
+        refreshButton = findViewById(R.id.refresh_button);
         backButton.setOnClickListener(this);
         newSessionButton.setOnClickListener(this);
+        refreshButton.setOnClickListener(this);
         inviteRecyclerView = findViewById(R.id.invite_recycler);
         inviteRecyclerView.setAdapter(new InvitePageAdapter(this, this.playerCounts));
         layoutManager = new LinearLayoutManager(this);
@@ -56,6 +59,12 @@ public class SuperflyInvites extends AppCompatActivity implements View.OnClickLi
             //Navigate to the created lobby.
             //GET the new lobby back
 
+        }
+        else if(view_id == refreshButton.getId()){
+            Log.d("INVITEPAGE", "Refreshing list of invites!");
+            //Load invites with GET request from network calls.
+            //Fix userinfo first.
+            //NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), this);
         }
 
     }

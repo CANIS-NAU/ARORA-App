@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SuperflyInvites"/>
+        <activity android:name=".SuperflyInvitesPage"/>
         <activity android:name=".SuperflyLobby" />
         <activity android:name=".AtriumDetail" />
         <activity android:name=".ARScreen" />

@@ -10,6 +10,7 @@ import com.example.aorora.model.QuestReportCreateReturn;
 import com.example.aorora.model.Quest;
 import com.example.aorora.model.QuestReport;
 import com.example.aorora.model.RetroPhoto;
+import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.UserAuth;
 import com.example.aorora.model.UserIdReturn;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -75,9 +77,7 @@ public interface GetDataService {
     Call<MoodReportIdReturn> createMoodReport(@Field("user_id") Integer user_id,
                                               @Field("q1_response") Integer q1_response,
                                               @Field("q2_response") Integer q2_response);
-
-    // WORKS
-
+    //Authentication POST request.
     @POST("/api-token-auth")
     @FormUrlEncoded
     Call<UserAuth> login(@Field("username") String username, @Field("password") String password);
@@ -130,6 +130,14 @@ public interface GetDataService {
                                                  @Field("current_b2_count") Integer current_b2_count,
                                                  @Field("current_b3_count") Integer current_b3_count,
                                                  @Field("current_b4_count") Integer current_b4_count);
+
+    @GET("/superflyinvites/{recipient}")
+    Call<List<SuperflyInvite>> getSuperflyInvites(@Path("recipient") Integer recipient);
+
+    //TODO Delete invite after accepting it.
+    @DELETE("/superflyinvites/{recipient}")
+    Call<SuperflyInvite> deleteSuperflyInvite(@Path("recipient") Integer recipient);
+
 
 
     //Uses server side filtering to get the notifications for the specific user and public notifications
