@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -22,6 +24,30 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
         backButton.setOnClickListener(this);
         SuperflySession currentSession = MainActivity.user_info.getCurrentSession();
+
+        //Build the UI based on the number of participants currently in the session.
+        initParticipants(currentSession);
+
+    }
+
+    void initParticipants(SuperflySession currentSession) {
+        switch(currentSession.getSession_participant_count()){
+            case 1:
+                Log.d("InitSesh", "One participant!");
+                break;
+            case 2:
+                Log.d("InitSesh", "Two participants!");
+                break;
+            case 3:
+                Log.d("InitSesh", "Three participants!");
+                break;
+            case 4:
+                Log.d("InitSesh", "Four participants!");
+                break;
+            case 5:
+                Log.d("InitSesh", "Five participants!");
+                break;
+        }
     }
 
     @Override

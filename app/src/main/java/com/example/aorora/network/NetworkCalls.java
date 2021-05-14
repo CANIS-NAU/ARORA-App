@@ -340,7 +340,20 @@ public class NetworkCalls {
      * Call to get the current status of a superfly session
      */
     public static void getSuperflySession(Integer session_id, final Context context){
-        //TODO: GET request.
+        Call call = service.getSession(session_id);
+        call.enqueue(new Callback<SuperflySession>() {
+            @Override
+            public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+                MainActivity.user_info.setCurrentSession(response.body());
+                Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
+            }
+
+            @Override
+            public void onFailure(Call<SuperflySession> call, Throwable t) {
+                Log.d("getSuperflySession", "Error retrieving superfly session!");
+
+            }
+        });
     }
 
     /**

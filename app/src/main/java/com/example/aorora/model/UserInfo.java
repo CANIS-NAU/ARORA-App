@@ -45,10 +45,12 @@ public class UserInfo {
     @SerializedName("password")
     private String password;
 
+
     //Non-serialized value for use in storing each count locally.
     private Map<String, Integer> local_atrium;
-    //Current session object for the user?
+    //The current session of this user.
     private SuperflySession currentSession;
+
 
 
     @Override
@@ -86,7 +88,6 @@ public class UserInfo {
         this.user_b2_count = user_b2_count;
         this.user_b3_count = user_b3_count;
         this.user_b4_count = user_b4_count;
-
         this.user_name = user_name;
         this.email = email;
         this.password = password;
@@ -235,6 +236,10 @@ public class UserInfo {
         local_atrium.put("user_b2_count", this.user_b2_count);
         local_atrium.put("user_b3_count", this.user_b3_count);
         local_atrium.put("user_b4_count", this.user_b4_count);
+    }
+
+    public void getSuperflySession(){
+
     }
     //This will update the local atrium mappings to be used without getting new user_info data from the backend.
     public void update_local_atrium(Map<String, Integer> atriumUpdates){
