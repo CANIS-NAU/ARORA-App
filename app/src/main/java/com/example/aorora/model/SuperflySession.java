@@ -17,17 +17,29 @@ public class SuperflySession {
     @SerializedName("session_started")
     private Boolean session_started;
 
+    //Ids for participants in the session
+    @SerializedName("id_0")
+    private Integer id_0;
+    @SerializedName("id_1")
+    private Integer id_1;
+    @SerializedName("id_2")
+    private Integer id_2;
+    @SerializedName("id_3")
+    private Integer id_3;
+    @SerializedName("id_4")
+    private Integer id_4;
+
     //Participants in the superfly session.
     @SerializedName("participant_0")
-    private Integer participant_0;
+    private UserInfo participant_0;
     @SerializedName("participant_1")
-    private Integer participant_1;
+    private UserInfo participant_1;
     @SerializedName("participant_2")
-    private Integer participant_2;
+    private UserInfo participant_2;
     @SerializedName("participant_3")
-    private Integer participant_3;
+    private UserInfo participant_3;
     @SerializedName("participant_4")
-    private Integer participant_4;
+    private UserInfo participant_4;
 
 
 
@@ -48,16 +60,23 @@ public class SuperflySession {
     @SerializedName("current_b4_count")
     private Integer current_b4_count;
 
-
-    public SuperflySession(Integer session_id, String session_start_date, Integer session_participant_count,
-                           Boolean session_started, Integer participant_0, Integer participant_1,
-                           Integer participant_2, Integer participant_3, Integer participant_4,
-                           Superfly superfly_recipe, Integer current_b0_count, Integer current_b1_count,
-                           Integer current_b2_count, Integer current_b3_count, Integer current_b4_count) {
+    //Giant constructor of DOOM!
+    public SuperflySession(Integer session_id, String session_start_date,
+                           Integer session_participant_count, Boolean session_started,
+                           Integer id_0, Integer id_1, Integer id_2, Integer id_3, Integer id_4,
+                           UserInfo participant_0, UserInfo participant_1, UserInfo participant_2,
+                           UserInfo participant_3, UserInfo participant_4, Superfly superfly_recipe,
+                           Integer current_b0_count, Integer current_b1_count, Integer current_b2_count,
+                           Integer current_b3_count, Integer current_b4_count) {
         this.session_id = session_id;
         this.session_start_date = session_start_date;
         this.session_participant_count = session_participant_count;
         this.session_started = session_started;
+        this.id_0 = id_0;
+        this.id_1 = id_1;
+        this.id_2 = id_2;
+        this.id_3 = id_3;
+        this.id_4 = id_4;
         this.participant_0 = participant_0;
         this.participant_1 = participant_1;
         this.participant_2 = participant_2;
@@ -72,8 +91,6 @@ public class SuperflySession {
     }
 
     //Prints the id and all counts
-
-
     @Override
     public String toString() {
         return "SuperflySession{" +
@@ -133,6 +150,86 @@ public class SuperflySession {
         this.superfly_recipe = superfly_recipe;
     }
 
+    public Integer getId_0() {
+        return id_0;
+    }
+
+    public void setId_0(Integer id_0) {
+        this.id_0 = id_0;
+    }
+
+    public Integer getId_1() {
+        return id_1;
+    }
+
+    public void setId_1(Integer id_1) {
+        this.id_1 = id_1;
+    }
+
+    public Integer getId_2() {
+        return id_2;
+    }
+
+    public void setId_2(Integer id_2) {
+        this.id_2 = id_2;
+    }
+
+    public Integer getId_3() {
+        return id_3;
+    }
+
+    public void setId_3(Integer id_3) {
+        this.id_3 = id_3;
+    }
+
+    public Integer getId_4() {
+        return id_4;
+    }
+
+    public void setId_4(Integer id_4) {
+        this.id_4 = id_4;
+    }
+
+    public UserInfo getParticipant_0() {
+        return participant_0;
+    }
+
+    public void setParticipant_0(UserInfo participant_0) {
+        this.participant_0 = participant_0;
+    }
+
+    public UserInfo getParticipant_1() {
+        return participant_1;
+    }
+
+    public void setParticipant_1(UserInfo participant_1) {
+        this.participant_1 = participant_1;
+    }
+
+    public UserInfo getParticipant_2() {
+        return participant_2;
+    }
+
+    public void setParticipant_2(UserInfo participant_2) {
+        this.participant_2 = participant_2;
+    }
+
+    public UserInfo getParticipant_3() {
+        return participant_3;
+    }
+
+    public void setParticipant_3(UserInfo participant_3) {
+        this.participant_3 = participant_3;
+    }
+
+    public UserInfo getParticipant_4() {
+        return participant_4;
+    }
+
+    public void setParticipant_4(UserInfo participant_4) {
+        this.participant_4 = participant_4;
+    }
+
     public Integer getCurrent_b0_count() {
         return current_b0_count;
     }
@@ -155,46 +252,6 @@ public class SuperflySession {
 
     public void setCurrent_b2_count(Integer current_b2_count) {
         this.current_b2_count = current_b2_count;
-    }
-
-    public Integer getParticipant_0() {
-        return participant_0;
-    }
-
-    public void setParticipant_0(Integer participant_0) {
-        this.participant_0 = participant_0;
-    }
-
-    public Integer getParticipant_1() {
-        return participant_1;
-    }
-
-    public void setParticipant_1(Integer participant_1) {
-        this.participant_1 = participant_1;
-    }
-
-    public Integer getParticipant_2() {
-        return participant_2;
-    }
-
-    public void setParticipant_2(Integer participant_2) {
-        this.participant_2 = participant_2;
-    }
-
-    public Integer getParticipant_3() {
-        return participant_3;
-    }
-
-    public void setParticipant_3(Integer participant_3) {
-        this.participant_3 = participant_3;
-    }
-
-    public Integer getParticipant_4() {
-        return participant_4;
-    }
-
-    public void setParticipant_4(Integer participant_4) {
-        this.participant_4 = participant_4;
     }
 
     public Integer getCurrent_b3_count() {

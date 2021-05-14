@@ -94,7 +94,7 @@ public interface GetDataService {
     //Call to create an initial superfly session by a user with the passed id.
     @POST("/superflysession")
     @FormUrlEncoded
-    Call<SuperflySession> createSession(@Field("participant_0") Integer participant_0);
+    Call<SuperflySession> createSession(@Field("id_0") Integer id_0);
 
     @GET("/superflysession")
     Call<SuperflySession> getSession();
