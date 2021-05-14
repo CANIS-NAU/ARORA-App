@@ -177,7 +177,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
             }
             //Go to our current superfly session instead of the invites page.
             else{
-                to_navigate = new Intent(profilePage, SuperflyLobby.class);
+                to_navigate = new Intent(profilePage, SuperflyGamePage.class);
             }
 
             startActivity(to_navigate);

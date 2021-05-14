@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.aorora.R;
-import com.example.aorora.SuperflyLobby;
+import com.example.aorora.SuperflyGamePage;
 
 public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.InvitePageViewHolder> {
     Context context;
@@ -43,7 +43,7 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
         invitePageViewHolder.rowLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, SuperflyLobby.class);
+                Intent intent = new Intent(context, SuperflyGamePage.class);
                 context.startActivity(intent);
             }
         });

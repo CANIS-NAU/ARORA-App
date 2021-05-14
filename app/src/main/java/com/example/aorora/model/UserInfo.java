@@ -285,5 +285,8 @@ public class UserInfo {
 
     public SuperflySession getCurrentSession () {return this.currentSession;}
     //Set the copy of the current session here.
-    public void setCurrentSession (SuperflySession newSession) {this.currentSession = newSession;}
+    public void setCurrentSession (SuperflySession newSession) {
+        this.currentSession = newSession;
+        this.user_superflysession_id = currentSession.getSession_id();
+    }
 }

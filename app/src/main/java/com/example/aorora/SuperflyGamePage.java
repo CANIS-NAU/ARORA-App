@@ -7,18 +7,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.aorora.model.SuperflySession;
 
-public class SuperflyLobby extends AppCompatActivity implements View.OnClickListener {
+
+public class SuperflyGamePage extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton backButton;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_superfly_lobby);
+        setContentView(R.layout.activity_superfly_game);
 
         backButton = (ImageButton) findViewById(R.id.back_button);
 
         backButton.setOnClickListener(this);
+        SuperflySession currentSession = MainActivity.user_info.getCurrentSession();
     }
 
     @Override

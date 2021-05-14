@@ -96,8 +96,8 @@ public interface GetDataService {
     @FormUrlEncoded
     Call<SuperflySession> createSession(@Field("id_0") Integer id_0);
 
-    @GET("/superflysession")
-    Call<SuperflySession> getSession();
+    @GET("/superflysession/{session_id}")
+    Call<SuperflySession> getSession(@Path("session_id") Integer session_id);
 
     //Adds participant 1 (0 is added on creation of a session)
     @PATCH("/superflysession")

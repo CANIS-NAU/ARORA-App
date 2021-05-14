@@ -143,6 +143,11 @@ public class NetworkCalls {
                     //Since the user's atrium map is not a serialized value from the backend, we must initialize
                     //it manually with this function.
                     MainActivity.user_info.build_atrium();
+                    //Grab the current superfly session, if there is one for this user.
+                    if(MainActivity.user_info.getUser_superflysession_id() != -1){
+                        NetworkCalls.getSuperflySession(MainActivity.user_info.getUser_superflysession_id(), context);
+                    }
+
                     Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
                     //Toast.makeText(context, "User Info Gathered", Toast.LENGTH_SHORT).show();
                 }
