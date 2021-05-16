@@ -8,14 +8,42 @@
     tools:context=".ButterflyGameActivity"
     android:background="@drawable/receipt_page_backgrpund">
 
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="preview"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:visibility="gone"/>
+
+    <Switch
+        android:id="@+id/cameraSwitch"
+        android:layout_width="52dp"
+        android:layout_height="39dp"
+        android:translationZ="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958" />
+
     <TextView
         android:id="@+id/gameTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="cursive"
         android:lineSpacingExtra="8sp"
-        android:text="00"
+        android:shadowColor="#414141"
+        android:text="@string/_defaultTimerText"
         android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -33,10 +61,21 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.93"
+        app:layout_constraintVertical_bias="0.953"
         app:srcCompat="@drawable/jar_button" />
+
+    <ImageView
+        android:id="@+id/cameraIcon"
+        android:layout_width="53dp"
+        android:layout_height="47dp"
+        app:layout_constraintBottom_toTopOf="@+id/cameraSwitch"
+        app:layout_constraintEnd_toEndOf="@+id/cameraSwitch"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cameraSwitch"
+        android:src="@android:drawable/ic_menu_camera" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
