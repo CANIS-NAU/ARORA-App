@@ -53,7 +53,7 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
         invitePageViewHolder.rowLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Joining session", "Joining session created by <GUY>");
+                Log.d("Joining session", "Joining session created by " + inviteNames.get(position));
                 //Intent intent = new Intent(context, SuperflyGamePage.class);
                 //context.startActivity(intent);
             }
