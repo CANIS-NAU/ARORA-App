@@ -14,10 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aorora.MainActivity;
 import com.example.aorora.R;
 import com.example.aorora.SuperflyGamePage;
 import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.model.SuperflySession;
+import com.example.aorora.network.NetworkCalls;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
             @Override
             public void onClick(View view) {
                 Log.d("Joining session", "Joining session created by " + currInvites.get(position).getSession().getParticipant_0().getUser_name());
+                NetworkCalls.joinSession(currInvites.get(position).getSession(), MainActivity.user_info, context);
                 //Intent intent = new Intent(context, SuperflyGamePage.class);
                 //context.startActivity(intent);
             }

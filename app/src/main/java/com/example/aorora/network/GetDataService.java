@@ -100,6 +100,10 @@ public interface GetDataService {
     @GET("/superflysession/{session_id}")
     Call<SuperflySession> getSession(@Path("session_id") Integer session_id);
 
+    //Replaces the whole session object. Not working currently due to foreign key recursion issues.
+    //@PUT("/superflysession/{session_id}")
+    //Call<SuperflySession> updateSession(@Path("session_id") Integer session_id, @Body SuperflySession new_session);
+
     //Adds participant 1 (0 is added on creation of a session)
     @PATCH("/superflysession/{session_id}")
     @FormUrlEncoded

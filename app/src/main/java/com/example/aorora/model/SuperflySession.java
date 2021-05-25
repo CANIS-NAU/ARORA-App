@@ -56,14 +56,12 @@ public class SuperflySession {
     @SerializedName("current_b3_count")
     private Integer current_b3_count;
 
-
     @SerializedName("current_b4_count")
     private Integer current_b4_count;
 
-    //Giant constructor of DOOM!
     public SuperflySession(Integer session_id, String session_start_date,
-                           Integer session_participant_count, Boolean session_started,
-                           Integer id_0, Integer id_1, Integer id_2, Integer id_3, Integer id_4,
+                           Integer session_participant_count, Boolean session_started, Integer id_0,
+                           Integer id_1, Integer id_2, Integer id_3, Integer id_4,
                            UserInfo participant_0, UserInfo participant_1, UserInfo participant_2,
                            UserInfo participant_3, UserInfo participant_4, Superfly superfly_recipe,
                            Integer current_b0_count, Integer current_b1_count, Integer current_b2_count,

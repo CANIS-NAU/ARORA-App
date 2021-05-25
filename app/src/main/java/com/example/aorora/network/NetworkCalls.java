@@ -389,8 +389,57 @@ public class NetworkCalls {
      * @param newParticipant The user who seeks to join the superfly session
      * @param context Where this call came from.
      */
-    public static void joinSession(SuperflySession desiredSession, Integer newParticipant, final Context context){
+    public static void joinSession(SuperflySession desiredSession, UserInfo newParticipant, final Context context){
         //First, determine how many participants are currently in the session
+        Integer participantCount = desiredSession.getSession_participant_count();
+        Integer newParticipantId = newParticipant.getUser_id();
+        Integer sessionId = desiredSession.getSession_id();
+        //Declare call
+        Call<SuperflySession> call = null;
+        //Cases as we need to update one of the fields, participant 1 - 4, depending on other users.
+        switch(participantCount){
+            case 1:
+                desiredSession.setParticipant_1(newParticipant);
+                desiredSession.setSession_participant_count(2);
+                call = service.addParticipant1(sessionId, newParticipantId);
+                Log.d("JoinSession", "One participant found");
+                break;
+            case 2:
+                desiredSession.setParticipant_2(newParticipant);
+                desiredSession.setSession_participant_count(3);
+                call = service.addParticipant2(sessionId, newParticipantId);
+                Log.d("JoinSession", "Two participants found");
+                break;
+            case 3:
+                desiredSession.setParticipant_3(newParticipant);
+                desiredSession.setSession_participant_count(4);
+                call = service.addParticipant3(sessionId, newParticipantId);
+                Log.d("JoinSession", "Three participants found");
+                break;
+            case 4:
+                desiredSession.setParticipant_4(newParticipant);
+                desiredSession.setSession_participant_count(5);
+                call = service.addParticipant4(sessionId, newParticipantId);
+                Log.d("JoinSession", "Four participants found");
+                break;
+            default:
+                Log.d("joinSession", "Too many participants, cannot join!");
+                Toast.makeText(context, "Cannot join a session that is full!", Toast.LENGTH_SHORT).show();
+                return;
+        }
+        //Once we made our call and updated the session correctly, queue it up.
+        call.enqueue(new Callback<SuperflySession>() {
+            @Override
+            public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+                Log.d("UpdateSession", "testing");
+            }
+
+            @Override
+            public void onFailure(Call<SuperflySession> call, Throwable t) {
+                //Log.d("UpdateSession", "Call attempted: " + call.request().toString());
+                Log.d("UpdateSession", "No work big sad: " + t.getMessage());
+            }
+        });
 
     }
 
