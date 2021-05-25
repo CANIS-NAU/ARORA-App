@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.aorora.R;
 import com.example.aorora.SuperflyGamePage;
+import com.example.aorora.model.SuperflyInvite;
+import com.example.aorora.model.SuperflySession;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -27,12 +29,13 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
     ArrayList<String> inviteNames;
     //Number of current users out of 5
     ArrayList<Integer> playerCounts;
+    //List of displayed superfly sessions
+    ArrayList<SuperflyInvite> currInvites;
 
     //This will take in the names, descs, and images to be held in our recyclerview.
-    public InvitePageAdapter(Context ct, ArrayList<String> inviteNames, ArrayList<Integer> inCounts){
+    public InvitePageAdapter(Context ct, ArrayList<SuperflyInvite> inputInvites){
         this.context = ct;
-        this.inviteNames = inviteNames;
-        this.playerCounts = inCounts;
+        this.currInvites = inputInvites;
     }
 
 
@@ -48,12 +51,13 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
     //declared final to use in the onclicklistener.
     @Override
     public void onBindViewHolder(@NonNull InvitePageViewHolder invitePageViewHolder, @SuppressLint("RecyclerView") final int position) {
-        invitePageViewHolder.inviter.setText(inviteNames.get(position));
-        invitePageViewHolder.playerCount.setText(Integer.toString(playerCounts.get(position)));
+        invitePageViewHolder.inviter.setText(currInvites.get(position).getSession().getParticipant_0().getUser_name());
+        Log.d("PARTICIPANT COUNT", currInvites.get(position).getSession().getSession_participant_count().toString());
+        invitePageViewHolder.playerCount.setText(currInvites.get(position).getSession().getSession_participant_count().toString() + "/5 participants");
         invitePageViewHolder.rowLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Joining session", "Joining session created by " + inviteNames.get(position));
+                Log.d("Joining session", "Joining session created by " + currInvites.get(position).getSession().getParticipant_0().getUser_name());
                 //Intent intent = new Intent(context, SuperflyGamePage.class);
                 //context.startActivity(intent);
             }
@@ -62,7 +66,7 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
 
     @Override
     public int getItemCount() {
-        return playerCounts.size();
+        return currInvites.size();
     }
 
     public class InvitePageViewHolder extends RecyclerView.ViewHolder{

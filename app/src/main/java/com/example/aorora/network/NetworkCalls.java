@@ -385,12 +385,13 @@ public class NetworkCalls {
 
     /**
      * PATCHES a user into the new session
-     * @param session_id Session primary key for the target session to join
-     * @param new_participant The user who seeks to join the superfly session
+     * @param desiredSession  Target session to join
+     * @param newParticipant The user who seeks to join the superfly session
      * @param context Where this call came from.
      */
-    public static void joinSession(Integer session_id, Integer new_participant, final Context context){
-        //TODO soon!
+    public static void joinSession(SuperflySession desiredSession, Integer newParticipant, final Context context){
+        //First, determine how many participants are currently in the session
+
     }
 
     /**

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.aorora.adapter.InvitePageAdapter;
 import com.example.aorora.model.Superfly;
 import com.example.aorora.model.SuperflyInvite;
+import com.example.aorora.model.SuperflySession;
 import com.example.aorora.network.NetworkCalls;
 
 import java.lang.reflect.Array;
@@ -31,6 +32,7 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
     Button refreshButton;
     ArrayList<String> inviteNames;
     ArrayList<Integer> playerCounts;
+    ArrayList<SuperflyInvite> currInvites;
     TextView noInvites;
 
     @Override
@@ -45,34 +47,13 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
         backButton.setOnClickListener(this);
         newSessionButton.setOnClickListener(this);
         refreshButton.setOnClickListener(this);
-        initInviteView();
+        this.currInvites = MainActivity.user_info.getCurrentInvites();
         inviteRecyclerView = findViewById(R.id.invite_recycler);
-        inviteRecyclerView.setAdapter(new InvitePageAdapter(this, this.inviteNames, this.playerCounts));
+        inviteRecyclerView.setAdapter(new InvitePageAdapter(this, this.currInvites));
         layoutManager = new LinearLayoutManager(this);
         inviteRecyclerView.setLayoutManager(layoutManager);
         inviteRecyclerView.setHasFixedSize(true);
     }
-
-    private void initInviteView(){
-        List<SuperflyInvite> currInvites = MainActivity.user_info.getCurrentInvites();
-        int numInvites = currInvites.size();
-        inviteNames = new ArrayList<String>();
-        playerCounts = new ArrayList<Integer>();
-        int index = 0;
-        if(numInvites == 0){
-            Log.d("InvitePage", "No invites to display!");
-            //If there are no invites to display, show the no invites text.
-            noInvites.setVisibility(View.VISIBLE);
-        }
-        for(SuperflyInvite currInvite : currInvites){
-            inviteNames.add(currInvite.getSession().getParticipant_0().getUser_name());
-            playerCounts.add(currInvite.getSession().getSession_participant_count());
-            index++;
-        }
-        Log.d("inviteNames", inviteNames.toString());
-        Log.d("paticipantCounts", playerCounts.toString());
-    }
-
     @Override
     public void onClick(View v) {
         int view_id = v.getId();

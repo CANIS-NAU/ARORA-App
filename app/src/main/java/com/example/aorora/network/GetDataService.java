@@ -101,25 +101,25 @@ public interface GetDataService {
     Call<SuperflySession> getSession(@Path("session_id") Integer session_id);
 
     //Adds participant 1 (0 is added on creation of a session)
-    @PATCH("/superflysession")
+    @PATCH("/superflysession/{session_id}")
     @FormUrlEncoded
     Call<SuperflySession> addParticipant1(@Path("session_id") Integer session_id,
-                                        @Field("participant_1") Integer participant_1);
+                                        @Field("id_1") Integer participant_1);
     //Adds participant 2
-    @PATCH("/superflysession")
+    @PATCH("/superflysession/{session_id}")
     @FormUrlEncoded
     Call<SuperflySession> addParticipant2(@Path("session_id") Integer session_id,
-                                          @Field("participant_1") Integer participant_1);
+                                          @Field("id_2") Integer participant_2);
     //Adds participant 3
-    @PATCH("/superflysession")
+    @PATCH("/superflysession/{session_id}")
     @FormUrlEncoded
     Call<SuperflySession> addParticipant3(@Path("session_id") Integer session_id,
-                                          @Field("participant_1") Integer participant_1);
+                                          @Field("id_3") Integer participant_3);
     //Adds participant 4
-    @PATCH("/superflysession")
+    @PATCH("/superflysession/{session_id}")
     @FormUrlEncoded
     Call<SuperflySession> addParticipant4(@Path("session_id") Integer session_id,
-                                          @Field("participant_1") Integer participant_1);
+                                          @Field("id_4") Integer participant_4);
 
 
     //Updates the number of contributed butterflies. 
