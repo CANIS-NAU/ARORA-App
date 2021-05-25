@@ -9,9 +9,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.aorora.adapter.InvitePageAdapter;
+import com.example.aorora.model.Superfly;
+import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.network.NetworkCalls;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SuperflyInvitesPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,9 +29,10 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
     ImageButton backButton;
     Button newSessionButton;
     Button refreshButton;
+    ArrayList<String> inviteNames;
+    ArrayList<Integer> playerCounts;
+    TextView noInvites;
 
-    //TODO: Get this from the network/backend. Running counts of players in each invite.
-    int playerCounts[] = {3};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +41,36 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
         backButton = findViewById(R.id.back_button_invite);
         newSessionButton = findViewById(R.id.new_session_button);
         refreshButton = findViewById(R.id.refresh_button);
+        noInvites = findViewById(R.id.no_invites);
         backButton.setOnClickListener(this);
         newSessionButton.setOnClickListener(this);
         refreshButton.setOnClickListener(this);
+        initInviteView();
         inviteRecyclerView = findViewById(R.id.invite_recycler);
-        inviteRecyclerView.setAdapter(new InvitePageAdapter(this, this.playerCounts));
+        inviteRecyclerView.setAdapter(new InvitePageAdapter(this, this.inviteNames, this.playerCounts));
         layoutManager = new LinearLayoutManager(this);
         inviteRecyclerView.setLayoutManager(layoutManager);
         inviteRecyclerView.setHasFixedSize(true);
+    }
+
+    private void initInviteView(){
+        List<SuperflyInvite> currInvites = MainActivity.user_info.getCurrentInvites();
+        int numInvites = currInvites.size();
+        inviteNames = new ArrayList<String>();
+        playerCounts = new ArrayList<Integer>();
+        int index = 0;
+        if(numInvites == 0){
+            Log.d("InvitePage", "No invites to display!");
+            //If there are no invites to display, show the no invites text.
+            noInvites.setVisibility(View.VISIBLE);
+        }
+        for(SuperflyInvite currInvite : currInvites){
+            inviteNames.add(currInvite.getSession().getParticipant_0().getUser_name());
+            playerCounts.add(currInvite.getSession().getSession_participant_count());
+            index++;
+        }
+        Log.d("inviteNames", inviteNames.toString());
+        Log.d("paticipantCounts", playerCounts.toString());
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.example.aorora.model.UserInfo;
 import com.example.aorora.model.UserInteraction;
 import com.example.aorora.model.Notification;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -132,7 +133,7 @@ public interface GetDataService {
                                                  @Field("current_b4_count") Integer current_b4_count);
 
     @GET("/superflyinvite/{uid_recipient}")
-    Call<List<SuperflyInvite>> getSuperflyInvites(@Path("uid_recipient") Integer recipient_uid);
+    Call<ArrayList<SuperflyInvite>> getSuperflyInvites(@Path("uid_recipient") Integer recipient_uid);
 
     //TODO Delete invite after accepting it.
     @DELETE("/superflyinvite/{uid_recipient}")

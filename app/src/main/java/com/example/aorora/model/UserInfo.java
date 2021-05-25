@@ -4,9 +4,11 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 
@@ -50,6 +52,7 @@ public class UserInfo {
     private Map<String, Integer> local_atrium;
     //The current session of this user.
     private SuperflySession currentSession;
+    private ArrayList<SuperflyInvite> currentInvites;
 
 
 
@@ -225,6 +228,14 @@ public class UserInfo {
 
     public void setUser_superflysession_id(Integer user_superflysession_id) {
         this.user_superflysession_id = user_superflysession_id;
+    }
+
+    public ArrayList<SuperflyInvite> getCurrentInvites() {
+        return currentInvites;
+    }
+
+    public void setCurrentInvites(ArrayList<SuperflyInvite> currentInvites) {
+        this.currentInvites = currentInvites;
     }
 
     public void build_atrium(){

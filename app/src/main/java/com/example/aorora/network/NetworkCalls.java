@@ -148,6 +148,7 @@ public class NetworkCalls {
                     if(MainActivity.user_info.getUser_superflysession_id() != -1){
                         NetworkCalls.getSuperflySession(MainActivity.user_info.getUser_superflysession_id(), context);
                     }
+                    NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), context);
 
                     Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
                     //Toast.makeText(context, "User Info Gathered", Toast.LENGTH_SHORT).show();
@@ -308,12 +309,14 @@ public class NetworkCalls {
     */
     public static void loadInvites(int recipient_id, final Context context){
         Call call = service.getSuperflyInvites(recipient_id);
-        call.enqueue(new Callback<List<SuperflyInvite>>() {
+        call.enqueue(new Callback<ArrayList<SuperflyInvite>>() {
             @Override
-            public void onResponse(Call<List<SuperflyInvite>> call, Response<List<SuperflyInvite>> response) {
+            public void onResponse(Call<ArrayList<SuperflyInvite>> call, Response<ArrayList<SuperflyInvite>> response) {
                 Log.d("Response list", response.body().toString());
                 try{
                     Log.d("Invite response", response.body().toString());
+                    MainActivity.user_info.setCurrentInvites(response.body());
+                    //Show the invites for debugging if desired.
                     for(SuperflyInvite currInvite : response.body()){
                         Log.d("Invite Item", currInvite.toString());
                     }
@@ -442,6 +445,7 @@ public class NetworkCalls {
      *     model since the last network connection.
      * @param context Context of the calling activity.
      */
+    //TODO Replace this manual solution with a shared preferences or sqlite on-device solution.
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static void checkLocalUpdates(final Context context){
         String updateFileName = "localupdate.json";
