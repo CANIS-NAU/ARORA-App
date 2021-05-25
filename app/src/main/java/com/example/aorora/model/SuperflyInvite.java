@@ -9,14 +9,28 @@ public class SuperflyInvite {
     SuperflySession session;
     @SerializedName("recipient")
     Integer recipient;
+    @SerializedName("uid_recipient")
+    Integer uid_recipient;
     @SerializedName("accepted")
     Boolean accepted;
 
-    public SuperflyInvite(Integer invite_id, SuperflySession session, Integer recipient, Boolean accepted) {
+    public SuperflyInvite(Integer invite_id, SuperflySession session, Integer recipient, Integer uid_recipient, Boolean accepted) {
         this.invite_id = invite_id;
         this.session = session;
         this.recipient = recipient;
+        this.uid_recipient = uid_recipient;
         this.accepted = accepted;
+    }
+
+    @Override
+    public String toString() {
+        return "SuperflyInvite{" +
+                "invite_id=" + invite_id +
+                ", session=" + session +
+                ", recipient=" + recipient +
+                ", uid_recipient=" + uid_recipient +
+                ", accepted=" + accepted +
+                '}';
     }
 
     public Integer getInvite_id() {
@@ -34,6 +48,10 @@ public class SuperflyInvite {
     public void setSession(SuperflySession session) {
         this.session = session;
     }
+
+    public Integer getUid_recipient() { return uid_recipient; }
+
+    public void setUid_recipient(Integer uid_recipient) { this.uid_recipient = uid_recipient; }
 
     public Integer getRecipient() {
         return recipient;

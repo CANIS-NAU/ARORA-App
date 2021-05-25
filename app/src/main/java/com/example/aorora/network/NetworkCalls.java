@@ -29,6 +29,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -163,6 +164,8 @@ public class NetworkCalls {
             }
         });
     }
+
+
 
     public static void createMoodReport(int user_id, int q1_response, int q2_response, final Context context)
     {
@@ -300,20 +303,33 @@ public class NetworkCalls {
 
     }
 
-
-    public static void loadInvites(int recipiant_id, final Context context){
-        Call call = service.getSuperflyInvites(recipiant_id);
+    /*
+    Loads all invite objects corresponding to the passed user id.
+    */
+    public static void loadInvites(int recipient_id, final Context context){
+        Call call = service.getSuperflyInvites(recipient_id);
         call.enqueue(new Callback<List<SuperflyInvite>>() {
             @Override
             public void onResponse(Call<List<SuperflyInvite>> call, Response<List<SuperflyInvite>> response) {
-                for(SuperflyInvite currInvite : response.body()){
-                    Log.d("Invite Item", currInvite.toString());
+                Log.d("Response list", response.body().toString());
+                try{
+                    Log.d("Invite response", response.body().toString());
+                    for(SuperflyInvite currInvite : response.body()){
+                        Log.d("Invite Item", currInvite.toString());
+                    }
                 }
+                catch(Exception e){
+                    Log.d("Invite error", "No invites found. " + e.getMessage());
+
+                }
+
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Log.d("INVITEGET", "Yeah it broke");
+                Log.d("INVITEGET", "Yeah it broke" + t.getMessage());
+
+
             }
         });
     }
@@ -344,8 +360,16 @@ public class NetworkCalls {
         call.enqueue(new Callback<SuperflySession>() {
             @Override
             public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
-                MainActivity.user_info.setCurrentSession(response.body());
-                Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
+
+                if(response.code() == 404){
+                    Log.d("SuperflySession GET", "No active superfly session found for this user.");
+
+                }
+                else{
+                    MainActivity.user_info.setCurrentSession(response.body());
+                    Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
+                }
+
             }
 
             @Override
@@ -363,7 +387,7 @@ public class NetworkCalls {
      * @param context Where this call came from.
      */
     public static void joinSession(Integer session_id, Integer new_participant, final Context context){
-
+        //TODO soon!
     }
 
     /**

@@ -131,12 +131,12 @@ public interface GetDataService {
                                                  @Field("current_b3_count") Integer current_b3_count,
                                                  @Field("current_b4_count") Integer current_b4_count);
 
-    @GET("/superflyinvites/{recipient}")
-    Call<List<SuperflyInvite>> getSuperflyInvites(@Path("recipient") Integer recipient);
+    @GET("/superflyinvite/{uid_recipient}")
+    Call<List<SuperflyInvite>> getSuperflyInvites(@Path("uid_recipient") Integer recipient_uid);
 
     //TODO Delete invite after accepting it.
-    @DELETE("/superflyinvites/{recipient}")
-    Call<SuperflyInvite> deleteSuperflyInvite(@Path("recipient") Integer recipient);
+    @DELETE("/superflyinvite/{uid_recipient}")
+    Call<SuperflyInvite> deleteSuperflyInvite(@Path("uid_recipient") Integer recipient_uid);
 
 
 

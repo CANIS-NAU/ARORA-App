@@ -64,7 +64,7 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
             Log.d("INVITEPAGE", "Refreshing list of invites!");
             //Load invites with GET request from network calls.
             //Fix userinfo first.
-            //NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), this);
+            NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), this);
         }
 
     }
