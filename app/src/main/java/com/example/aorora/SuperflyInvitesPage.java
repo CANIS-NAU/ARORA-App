@@ -25,7 +25,7 @@ import java.util.List;
 public class SuperflyInvitesPage extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView inviteRecyclerView;
-    InvitePageAdapter inviteAdapter;
+    public InvitePageAdapter inviteAdapter;
     RecyclerView.LayoutManager layoutManager;
     ImageButton backButton;
     Button newSessionButton;
@@ -76,7 +76,8 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
             Log.d("INVITEPAGE", "Refreshing list of invites!");
             //Load invites with GET request from network calls.
             //Fix userinfo first.
-            NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), this);
+            NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), this, false);
+            //inviteAdapter.notifyDataSetChanged();
         }
 
     }

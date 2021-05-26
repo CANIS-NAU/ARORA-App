@@ -93,11 +93,6 @@ public class SuperflySession {
     public String toString() {
         return "SuperflySession{" +
                 "session_id=" + session_id +
-                ", participant_0=" + participant_0 +
-                ", participant_1=" + participant_1 +
-                ", participant_2=" + participant_2 +
-                ", participant_3=" + participant_3 +
-                ", participant_4=" + participant_4 +
                 ", superfly_recipe=" + superfly_recipe +
                 ", current_b0_count=" + current_b0_count +
                 ", current_b1_count=" + current_b1_count +

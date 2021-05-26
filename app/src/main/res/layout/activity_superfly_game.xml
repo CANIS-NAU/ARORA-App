@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/blue_button_ring" />
 
     <TextView
-        android:id="@+id/paticipant0_tv"
+        android:id="@+id/participant0_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -46,7 +46,7 @@
 
 
     <TextView
-        android:id="@+id/paticipant1_tv"
+        android:id="@+id/participant1_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -73,7 +73,7 @@
         app:srcCompat="@drawable/blue_button_ring" />
 
     <TextView
-        android:id="@+id/paticipant2_tv"
+        android:id="@+id/participant2_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -98,7 +98,7 @@
         app:srcCompat="@drawable/blue_button_ring" />
 
     <TextView
-        android:id="@+id/paticipant3_tv"
+        android:id="@+id/participant3_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -123,7 +123,7 @@
         app:srcCompat="@drawable/blue_button_ring" />
 
     <TextView
-        android:id="@+id/paticipant4_tv"
+        android:id="@+id/participant4_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

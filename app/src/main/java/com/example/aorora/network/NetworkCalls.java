@@ -1,12 +1,14 @@
 package com.example.aorora.network;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.aorora.MainActivity;
+import com.example.aorora.SuperflyGamePage;
 import com.example.aorora.model.DailyTask;
 import com.example.aorora.model.DailyTaskReturn;
 import com.example.aorora.model.LocalUpdate;
@@ -148,7 +150,7 @@ public class NetworkCalls {
                     if(MainActivity.user_info.getUser_superflysession_id() != -1){
                         NetworkCalls.getSuperflySession(MainActivity.user_info.getUser_superflysession_id(), context);
                     }
-                    NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), context);
+                    NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), context, true);
 
                     Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
                     //Toast.makeText(context, "User Info Gathered", Toast.LENGTH_SHORT).show();
@@ -307,8 +309,14 @@ public class NetworkCalls {
     /*
     Loads all invite objects corresponding to the passed user id.
     */
-    public static void loadInvites(int recipient_id, final Context context){
+    public static void loadInvites(int recipient_id, final Context context, final Boolean isAsync){
         Call call = service.getSuperflyInvites(recipient_id);
+        //This is used when we want to refresh the UI and need a synchronous method to do so.
+        //execute() runs this method synchronously.
+        //TODO Refresh invite list.
+
+
+        //Otherwise we don't need it to be synchronous
         call.enqueue(new Callback<ArrayList<SuperflyInvite>>() {
             @Override
             public void onResponse(Call<ArrayList<SuperflyInvite>> call, Response<ArrayList<SuperflyInvite>> response) {
@@ -394,31 +402,28 @@ public class NetworkCalls {
         Integer participantCount = desiredSession.getSession_participant_count();
         Integer newParticipantId = newParticipant.getUser_id();
         Integer sessionId = desiredSession.getSession_id();
+        Integer numParticipants = 0;
         //Declare call
         Call<SuperflySession> call = null;
         //Cases as we need to update one of the fields, participant 1 - 4, depending on other users.
         switch(participantCount){
             case 1:
                 desiredSession.setParticipant_1(newParticipant);
-                desiredSession.setSession_participant_count(2);
                 call = service.addParticipant1(sessionId, newParticipantId);
                 Log.d("JoinSession", "One participant found");
                 break;
             case 2:
                 desiredSession.setParticipant_2(newParticipant);
-                desiredSession.setSession_participant_count(3);
                 call = service.addParticipant2(sessionId, newParticipantId);
                 Log.d("JoinSession", "Two participants found");
                 break;
             case 3:
                 desiredSession.setParticipant_3(newParticipant);
-                desiredSession.setSession_participant_count(4);
                 call = service.addParticipant3(sessionId, newParticipantId);
                 Log.d("JoinSession", "Three participants found");
                 break;
             case 4:
                 desiredSession.setParticipant_4(newParticipant);
-                desiredSession.setSession_participant_count(5);
                 call = service.addParticipant4(sessionId, newParticipantId);
                 Log.d("JoinSession", "Four participants found");
                 break;
@@ -427,11 +432,22 @@ public class NetworkCalls {
                 Toast.makeText(context, "Cannot join a session that is full!", Toast.LENGTH_SHORT).show();
                 return;
         }
+        //Make new variable for use in onResponse to set the current participant count locally.
+        final int newCount = participantCount++;
+
         //Once we made our call and updated the session correctly, queue it up.
         call.enqueue(new Callback<SuperflySession>() {
             @Override
             public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
                 Log.d("UpdateSession", "testing");
+                if(response.code() == 200){
+                    desiredSession.setSession_participant_count(newCount);
+                    //Add the user to their new session so they can load the game page.
+                    MainActivity.user_info.setCurrentSession(desiredSession);
+                    //Since we suceeded, update our local info TODO
+                    Intent intent = new Intent(context, SuperflyGamePage.class);
+                    context.startActivity(intent);
+                }
             }
 
             @Override
