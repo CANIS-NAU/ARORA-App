@@ -290,7 +290,9 @@ public class NetworkCalls {
                     Log.d("NEWSESSION", "Current_id of new session:  " + newSession.toString());
                     //Set the current session
                     MainActivity.user_info.setCurrentSession(newSession);
-
+                    //Since we succeeded, navigate to the new session with passed context.
+                    Intent intent = new Intent(context, SuperflyGamePage.class);
+                    context.startActivity(intent);
                 }
                 else{
                     Log.d("HTTP RESP", "Alternate response code detected!");
@@ -442,9 +444,10 @@ public class NetworkCalls {
                 Log.d("UpdateSession", "testing");
                 if(response.code() == 200){
                     desiredSession.setSession_participant_count(newCount);
+                    Log.d("Joined session", "Setting local session" + desiredSession.toString());
                     //Add the user to their new session so they can load the game page.
                     MainActivity.user_info.setCurrentSession(desiredSession);
-                    //Since we suceeded, update our local info TODO
+                    //Since we succeeded, navigate to the new session with passed context.
                     Intent intent = new Intent(context, SuperflyGamePage.class);
                     context.startActivity(intent);
                 }

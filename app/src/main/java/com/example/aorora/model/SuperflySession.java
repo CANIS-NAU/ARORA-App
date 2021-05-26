@@ -94,6 +94,7 @@ public class SuperflySession {
         return "SuperflySession{" +
                 "session_id=" + session_id +
                 ", superfly_recipe=" + superfly_recipe +
+                ", session_participant_count=" + session_participant_count +
                 ", current_b0_count=" + current_b0_count +
                 ", current_b1_count=" + current_b1_count +
                 ", current_b2_count=" + current_b2_count +

@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.UserInfo;
@@ -25,6 +27,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     UserInfo[] participants;
     SuperflySession currentSession;
     Integer participantCount;
+    Button startButton;
 
     @Override
     public void onBackPressed() {
@@ -55,8 +58,10 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
 
         backButton = (ImageButton) findViewById(R.id.back_button);
+        startButton = findViewById(R.id.start_button);
 
         backButton.setOnClickListener(this);
+        startButton.setOnClickListener(this);
 
 
         //Build the UI based on the number of participants currently in the session.
@@ -89,6 +94,17 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
             Intent returnHome = new Intent(this, ProfilePage.class);
             returnHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(returnHome);
+        }
+
+        else if(view_id == startButton.getId())
+        {
+            //Finish this activity and pop backwards
+            if(currentSession.getSession_participant_count() < 2){
+                Toast.makeText(this, "Not enough players to start!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(this, "Starting game", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

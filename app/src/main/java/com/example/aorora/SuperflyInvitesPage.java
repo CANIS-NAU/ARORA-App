@@ -30,8 +30,6 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
     ImageButton backButton;
     Button newSessionButton;
     Button refreshButton;
-    ArrayList<String> inviteNames;
-    ArrayList<Integer> playerCounts;
     ArrayList<SuperflyInvite> currInvites;
     TextView noInvites;
 
@@ -48,6 +46,10 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
         newSessionButton.setOnClickListener(this);
         refreshButton.setOnClickListener(this);
         this.currInvites = MainActivity.user_info.getCurrentInvites();
+
+        if(currInvites.size() == 0)
+            noInvites.setVisibility(View.VISIBLE);
+
         inviteRecyclerView = findViewById(R.id.invite_recycler);
         inviteRecyclerView.setAdapter(new InvitePageAdapter(this, this.currInvites));
         layoutManager = new LinearLayoutManager(this);
