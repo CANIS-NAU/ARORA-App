@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.aorora.model.SuperflySession;
@@ -20,9 +21,19 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
     ImageButton backButton;
     TextView[] participantNames;
+    ImageView[] participantBubbles;
     UserInfo[] participants;
     SuperflySession currentSession;
     Integer participantCount;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent returnHome = new Intent(this, ProfilePage.class);
+        returnHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(returnHome);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +44,15 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                 (TextView) findViewById(R.id.participant1_tv),
                 (TextView) findViewById(R.id.participant2_tv), (TextView) findViewById(R.id.participant3_tv),
                 (TextView) findViewById(R.id.participant4_tv)};
+        participantBubbles = new ImageView[]{(ImageView) findViewById(R.id.participant0_bubble),
+                (ImageView) findViewById(R.id.participant1_bubble),
+                (ImageView) findViewById(R.id.participant2_bubble), (ImageView) findViewById(R.id.participant3_bubble),
+                (ImageView) findViewById(R.id.participant4_bubble)};
         participants = new UserInfo[]{(UserInfo) currentSession.getParticipant_0(),
                 (UserInfo) currentSession.getParticipant_1(),
                 (UserInfo) currentSession.getParticipant_2(),(UserInfo) currentSession.getParticipant_3(),
                 (UserInfo) currentSession.getParticipant_4()};
+
 
         backButton = (ImageButton) findViewById(R.id.back_button);
 
@@ -54,8 +70,11 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         while(index < participants.length){
             currentParticipant = participants[index];
             //Set the textView if we have a name available for a player.
-            if(currentParticipant != null)
+            if(currentParticipant != null) {
                 participantNames[index].setText(currentParticipant.getUser_name());
+                participantNames[index].setVisibility(View.VISIBLE);
+                participantBubbles[index].setVisibility(View.VISIBLE);
+            }
             index++;
         }
     }
@@ -67,7 +86,9 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         if(view_id == backButton.getId())
         {
             //Finish this activity and pop backwards
-            finish();
+            Intent returnHome = new Intent(this, ProfilePage.class);
+            returnHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(returnHome);
         }
 
     }
