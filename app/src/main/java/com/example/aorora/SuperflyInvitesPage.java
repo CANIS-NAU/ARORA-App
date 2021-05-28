@@ -16,6 +16,7 @@ import com.example.aorora.model.Superfly;
 import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.model.SuperflySession;
 import com.example.aorora.network.NetworkCalls;
+import com.example.aorora.network.RetrofitResponseListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -51,7 +52,8 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
             noInvites.setVisibility(View.VISIBLE);
 
         inviteRecyclerView = findViewById(R.id.invite_recycler);
-        inviteRecyclerView.setAdapter(new InvitePageAdapter(this, this.currInvites));
+        inviteAdapter = (new InvitePageAdapter(this, this.currInvites));
+        inviteRecyclerView.setAdapter(inviteAdapter);
         layoutManager = new LinearLayoutManager(this);
         inviteRecyclerView.setLayoutManager(layoutManager);
         inviteRecyclerView.setHasFixedSize(true);
@@ -78,8 +80,18 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
             Log.d("INVITEPAGE", "Refreshing list of invites!");
             //Load invites with GET request from network calls.
             //Fix userinfo first.
-            NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), this, false);
-            //inviteAdapter.notifyDataSetChanged();
+            NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), this, new RetrofitResponseListener() {
+                @Override
+                public void onSuccess() {
+                    currInvites = MainActivity.user_info.getCurrentInvites();
+                    inviteAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
         }
 
     }

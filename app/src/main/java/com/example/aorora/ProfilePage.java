@@ -15,7 +15,9 @@ import android.widget.Toast;
 import com.example.aorora.model.Butterfly;
 import com.example.aorora.model.UserInteraction;
 import com.example.aorora.network.GetDataService;
+import com.example.aorora.network.NetworkCalls;
 import com.example.aorora.network.RetrofitClientInstance;
+import com.example.aorora.network.RetrofitResponseListener;
 
 import java.util.List;
 
@@ -171,16 +173,28 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         }
         else if(view_id == superfly_button.getId())
         {
+            int session_id = MainActivity.user_info.getUser_superflysession_id();
             //If we aren't in a session right now, go to the invites/creation page.
-            if(MainActivity.user_info.getUser_superflysession_id() == -1){
+            if(session_id == -1){
                 to_navigate = new Intent(profilePage, SuperflyInvitesPage.class);
+                startActivity(to_navigate);
             }
             //Go to our current superfly session instead of the invites page.
             else{
-                to_navigate = new Intent(profilePage, SuperflyGamePage.class);
-            }
+                //Refresh session
+                NetworkCalls.getSuperflySession(session_id, this, new RetrofitResponseListener() {
+                    @Override
+                    public void onSuccess() {
+                        final Intent to_navigate = new Intent(profilePage, SuperflyGamePage.class);
+                        startActivity(to_navigate);
+                    }
 
-            startActivity(to_navigate);
+                    @Override
+                    public void onFailure() {
+                        Toast.makeText(ProfilePage.this, "Couldn't connect to superfly sessions.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
 

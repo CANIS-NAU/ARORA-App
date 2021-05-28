@@ -150,7 +150,8 @@ public class NetworkCalls {
                     if(MainActivity.user_info.getUser_superflysession_id() != -1){
                         NetworkCalls.getSuperflySession(MainActivity.user_info.getUser_superflysession_id(), context);
                     }
-                    NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), context, true);
+                    //Load invites without listening for the response.
+                    NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), context);
 
                     Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
                     //Toast.makeText(context, "User Info Gathered", Toast.LENGTH_SHORT).show();
@@ -311,7 +312,7 @@ public class NetworkCalls {
     /*
     Loads all invite objects corresponding to the passed user id.
     */
-    public static void loadInvites(int recipient_id, final Context context, final Boolean isAsync){
+    public static void loadInvites(int recipient_id, final Context context){
         Call call = service.getSuperflyInvites(recipient_id);
         //This is used when we want to refresh the UI and need a synchronous method to do so.
         //execute() runs this method synchronously.
@@ -346,6 +347,46 @@ public class NetworkCalls {
             }
         });
     }
+
+    /*
+    Loads all invite objects corresponding to the passed user id.
+    */
+    public static void loadInvites(int recipient_id, final Context context, RetrofitResponseListener networkCallListener){
+        Call call = service.getSuperflyInvites(recipient_id);
+
+        //Otherwise we don't need it to be synchronous
+        call.enqueue(new Callback<ArrayList<SuperflyInvite>>() {
+            @Override
+            public void onResponse(Call<ArrayList<SuperflyInvite>> call, Response<ArrayList<SuperflyInvite>> response) {
+                Log.d("Response list", response.body().toString());
+                try{
+                    Log.d("Invite response", response.body().toString());
+                    MainActivity.user_info.setCurrentInvites(response.body());
+                    //Show the invites for debugging if desired.
+                    for(SuperflyInvite currInvite : response.body()){
+                        Log.d("Invite Item", currInvite.toString());
+                    }
+                    //Communicate success to the calling function/activity
+                    networkCallListener.onSuccess();
+                }
+                catch(Exception e){
+                    Log.d("Invite error", "No invites found. " + e.getMessage());
+                    //Communicate failure to the calling function/activity
+                    networkCallListener.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("INVITEGET", "Yeah it broke" + t.getMessage());
+                //Communicate failure to the calling function/activity
+                networkCallListener.onFailure();
+            }
+        });
+    }
+
+
+
     //Used to either:
         //1. Set the user in a new session
         //2. Remove them since the session is expired (And set them in a session with -1 as the id)
@@ -394,6 +435,36 @@ public class NetworkCalls {
     }
 
     /**
+     * Call to get the current status of a superfly session with listener to callback
+     */
+    public static void getSuperflySession(Integer session_id, final Context context, RetrofitResponseListener networkCallListener){
+        Call call = service.getSession(session_id);
+        call.enqueue(new Callback<SuperflySession>() {
+            @Override
+            public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+
+                if(response.code() == 404){
+                    Log.d("SuperflySession GET", "No active superfly session found for this user.");
+                    networkCallListener.onFailure();
+                }
+                else{
+                    MainActivity.user_info.setCurrentSession(response.body());
+                    Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
+                    networkCallListener.onSuccess();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SuperflySession> call, Throwable t) {
+                Log.d("getSuperflySession", "Error retrieving superfly session!");
+                networkCallListener.onFailure();
+
+            }
+        });
+    }
+
+    /**
      * PATCHES a user into the new session
      * @param desiredSession  Target session to join
      * @param newParticipant The user who seeks to join the superfly session
@@ -404,7 +475,6 @@ public class NetworkCalls {
         Integer participantCount = desiredSession.getSession_participant_count();
         Integer newParticipantId = newParticipant.getUser_id();
         Integer sessionId = desiredSession.getSession_id();
-        Integer numParticipants = 0;
         //Declare call
         Call<SuperflySession> call = null;
         //Cases as we need to update one of the fields, participant 1 - 4, depending on other users.
@@ -441,15 +511,19 @@ public class NetworkCalls {
         call.enqueue(new Callback<SuperflySession>() {
             @Override
             public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
-                Log.d("UpdateSession", "testing");
+                //Set this to true disable navigation to session, for invite page testing mostly.
+                Boolean testing = false;
+
                 if(response.code() == 200){
                     desiredSession.setSession_participant_count(newCount);
                     Log.d("Joined session", "Setting local session" + desiredSession.toString());
                     //Add the user to their new session so they can load the game page.
                     MainActivity.user_info.setCurrentSession(desiredSession);
                     //Since we succeeded, navigate to the new session with passed context.
-                    Intent intent = new Intent(context, SuperflyGamePage.class);
-                    context.startActivity(intent);
+                    if(!testing) {
+                        Intent intent = new Intent(context, SuperflyGamePage.class);
+                        context.startActivity(intent);
+                    }
                 }
             }
 
@@ -457,6 +531,26 @@ public class NetworkCalls {
             public void onFailure(Call<SuperflySession> call, Throwable t) {
                 //Log.d("UpdateSession", "Call attempted: " + call.request().toString());
                 Log.d("UpdateSession", "No work big sad: " + t.getMessage());
+            }
+        });
+    }
+
+    /**
+     * Marks the session specified by id as started, setting a boolean flag in the backend.
+     * Utilizes a PATCH request in GetDataService:
+     * @param session_id The session_id of the session to be started.
+     */
+    public static void startSession(int session_id, final Context context){
+        Call<SuperflySession> call = service.startSession(session_id, true);
+        call.enqueue(new Callback<SuperflySession>() {
+            @Override
+            public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+                Log.d("StartSession", "Session started successfully");
+            }
+
+            @Override
+            public void onFailure(Call<SuperflySession> call, Throwable t) {
+                Log.d("StartSession", "Session failed to start.");
             }
         });
 

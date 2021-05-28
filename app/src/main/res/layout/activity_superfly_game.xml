@@ -20,6 +20,19 @@
         app:srcCompat="@drawable/blue_button_ring"
         android:visibility="invisible"/>
 
+    <ImageView
+        android:id="@+id/participant0_butterfly"
+        android:layout_width="38dp"
+        android:layout_height="31dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/participant2_tv"
+        app:layout_constraintEnd_toStartOf="@+id/cocoon"
+        app:layout_constraintHorizontal_bias="0.391"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/participant0_bubble"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/blue_butterfly_image" />
+
     <TextView
         android:id="@+id/participant0_tv"
         android:layout_width="wrap_content"
@@ -45,8 +58,22 @@
         app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toEndOf="@+id/cocoon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.378"
+        app:layout_constraintVertical_bias="0.404"
         app:srcCompat="@drawable/blue_button_ring" />
+
+    <ImageView
+        android:id="@+id/participant1_butterfly"
+        android:layout_width="38dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="20dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/participant3_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toEndOf="@+id/cocoon"
+        app:layout_constraintTop_toBottomOf="@+id/participant1_bubble"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/blue_butterfly_image" />
 
     <TextView
         android:id="@+id/participant1_tv"
@@ -77,6 +104,19 @@
         app:srcCompat="@drawable/blue_button_ring"
         android:visibility="invisible"/>
 
+    <ImageView
+        android:id="@+id/participant2_butterfly"
+        android:layout_width="38dp"
+        android:layout_height="31dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cocoon"
+        app:layout_constraintHorizontal_bias="0.391"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/participant2_bubble"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/blue_butterfly_image" />
+
     <TextView
         android:id="@+id/participant2_tv"
         android:layout_width="wrap_content"
@@ -106,6 +146,23 @@
         app:layout_constraintVertical_bias="0.559"
         app:srcCompat="@drawable/blue_button_ring" />
 
+    <ImageView
+        android:id="@+id/participant3_butterfly"
+        android:layout_width="38dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="20dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toEndOf="@+id/cocoon"
+        app:layout_constraintTop_toBottomOf="@+id/participant3_bubble"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/blue_butterfly_image" />
+
+
+
     <TextView
         android:id="@+id/participant3_tv"
         android:layout_width="wrap_content"
@@ -133,6 +190,21 @@
         app:srcCompat="@drawable/blue_button_ring"
         android:visibility="invisible"/>
 
+    <ImageView
+        android:id="@+id/participant4_butterfly"
+        android:layout_width="38dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="20dp"
+        android:visibility="invisible"
+
+        app:layout_constraintBottom_toTopOf="@+id/start_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/participant4_bubble"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/blue_butterfly_image" />
+
     <TextView
         android:id="@+id/participant4_tv"
         android:layout_width="wrap_content"
@@ -156,8 +228,7 @@
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu_button_filled"
-        />
+        app:srcCompat="@drawable/menu_button_filled" />
 
     <ImageButton
         android:id="@+id/back_button"
@@ -182,7 +253,6 @@
         android:text="Start Session"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/participant4_bubble" />
 

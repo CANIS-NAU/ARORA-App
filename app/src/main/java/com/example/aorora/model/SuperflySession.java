@@ -41,8 +41,6 @@ public class SuperflySession {
     @SerializedName("participant_4")
     private UserInfo participant_4;
 
-
-
     @SerializedName("superfly_recipe")
     private Superfly superfly_recipe;
 
@@ -55,17 +53,29 @@ public class SuperflySession {
     private Integer current_b2_count;
     @SerializedName("current_b3_count")
     private Integer current_b3_count;
-
     @SerializedName("current_b4_count")
     private Integer current_b4_count;
 
+    @SerializedName("butterfly_participant_0")
+    private Integer butterfly_participant_0;
+    @SerializedName("butterfly_participant_1")
+    private Integer butterfly_participant_1;
+    @SerializedName("butterfly_participant_2")
+    private Integer butterfly_participant_2;
+    @SerializedName("butterfly_participant_3")
+    private Integer butterfly_participant_3;
+    @SerializedName("butterfly_participant_4")
+    private Integer butterfly_participant_4;
+
     public SuperflySession(Integer session_id, String session_start_date,
-                           Integer session_participant_count, Boolean session_started, Integer id_0,
-                           Integer id_1, Integer id_2, Integer id_3, Integer id_4,
+                           Integer session_participant_count, Boolean session_started,
+                           Integer id_0, Integer id_1, Integer id_2, Integer id_3, Integer id_4,
                            UserInfo participant_0, UserInfo participant_1, UserInfo participant_2,
                            UserInfo participant_3, UserInfo participant_4, Superfly superfly_recipe,
-                           Integer current_b0_count, Integer current_b1_count, Integer current_b2_count,
-                           Integer current_b3_count, Integer current_b4_count) {
+                           Integer current_b0_count, Integer current_b1_count,
+                           Integer current_b2_count, Integer current_b3_count, Integer current_b4_count,
+                           Integer butterfly_participant_0, Integer butterfly_participant_1,
+                           Integer butterfly_participant_2, Integer butterfly_participant_3, Integer butterfly_participant_4) {
         this.session_id = session_id;
         this.session_start_date = session_start_date;
         this.session_participant_count = session_participant_count;
@@ -86,21 +96,11 @@ public class SuperflySession {
         this.current_b2_count = current_b2_count;
         this.current_b3_count = current_b3_count;
         this.current_b4_count = current_b4_count;
-    }
-
-    //Prints the id and all counts
-    @Override
-    public String toString() {
-        return "SuperflySession{" +
-                "session_id=" + session_id +
-                ", superfly_recipe=" + superfly_recipe +
-                ", session_participant_count=" + session_participant_count +
-                ", current_b0_count=" + current_b0_count +
-                ", current_b1_count=" + current_b1_count +
-                ", current_b2_count=" + current_b2_count +
-                ", current_b3_count=" + current_b3_count +
-                ", current_b4_count=" + current_b4_count +
-                '}';
+        this.butterfly_participant_0 = butterfly_participant_0;
+        this.butterfly_participant_1 = butterfly_participant_1;
+        this.butterfly_participant_2 = butterfly_participant_2;
+        this.butterfly_participant_3 = butterfly_participant_3;
+        this.butterfly_participant_4 = butterfly_participant_4;
     }
 
     public Integer getSession_id() {
@@ -262,5 +262,45 @@ public class SuperflySession {
 
     public void setCurrent_b4_count(Integer current_b4_count) {
         this.current_b4_count = current_b4_count;
+    }
+
+    public Integer getButterfly_participant_0() {
+        return butterfly_participant_0;
+    }
+
+    public void setButterfly_participant_0(Integer butterfly_participant_0) {
+        this.butterfly_participant_0 = butterfly_participant_0;
+    }
+
+    public Integer getButterfly_participant_1() {
+        return butterfly_participant_1;
+    }
+
+    public void setButterfly_participant_1(Integer butterfly_participant_1) {
+        this.butterfly_participant_1 = butterfly_participant_1;
+    }
+
+    public Integer getButterfly_participant_2() {
+        return butterfly_participant_2;
+    }
+
+    public void setButterfly_participant_2(Integer butterfly_participant_2) {
+        this.butterfly_participant_2 = butterfly_participant_2;
+    }
+
+    public Integer getButterfly_participant_3() {
+        return butterfly_participant_3;
+    }
+
+    public void setButterfly_participant_3(Integer butterfly_participant_3) {
+        this.butterfly_participant_3 = butterfly_participant_3;
+    }
+
+    public Integer getButterfly_participant_4() {
+        return butterfly_participant_4;
+    }
+
+    public void setButterfly_participant_4(Integer butterfly_participant_4) {
+        this.butterfly_participant_4 = butterfly_participant_4;
     }
 }

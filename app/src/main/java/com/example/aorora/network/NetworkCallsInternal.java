@@ -70,7 +70,6 @@ class NetworkCallsInternal {
         //Couldn't open or write to the file.
         catch (IOException e) {
             e.printStackTrace();
-            //TODO retry here using recursion and count parameter.
         }
     }
 

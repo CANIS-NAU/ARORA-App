@@ -1,6 +1,7 @@
 package com.example.aorora;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.UserInfo;
+import com.example.aorora.network.NetworkCalls;
 
 import java.util.List;
 
@@ -24,10 +26,12 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     ImageButton backButton;
     TextView[] participantNames;
     ImageView[] participantBubbles;
+    ImageView[] participantButterflies;
     UserInfo[] participants;
     SuperflySession currentSession;
     Integer participantCount;
     Button startButton;
+    Boolean sessionStarted;
 
     @Override
     public void onBackPressed() {
@@ -51,10 +55,15 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                 (ImageView) findViewById(R.id.participant1_bubble),
                 (ImageView) findViewById(R.id.participant2_bubble), (ImageView) findViewById(R.id.participant3_bubble),
                 (ImageView) findViewById(R.id.participant4_bubble)};
+        participantButterflies = new ImageView[]{(ImageView) findViewById(R.id.participant0_butterfly),
+                (ImageView) findViewById(R.id.participant1_butterfly),
+                (ImageView) findViewById(R.id.participant2_butterfly), (ImageView) findViewById(R.id.participant3_butterfly),
+                (ImageView) findViewById(R.id.participant4_butterfly)};
         participants = new UserInfo[]{(UserInfo) currentSession.getParticipant_0(),
                 (UserInfo) currentSession.getParticipant_1(),
                 (UserInfo) currentSession.getParticipant_2(),(UserInfo) currentSession.getParticipant_3(),
                 (UserInfo) currentSession.getParticipant_4()};
+        sessionStarted = currentSession.getSession_started();
 
 
         backButton = (ImageButton) findViewById(R.id.back_button);
@@ -64,23 +73,37 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         startButton.setOnClickListener(this);
 
 
-        //Build the UI based on the number of participants currently in the session.
         initParticipants(currentSession);
+
+        if(sessionStarted){
+            Log.d("Running game", "REEEEEEEEEE");
+            startButton.setText("Contribute butterfly");
+        }
+
+        else{
+            //Build the UI based on the number of participants currently in the session.
+            initParticipants(currentSession);
+        }
+
 
     }
 
     void initParticipants(SuperflySession currentSession) {
         int index = 0;
         UserInfo currentParticipant;
-        while(index < participants.length){
+        while(index < participantCount){
             currentParticipant = participants[index];
             //Set the textView if we have a name available for a player.
             if(currentParticipant != null) {
                 participantNames[index].setText(currentParticipant.getUser_name());
                 participantNames[index].setVisibility(View.VISIBLE);
                 participantBubbles[index].setVisibility(View.VISIBLE);
+                participantButterflies[index].setVisibility(View.VISIBLE);
             }
             index++;
+        }
+        if(participantCount < 2){
+            startButton.setEnabled(false);
         }
     }
 
@@ -98,12 +121,22 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
         else if(view_id == startButton.getId())
         {
-            //Finish this activity and pop backwards
+
             if(currentSession.getSession_participant_count() < 2){
                 Toast.makeText(this, "Not enough players to start!", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(this, "Starting game", Toast.LENGTH_SHORT).show();
+                if(currentSession.getId_0() == MainActivity.user_info.getUser_id()){
+                    Toast.makeText(this, "Starting game", Toast.LENGTH_SHORT).show();
+                    NetworkCalls.startSession(currentSession.getSession_id(), this);
+                    MainActivity.user_info.getCurrentSession().setSession_started(true);
+                    recreate();
+                }
+                else{
+                    Toast.makeText(this, "Only the session owner can start the game", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         }
 

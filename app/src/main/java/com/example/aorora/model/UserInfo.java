@@ -38,6 +38,8 @@ public class UserInfo {
     private Integer user_b3_count;
     @SerializedName("user_b4_count")
     private Integer user_b4_count;
+    @SerializedName("user_staged_butterfly")
+    private Integer user_staged_butterfly;
     @SerializedName("user_superflysession_id")
     private Integer user_superflysession_id;
     @SerializedName("user_name")
@@ -66,19 +68,13 @@ public class UserInfo {
                 '}';
     }
 
-    public UserInfo(Integer user_info_id,
-                    Integer user_id,
-                    String user_created_at,
-                    Integer user_current_mood,
-                    Integer user_current_butterfly,
-                    Integer user_pollen,
-                    Integer user_b0_count,
-                    Integer user_b1_count,
-                    Integer user_b2_count,
-                    Integer user_b3_count,
-                    Integer user_b4_count,
-                    String user_name, String email,
-                    String password) {
+    public UserInfo(Integer user_info_id, Integer user_id, String user_created_at,
+                    Integer user_current_mood, String user_current_mood_updated,
+                    Integer user_current_butterfly, Integer user_pollen, Integer user_b0_count,
+                    Integer user_b1_count, Integer user_b2_count, Integer user_b3_count,
+                    Integer user_b4_count, Integer user_staged_butterfly,
+                    Integer user_superflysession_id, String user_name, String email,
+                    String password, SuperflySession currentSession) {
         this.user_info_id = user_info_id;
         this.user_id = user_id;
         this.user_created_at = user_created_at;
@@ -91,9 +87,12 @@ public class UserInfo {
         this.user_b2_count = user_b2_count;
         this.user_b3_count = user_b3_count;
         this.user_b4_count = user_b4_count;
+        this.user_staged_butterfly = user_staged_butterfly;
+        this.user_superflysession_id = user_superflysession_id;
         this.user_name = user_name;
         this.email = email;
         this.password = password;
+        this.currentSession = currentSession;
     }
 
     public String getUser_name() {

@@ -125,6 +125,9 @@ public interface GetDataService {
     Call<SuperflySession> addParticipant4(@Path("session_id") Integer session_id,
                                           @Field("id_4") Integer participant_4);
 
+    @PATCH("/superflysession/{session_id}")
+    @FormUrlEncoded
+    Call<SuperflySession> startSession(@Path("session_id") Integer session_id, @Field("session_started") Boolean session_started);
 
     //Updates the number of contributed butterflies. 
     @PATCH("/superflysession")
