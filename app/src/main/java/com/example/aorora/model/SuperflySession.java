@@ -135,7 +135,6 @@ public class SuperflySession {
             }
 
         }
-        Log.d("GetPartipants", "Session has " + numParticipants +" participants: " + Arrays.toString(participantsArray));
         return this.participantsArray;
     }
 
@@ -158,7 +157,6 @@ public class SuperflySession {
             }
 
         }
-        Log.d("GetAssigned", "Session has " + numParticipants + " butterflies assigned: " + Arrays.toString(assignedButterflies));
         return this.assignedButterflies;
     }
 
@@ -325,6 +323,14 @@ public class SuperflySession {
 
     public Integer getButterfly_participant_0() {
         return butterfly_participant_0;
+    }
+
+    public UserInfo[] getParticipantsArray() {
+        return participantsArray;
+    }
+
+    public Integer[] getAssignedButterflies() {
+        return assignedButterflies;
     }
 
     public void setButterfly_participant_0(Integer butterfly_participant_0) {

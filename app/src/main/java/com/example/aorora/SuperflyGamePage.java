@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.UserInfo;
 import com.example.aorora.network.NetworkCalls;
+import com.example.aorora.network.RetrofitResponseListener;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -82,7 +83,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         refreshButton.setOnClickListener(this);
 
 
-        initParticipants(currentSession);
+        initParticipants();
 
         if(sessionStarted){
             startButton.setText("Contribute butterfly");
@@ -90,13 +91,13 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
         else{
             //Build the UI based on the number of participants currently in the session.
-            initParticipants(currentSession);
+            initParticipants();
         }
 
 
     }
 
-    void initParticipants(SuperflySession currentSession) {
+    void initParticipants() {
         int index = 0;
         UserInfo currentParticipant;
         while(index < participantCount){
@@ -113,6 +114,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         if(participantCount < 2){
             startButton.setEnabled(false);
         }
+        Log.d("INIT PARTICIPANTS", "Assigned butterflies: " + Arrays.toString(currentSession.getAssignedButterflies()));
     }
 
     @Override
@@ -150,9 +152,21 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
         else if(view_id == refreshButton.getId()){
             //Use StartSession to check current status.
-            Log.d("Refresh sesh", Arrays.toString(currentSession.buildParticipantsArray()));
-            Log.d("Refresh sesh assigned buffs", Arrays.toString(currentSession.buildAssignedButterfliesArray()));
-            NetworkCalls.startSession(currentSession.getSession_id(), this);
+            NetworkCalls.startSession(currentSession.getSession_id(), this, new RetrofitResponseListener() {
+                @Override
+                public void onSuccess() {
+                    //Refresh session
+                    currentSession = MainActivity.user_info.getCurrentSession();
+                    Log.d("Refresh sesh", Arrays.toString(currentSession.buildParticipantsArray()));
+                    Log.d("Refresh sesh assigned buffs", Arrays.toString(currentSession.buildAssignedButterfliesArray()));
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+
 
 
 

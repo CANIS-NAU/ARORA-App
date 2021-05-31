@@ -461,6 +461,7 @@ public class NetworkCalls {
                 else{
                     SuperflySession newSession = response.body();
                     newSession.buildParticipantsArray();
+                    newSession.buildAssignedButterfliesArray();
                     MainActivity.user_info.setCurrentSession(response.body());
                     Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
                 }
@@ -489,6 +490,9 @@ public class NetworkCalls {
                     networkCallListener.onFailure();
                 }
                 else{
+                    SuperflySession newSession = response.body();
+                    newSession.buildParticipantsArray();
+                    newSession.buildAssignedButterfliesArray();
                     MainActivity.user_info.setCurrentSession(response.body());
                     Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
                     networkCallListener.onSuccess();
@@ -592,6 +596,43 @@ public class NetworkCalls {
             @Override
             public void onFailure(Call<SuperflySession> call, Throwable t) {
                 Log.d("StartSession", "Session failed to start.");
+            }
+        });
+
+    }
+
+
+    /**
+     * Marks the session specified by id as started, setting a boolean flag in the backend.
+     * Utilizes a PATCH request in GetDataService:
+     * @param session_id The session_id of the session to be started.
+     */
+    public static void startSession(int session_id, final Context context, RetrofitResponseListener networkCallListener){
+        Call<SuperflySession> call = service.startSession(session_id, true);
+        call.enqueue(new Callback<SuperflySession>() {
+            @Override
+            public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+                NetworkCalls.getSuperflySession(session_id, context, new RetrofitResponseListener() {
+                    @Override
+                    public void onSuccess() {
+                        MainActivity.user_info.getCurrentSession().buildAssignedButterfliesArray();
+
+                        Log.d("StartSession", "Session started successfully");
+                        networkCallListener.onSuccess();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        networkCallListener.onFailure();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailure(Call<SuperflySession> call, Throwable t) {
+                Log.d("StartSession", "Session failed to start.");
+                networkCallListener.onFailure();
             }
         });
 
