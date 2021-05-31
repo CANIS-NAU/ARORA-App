@@ -1,8 +1,15 @@
 package com.example.aorora.model;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /*This is an instance of the superfly creation game. This groups users together to create
 * superflies by contributing to the current butterfly counts until the recipe is made.*/
@@ -31,15 +38,17 @@ public class SuperflySession {
 
     //Participants in the superfly session.
     @SerializedName("participant_0")
-    private UserInfo participant_0;
+    public UserInfo participant_0;
     @SerializedName("participant_1")
-    private UserInfo participant_1;
+    public UserInfo participant_1;
     @SerializedName("participant_2")
-    private UserInfo participant_2;
+    public UserInfo participant_2;
     @SerializedName("participant_3")
-    private UserInfo participant_3;
+    public UserInfo participant_3;
     @SerializedName("participant_4")
-    private UserInfo participant_4;
+    public UserInfo participant_4;
+
+    UserInfo[] participantsArray;
 
     @SerializedName("superfly_recipe")
     private Superfly superfly_recipe;
@@ -66,6 +75,9 @@ public class SuperflySession {
     private Integer butterfly_participant_3;
     @SerializedName("butterfly_participant_4")
     private Integer butterfly_participant_4;
+
+    Integer[] assignedButterflies;
+
 
     public SuperflySession(Integer session_id, String session_start_date,
                            Integer session_participant_count, Boolean session_started,
@@ -101,6 +113,53 @@ public class SuperflySession {
         this.butterfly_participant_2 = butterfly_participant_2;
         this.butterfly_participant_3 = butterfly_participant_3;
         this.butterfly_participant_4 = butterfly_participant_4;
+        buildParticipantsArray();
+    }
+
+    //Gets the next set of needed butterflies for the session.
+    public UserInfo[] buildParticipantsArray() {
+        Log.d("getParticipantsArray", "Creating array");
+        participantsArray = new UserInfo[session_participant_count];
+        int numParticipants = this.getSession_participant_count();
+        Log.d("Current part numbers", this.getSession_participant_count().toString());
+        for(int i = 0; i < numParticipants; i++){
+            String getterName = "getParticipant_" + i;
+            Log.d("Participant id", getterName);
+            try {
+                Method method = SuperflySession.class.getMethod(getterName);
+                Object currPart = method.invoke(this);
+                participantsArray[i] = (UserInfo) currPart;
+            } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                Log.d("getNextRound", "No method found");
+                e.printStackTrace();
+            }
+
+        }
+        Log.d("GetPartipants", "Session has " + numParticipants +" participants: " + Arrays.toString(participantsArray));
+        return this.participantsArray;
+    }
+
+    //Gets the next set of needed butterflies for the session.
+    public Integer[] buildAssignedButterfliesArray() {
+        Log.d("getParticipantsArray", "Creating array");
+        assignedButterflies = new Integer[session_participant_count];
+        int numParticipants = this.getSession_participant_count();
+        Log.d("Current part numbers", this.getSession_participant_count().toString());
+        for(int i = 0; i < numParticipants; i++){
+            String getterName = "getButterfly_participant_" + i;
+            Log.d("Participant id", getterName);
+            try {
+                Method method = SuperflySession.class.getMethod(getterName);
+                Object currPart = method.invoke(this);
+                assignedButterflies[i] = (Integer) currPart;
+            } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                Log.d("getNextRound", "No method found");
+                e.printStackTrace();
+            }
+
+        }
+        Log.d("GetAssigned", "Session has " + numParticipants + " butterflies assigned: " + Arrays.toString(assignedButterflies));
+        return this.assignedButterflies;
     }
 
     public Integer getSession_id() {

@@ -18,6 +18,10 @@ import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.UserInfo;
 import com.example.aorora.network.NetworkCalls;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -27,10 +31,12 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     TextView[] participantNames;
     ImageView[] participantBubbles;
     ImageView[] participantButterflies;
+
     UserInfo[] participants;
     SuperflySession currentSession;
     Integer participantCount;
     Button startButton;
+    Button refreshButton;
     Boolean sessionStarted;
 
     @Override
@@ -63,20 +69,22 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                 (UserInfo) currentSession.getParticipant_1(),
                 (UserInfo) currentSession.getParticipant_2(),(UserInfo) currentSession.getParticipant_3(),
                 (UserInfo) currentSession.getParticipant_4()};
+
         sessionStarted = currentSession.getSession_started();
 
 
         backButton = (ImageButton) findViewById(R.id.back_button);
         startButton = findViewById(R.id.start_button);
+        refreshButton = findViewById(R.id.refreshsesh_button);
 
         backButton.setOnClickListener(this);
         startButton.setOnClickListener(this);
+        refreshButton.setOnClickListener(this);
 
 
         initParticipants(currentSession);
 
         if(sessionStarted){
-            Log.d("Running game", "REEEEEEEEEE");
             startButton.setText("Contribute butterfly");
         }
 
@@ -133,12 +141,24 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                     recreate();
                 }
                 else{
-                    Toast.makeText(this, "Only the session owner can start the game", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Only the session owner can start the game, refreshing current session.", Toast.LENGTH_SHORT).show();
+                    MainActivity.user_info.getCurrentSession();
+                    recreate();
                 }
-
-
             }
         }
 
+        else if(view_id == refreshButton.getId()){
+            //Use StartSession to check current status.
+            Log.d("Refresh sesh", Arrays.toString(currentSession.buildParticipantsArray()));
+            Log.d("Refresh sesh assigned buffs", Arrays.toString(currentSession.buildAssignedButterfliesArray()));
+            NetworkCalls.startSession(currentSession.getSession_id(), this);
+
+
+
+        }
+
     }
+
+
 }

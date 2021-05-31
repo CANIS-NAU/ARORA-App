@@ -65,6 +65,7 @@ public class UserInfo {
                 ", user_name='" + user_name + '\'' +
                 ", email='" + email + '\'' +
                 ", currentSession=" + currentSession +
+                ", stagedButterfly=" + user_staged_butterfly +
                 '}';
     }
 

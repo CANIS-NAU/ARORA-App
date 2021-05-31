@@ -71,6 +71,7 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
         else if(view_id == newSessionButton.getId()){
             //Init a new session with a network call
             Log.d("CALL FROM INVITE", "Newsessionbutton clicked with id: " + MainActivity.user_info.getUser_id().toString());
+            //TODO use the retrofitresponselistener method to get callback here on success.
             NetworkCalls.createSuperflySession(MainActivity.user_info.getUser_id(), this);
             //Navigate to the created lobby.
             //GET the new lobby back

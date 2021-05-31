@@ -288,6 +288,7 @@ public class NetworkCalls {
                     Toast.makeText(context, "Superfly session created successfully!", Toast.LENGTH_SHORT).show();
                     Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
                     SuperflySession newSession = response.body();
+                    newSession.buildParticipantsArray();
                     Log.d("NEWSESSION", "Current_id of new session:  " + newSession.toString());
                     //Set the current session
                     MainActivity.user_info.setCurrentSession(newSession);
@@ -309,6 +310,44 @@ public class NetworkCalls {
 
     }
 
+
+    /**
+     * Call to post a new superfly session. This has a callback to the UI as well.
+     */
+    public static void createSuperflySession(int participant_0, final Context context, RetrofitResponseListener networkCallListener){
+        Call<SuperflySession> call = service.createSession(participant_0);
+        call.enqueue(new Callback<SuperflySession>() {
+            @Override
+            public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+                Log.d("Made it into onResponse with code", String.valueOf(response.code()));
+                if(response.code() == 200){
+                    Toast.makeText(context, "Superfly session created successfully!", Toast.LENGTH_SHORT).show();
+                    Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                    SuperflySession newSession = response.body();
+                    newSession.buildParticipantsArray();
+                    Log.d("NEWSESSION", "Current_id of new session:  " + newSession.toString());
+                    //Set the current session
+                    MainActivity.user_info.setCurrentSession(newSession);
+                    //Since we succeeded, navigate to the new session with passed context.
+                    Intent intent = new Intent(context, SuperflyGamePage.class);
+                    context.startActivity(intent);
+                    networkCallListener.onSuccess();
+                }
+                else{
+                    Log.d("HTTP RESP", "Alternate response code detected!");
+                    networkCallListener.onFailure();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SuperflySession> call, Throwable t) {
+                Toast.makeText(context, "Superfly session did not work!", Toast.LENGTH_SHORT).show();
+                networkCallListener.onFailure();
+            }
+        });
+
+    }
     /*
     Loads all invite objects corresponding to the passed user id.
     */
@@ -420,6 +459,8 @@ public class NetworkCalls {
 
                 }
                 else{
+                    SuperflySession newSession = response.body();
+                    newSession.buildParticipantsArray();
                     MainActivity.user_info.setCurrentSession(response.body());
                     Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
                 }
