@@ -238,10 +238,18 @@ public class UserInfo {
         this.currentInvites = currentInvites;
     }
 
+    public Integer getUser_staged_butterfly() {
+        return user_staged_butterfly;
+    }
+
+    public void setUser_staged_butterfly(Integer user_staged_butterfly) {
+        this.user_staged_butterfly = user_staged_butterfly;
+    }
+
     public void build_atrium(){
         //Init local inventory hashmap
         local_atrium = new HashMap<>();
-        //Populate our local HashMap, looks ugly for now, will need to make this a map in the backend likely.
+        //Populate our local HashMap
         local_atrium.put("user_b0_count", this.user_b0_count);
         local_atrium.put("user_b1_count", this.user_b1_count);
         local_atrium.put("user_b2_count", this.user_b2_count);

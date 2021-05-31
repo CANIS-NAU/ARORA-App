@@ -1,10 +1,14 @@
 package com.example.aorora;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.util.Log;
 import android.view.View;
@@ -23,7 +27,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class SuperflyGamePage extends AppCompatActivity implements View.OnClickListener {
@@ -32,13 +38,17 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     TextView[] participantNames;
     ImageView[] participantBubbles;
     ImageView[] participantButterflies;
+    ImageView[] stagedButterflies;
+    int[] butterflyImages;
 
     UserInfo[] participants;
     SuperflySession currentSession;
+    Integer[] assignedButterflies;
     Integer participantCount;
     Button startButton;
     Button refreshButton;
     Boolean sessionStarted;
+    Integer userPosition;
 
     @Override
     public void onBackPressed() {
@@ -70,6 +80,13 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                 (UserInfo) currentSession.getParticipant_1(),
                 (UserInfo) currentSession.getParticipant_2(),(UserInfo) currentSession.getParticipant_3(),
                 (UserInfo) currentSession.getParticipant_4()};
+        butterflyImages = new int[]{R.drawable.red_1, R.drawable.yellow_1,
+                R.drawable.violet_1, R.drawable.green_1,
+                R.drawable.blue_2};
+        stagedButterflies = new ImageView[]{(ImageView) findViewById(R.id.participant0_staged),
+                (ImageView) findViewById(R.id.participant1_staged),
+                (ImageView) findViewById(R.id.participant2_staged), (ImageView) findViewById(R.id.participant3_staged),
+                (ImageView) findViewById(R.id.participant4_staged)};;
 
         sessionStarted = currentSession.getSession_started();
 
@@ -78,22 +95,21 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         startButton = findViewById(R.id.start_button);
         refreshButton = findViewById(R.id.refreshsesh_button);
 
+        //Set all onclicklisteners here
         backButton.setOnClickListener(this);
         startButton.setOnClickListener(this);
         refreshButton.setOnClickListener(this);
+        for(ImageView currBubble : participantBubbles ){
+            currBubble.setOnClickListener(this);
+        }
 
-
-        initParticipants();
 
         if(sessionStarted){
             startButton.setText("Contribute butterfly");
         }
 
-        else{
-            //Build the UI based on the number of participants currently in the session.
-            initParticipants();
-        }
-
+        //Call the initialization function to display the current game configuration.
+        initParticipants();
 
     }
 
@@ -114,7 +130,31 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         if(participantCount < 2){
             startButton.setEnabled(false);
         }
-        Log.d("INIT PARTICIPANTS", "Assigned butterflies: " + Arrays.toString(currentSession.getAssignedButterflies()));
+        //Check what needs to be contributed to the current superfly
+        assignedButterflies = currentSession.getAssignedButterflies();
+        Log.d("INIT PARTICIPANTS", "Assigned butterflies: " + Arrays.toString(assignedButterflies));
+
+        //Set the current user's bubble image to be the butterfly color they need to contribute.
+        userPosition = getUserPosition();
+        Log.d("INIT PARTICIPANTS", "Current User's position in session: " + userPosition.toString());
+
+        if(currentSession.getSession_started()){
+            displayAssignedButterfly();
+        }
+    }
+
+    void displayAssignedButterfly(){
+        participantButterflies[userPosition].setImageResource(butterflyImages[assignedButterflies[userPosition]]);
+    }
+
+    Integer getUserPosition(){
+        int index = 0;
+        for(UserInfo curr : currentSession.getParticipantsArray()){
+            if(MainActivity.user_info.getUser_id() == curr.getUser_id())
+                return index;
+            index++;
+        }
+        return -1;
     }
 
     @Override
@@ -166,13 +206,96 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
                 }
             });
-
-
-
-
         }
+
+        //User clicks their own bubble, ask them to contribute assigned butterfly
+        else if(view_id == participantBubbles[userPosition].getId()){
+            //Make dialog fragment and show it here, submit button basically.
+            //First check if the user has enough to actually contribute
+            String assignedButterflyKey = "user_b"  + assignedButterflies[userPosition] + "_count";
+
+            if(MainActivity.user_info.get_local_atrium().get(assignedButterflyKey) == 0){
+                Toast.makeText(this, "No butterflies of that color found in atrium", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Log.d("Contribute butterfly", "Butterfly found of type: " + assignedButterflyKey);
+
+                //Make a new alert dialog fragment to confirm the contribution and staging.
+                AlertDialog.Builder builder = new AlertDialog.Builder(SuperflyGamePage.this);
+                builder.setTitle("Superfly Contribution");
+                builder.setMessage("Would you like to contribute this butterfly?");
+                builder.setPositiveButton("Contribute", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Integer assignedButterfly = assignedButterflies[userPosition];
+                        String assignedButterflyKey = "user_b"  + assignedButterfly + "_count";
+                        //Set the Users staged butterfly
+                        Map<String, Integer> localMap = MainActivity.user_info.get_local_atrium();
+                        //Decrement by one
+                        localMap.put(assignedButterflyKey, localMap.get(assignedButterflyKey) - 1);
+                        MainActivity.user_info.update_local_atrium(localMap);
+                        NetworkCalls.updateUserAtrium(MainActivity.user_info.getUser_id(), localMap, SuperflyGamePage.this);
+                        NetworkCalls.setUserStagedButterfly(MainActivity.user_info.getUser_id(), assignedButterfly, SuperflyGamePage.this, new RetrofitResponseListener() {
+                            @Override
+                            public void onSuccess() {
+                                recreate();
+                            }
+
+                            @Override
+                            public void onFailure() {
+                                Toast.makeText(SuperflyGamePage.this, "Couldn't contribute butterfly, try again.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                        Toast.makeText(SuperflyGamePage.this, "Canceling superfly contribution", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                AlertDialog contributionAlert = builder.create();
+                contributionAlert.show();
+            }
+        }
+
+        //Otherwise, check which other bubble it was. We can include the user's bubble as the condition
+        //above will handle it.
+        //else if(view_id)
 
     }
 
+
+    public class SuperflyStagingDialog extends DialogFragment {
+        //AlertDialog.Builder
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Would you like to contribute this butterfly?");
+            builder.setPositiveButton("Contribute", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    String assignedButterflyKey = "user_b"  + assignedButterflies[userPosition] + "_count";
+                    //Set the Users staged butterfly
+                    Map<String, Integer> localMap = MainActivity.user_info.get_local_atrium();
+                    //Decrement by one
+                    localMap.put(assignedButterflyKey, localMap.get(assignedButterflyKey) - 1);
+                    MainActivity.user_info.update_local_atrium(localMap);
+                    NetworkCalls.updateUserAtrium(MainActivity.user_info.getUser_id(), localMap, SuperflyGamePage.this);
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(SuperflyGamePage.this, "Canceling superfly contribution", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            return builder.create();
+        }
+    }
 
 }

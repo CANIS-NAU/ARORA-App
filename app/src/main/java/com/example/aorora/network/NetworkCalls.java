@@ -130,6 +130,28 @@ public class NetworkCalls {
         });
     }
 
+    public static void setUserStagedButterfly(int user_id, int staged_butterfly, final Context context, RetrofitResponseListener networkCallListener){
+        Call call = service.setUserStagedButterfly(user_id, staged_butterfly);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.isSuccess()){
+                    Log.d("setUserStaged", "Butterfly staged successfully");
+                    networkCallListener.onSuccess();
+                }
+                else{
+                    networkCallListener.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("setUserStaged", "Butterfly stage unsuccessful");
+                networkCallListener.onFailure();
+            }
+        });
+    }
+
     public static void getUserInfo(int user_id, final Context context)
     {
         //Find these services in the interface GetDataService. Create a UserInfo object

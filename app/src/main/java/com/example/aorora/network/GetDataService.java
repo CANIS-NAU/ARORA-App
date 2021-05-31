@@ -194,6 +194,11 @@ public interface GetDataService {
     @FormUrlEncoded
     Call<UserIdReturn> updateUserAtrium(@Path("user_id") Integer user_id,
                                         @FieldMap Map<String, Integer> butterflyCounts);
+
+    @PATCH("/userinfo/{user_id}")
+    @FormUrlEncoded
+    Call<UserIdReturn> setUserStagedButterfly(@Path("user_id") Integer user_id,
+                                        @Field("user_staged_butterfly") Integer user_staged_butterfly);
     
     @GET("/userinfos")
     Call<List<UserInfo>> getCommunity();
