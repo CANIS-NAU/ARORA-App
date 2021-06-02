@@ -27,6 +27,14 @@
         <item>10</item>
     </string-array>
 
+    <string-array name="butterfly_colors">
+        <item>Red</item> <!--B0-->
+        <item>Yellow</item> <!--B1-->
+        <item>Violet</item> <!--B2-->
+        <item>Green</item> <!--B3-->
+        <item>Blue</item> <!--B4-->
+    </string-array>
+
     <string-array name="mindfulness_description">
         <item>accomplished breathing exercise!</item>
         <item>accomplished meditation exercise!</item>

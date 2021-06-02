@@ -299,7 +299,7 @@
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu_button_filled" />
+        app:srcCompat="@drawable/cocoon_brown" />
 
     <ImageButton
         android:id="@+id/back_button"

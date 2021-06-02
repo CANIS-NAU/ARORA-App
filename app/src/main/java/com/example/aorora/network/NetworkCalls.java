@@ -15,6 +15,7 @@ import com.example.aorora.model.LocalUpdate;
 import com.example.aorora.model.MoodReportIdReturn;
 import com.example.aorora.model.NotificationCreateReturn;
 import com.example.aorora.model.QuestReportCreateReturn;
+import com.example.aorora.model.Superfly;
 import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.UserInfo;
@@ -130,6 +131,39 @@ public class NetworkCalls {
         });
     }
 
+    public static void updateUserAtrium(int user_id, Map<String, Integer> counts, final Context context, RetrofitResponseListener networkCallListener) {
+        Call call = service.updateUserAtrium(user_id, counts);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.isSuccess())
+                {
+                    Toast.makeText(context, " Atrium Counts Updated Successfully", Toast.LENGTH_SHORT).show();
+                    networkCallListener.onSuccess();
+
+                }
+                else
+                {
+                    Toast.makeText(context, "Atrium Update FAILED!", Toast.LENGTH_SHORT).show();
+                    networkCallListener.onSuccess();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(context, "Points update failed, writing to file.", Toast.LENGTH_SHORT).show();
+                networkCallListener.onFailure();
+                //Call the internal json file writing function to store this update locally
+                writeLocalUpdate(context);
+                try {
+                    throw t;
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+            }
+        });
+    }
+
     public static void setUserStagedButterfly(int user_id, int staged_butterfly, final Context context, RetrofitResponseListener networkCallListener){
         Call call = service.setUserStagedButterfly(user_id, staged_butterfly);
         call.enqueue(new Callback() {
@@ -187,6 +221,64 @@ public class NetworkCalls {
             @Override
             public void onFailure(Call<UserInfo> call, Throwable t) {
                 Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public static void getUserInfo(int user_id, final Context context, RetrofitResponseListener networkCallListener)
+    {
+        //Find these services in the interface GetDataService. Create a UserInfo object
+        Call<UserInfo> call = service.getUserInfo(user_id);
+        call.enqueue(new Callback<UserInfo>() {
+            @Override
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                if(response.isSuccess())
+                //response.body().getUsername()
+                {
+                    //Use static variable exposed from MainActivity to store the user_info and access
+                    //Across all activities.
+                    MainActivity.user_info = response.body();
+                    //Since the user's atrium map is not a serialized value from the backend, we must initialize
+                    //it manually with this function.
+                    MainActivity.user_info.build_atrium();
+                    //Grab the current superfly session, if there is one for this user.
+                    if(MainActivity.user_info.getUser_superflysession_id() != -1){
+                        NetworkCalls.getSuperflySession(MainActivity.user_info.getUser_superflysession_id(), context, new RetrofitResponseListener() {
+                            @Override
+                            public void onSuccess() {
+                                //Load invites without listening for the response.
+                                NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), context);
+
+                                Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                                networkCallListener.onSuccess();
+                            }
+
+                            @Override
+                            public void onFailure() {
+
+                            }
+                        });
+                    }
+                    else{
+                        //Load invites without listening for the response.
+                        NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), context);
+
+                        Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                        networkCallListener.onSuccess();
+                    }
+
+                }
+                else
+                {
+                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    networkCallListener.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserInfo> call, Throwable t) {
+                Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                networkCallListener.onFailure();
             }
         });
     }
@@ -448,21 +540,25 @@ public class NetworkCalls {
 
 
 
-    //Used to either:
-        //1. Set the user in a new session
-        //2. Remove them since the session is expired (And set them in a session with -1 as the id)
-    public static void updateUserSuperflySession(int user_id, int session_id, final Context context){
-        Call call = service.updateUserSession(user_id, session_id);
-        call.enqueue(new Callback<UserInfo>() {
+
+    public static void updateSuperflyProgress(int session_id, Map<String, Integer> currentCounts, final Context context, RetrofitResponseListener networkCallListener){
+        Call<SuperflySession> call = service.updateSuperflyProgress(session_id, currentCounts);
+        call.enqueue(new Callback<SuperflySession>() {
             @Override
-            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
-                Log.d("SuperflySessionUpdate", "Sent request to store session_id");
+            public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+                if(response.isSuccess()){
+                    //This might break things with stackoverflow error.
+                    MainActivity.user_info.setCurrentSession(response.body());
+                    networkCallListener.onSuccess();
+
+                }
+
+
             }
 
             @Override
-            public void onFailure(Call<UserInfo> call, Throwable t) {
-                //Try again recursively using clone.
-                call.clone();
+            public void onFailure(Call<SuperflySession> call, Throwable t) {
+                networkCallListener.onFailure();
             }
         });
     }
@@ -723,7 +819,6 @@ public class NetworkCalls {
 
         //If we have no JSON file stored, do nothing.
         if(!Files.exists(pathObj)){
-            Toast.makeText(context, "Local Update NOT Detected!", Toast.LENGTH_SHORT).show();
             Log.d("CheckLocalUpdates", "No update detected");
             return;
         }

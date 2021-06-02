@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aorora.model.Butterfly;
+import com.example.aorora.model.SuperflySession;
+import com.example.aorora.model.UserInfo;
 import com.example.aorora.model.UserInteraction;
 import com.example.aorora.network.GetDataService;
 import com.example.aorora.network.NetworkCalls;
@@ -117,8 +119,25 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
                 break;
         }
 
+        checkSuperflyProgress();
     }
 
+    //Decides if we should notify a session owner that their superfly round is ready to submit.
+    private void checkSuperflyProgress(){
+        SuperflySession currentSession = MainActivity.user_info.getCurrentSession();
+        //Check to see if this user is a session owner (i.e. participant_0)
+
+        if(currentSession != null &&
+                MainActivity.user_info.getCurrentSession().participant_0.getUser_id() == MainActivity.user_info.getUser_id()){
+            UserInfo[] participantsArr = currentSession.getParticipantsArray();
+            for(int index = 0; index < currentSession.getSession_participant_count(); index++){
+                if(participantsArr[index].getUser_staged_butterfly() == -1){
+                    return;
+                }
+            }
+            Toast.makeText(this, "Superfly round ready to submit!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -185,8 +204,17 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
                 NetworkCalls.getSuperflySession(session_id, this, new RetrofitResponseListener() {
                     @Override
                     public void onSuccess() {
-                        final Intent to_navigate = new Intent(profilePage, SuperflyGamePage.class);
-                        startActivity(to_navigate);
+                        //If we completed the game, go to the win screen.
+                        if(MainActivity.user_info.getCurrentSession().getSession_ended()){
+                            final Intent to_navigate = new Intent(profilePage, SuperflyGamePage.class);
+                            startActivity(to_navigate);
+                        }
+                        //Otherwise move to the game in progress
+                        else{
+                            final Intent to_navigate = new Intent(profilePage, SuperflyGamePage.class);
+                            startActivity(to_navigate);
+                        }
+
                     }
 
                     @Override

@@ -110,10 +110,7 @@ public class HomeScreen extends AppCompatActivity implements GestureDetector.OnG
 
         is_menu_inflated = false;
 
-        //buttonClick = MediaPlayer.create(getBaseContext(), R.raw.button1);
 
-
-        //Log.d("TESTNAV", "Calling onCreate!");
 
         quick_menu.setOnClickListener(new View.OnClickListener() {
             @Override

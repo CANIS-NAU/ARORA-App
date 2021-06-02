@@ -23,6 +23,8 @@ public class SuperflySession {
     private Integer session_participant_count;
     @SerializedName("session_started")
     private Boolean session_started;
+    @SerializedName("session_ended")
+    private Boolean session_ended;
 
     //Ids for participants in the session
     @SerializedName("id_0")
@@ -81,7 +83,7 @@ public class SuperflySession {
 
     public SuperflySession(Integer session_id, String session_start_date,
                            Integer session_participant_count, Boolean session_started,
-                           Integer id_0, Integer id_1, Integer id_2, Integer id_3, Integer id_4,
+                           Boolean session_ended, Integer id_0, Integer id_1, Integer id_2, Integer id_3, Integer id_4,
                            UserInfo participant_0, UserInfo participant_1, UserInfo participant_2,
                            UserInfo participant_3, UserInfo participant_4, Superfly superfly_recipe,
                            Integer current_b0_count, Integer current_b1_count,
@@ -92,6 +94,7 @@ public class SuperflySession {
         this.session_start_date = session_start_date;
         this.session_participant_count = session_participant_count;
         this.session_started = session_started;
+        this.session_ended = session_ended;
         this.id_0 = id_0;
         this.id_1 = id_1;
         this.id_2 = id_2;
@@ -121,7 +124,7 @@ public class SuperflySession {
         Log.d("getParticipantsArray", "Creating array");
         participantsArray = new UserInfo[session_participant_count];
         int numParticipants = this.getSession_participant_count();
-        Log.d("Current part numbers", this.getSession_participant_count().toString());
+        Log.d("Current participant numbers", this.getSession_participant_count().toString());
         for(int i = 0; i < numParticipants; i++){
             String getterName = "getParticipant_" + i;
             Log.d("Participant id", getterName);
@@ -149,8 +152,8 @@ public class SuperflySession {
             Log.d("Participant id", getterName);
             try {
                 Method method = SuperflySession.class.getMethod(getterName);
-                Object currPart = method.invoke(this);
-                assignedButterflies[i] = (Integer) currPart;
+                Object currParticipant = method.invoke(this);
+                assignedButterflies[i] = (Integer) currParticipant;
             } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 Log.d("getNextRound", "No method found");
                 e.printStackTrace();
@@ -158,6 +161,24 @@ public class SuperflySession {
 
         }
         return this.assignedButterflies;
+    }
+
+    //Gets the next set of needed butterflies for the session.
+    public void updateButterflyCount(int butterflyType, int butterflyCount) {
+        String getterName = "getCurrent_b" + butterflyType + "_count";
+        String setterName = "setCurrent_b" + butterflyType + "_count";
+        Log.d("Participant id", setterName);
+        try {
+            Method getterMethod = SuperflySession.class.getMethod(getterName);
+            Method setterMethod = SuperflySession.class.getMethod(setterName);
+            Object prevCountObj = getterMethod.invoke(this );
+            Integer prevCount = (Integer) prevCountObj;
+            setterMethod.invoke(this, prevCount + butterflyCount);
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            Log.d("getNextRound", "No method found");
+            e.printStackTrace();
+        }
+
     }
 
     public Integer getSession_id() {
@@ -192,6 +213,13 @@ public class SuperflySession {
         this.session_started = session_started;
     }
 
+    public Boolean getSession_ended() {
+        return session_ended;
+    }
+
+    public void setSession_ended(Boolean session_ended) {
+        this.session_ended = session_ended;
+    }
 
     public Superfly getSuperfly_recipe() {
         return superfly_recipe;

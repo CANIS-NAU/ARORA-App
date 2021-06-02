@@ -130,14 +130,10 @@ public interface GetDataService {
     Call<SuperflySession> startSession(@Path("session_id") Integer session_id, @Field("session_started") Boolean session_started);
 
     //Updates the number of contributed butterflies. 
-    @PATCH("/superflysession")
+    @PATCH("/superflysession/{session_id}")
     @FormUrlEncoded
     Call<SuperflySession> updateSuperflyProgress(@Path("session_id") Integer session_id,
-                                                 @Field("current_b0_count") Integer current_b0_count,
-                                                 @Field("current_b1_count") Integer current_b1_count,
-                                                 @Field("current_b2_count") Integer current_b2_count,
-                                                 @Field("current_b3_count") Integer current_b3_count,
-                                                 @Field("current_b4_count") Integer current_b4_count);
+                                                 @FieldMap Map<String, Integer> butterflyCounts);
 
     @GET("/superflyinvite/{uid_recipient}")
     Call<ArrayList<SuperflyInvite>> getSuperflyInvites(@Path("uid_recipient") Integer recipient_uid);
@@ -187,7 +183,7 @@ public interface GetDataService {
     @PATCH("/userinfo/{user_id}")
     @FormUrlEncoded
     Call<UserIdReturn> updateUserSession(@Path("user_id") Integer user_id,
-                                        @Field("user_superflysession_id") Integer session_id);
+                                        @Field("user_superflysession_id") Map<String, Integer> session_id);
 
     //Patch request to update user_b0_count through user_b4_count in the backend.
     @PATCH("/userinfo/{user_id}")
