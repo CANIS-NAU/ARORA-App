@@ -238,6 +238,8 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                 for(int participantIndex = 0; participantIndex < participantCount; participantIndex++){
                     resetStagedButterfly(participantIndex);
                 }
+                //After everything suceeds, refresh the UI.
+                refreshSession();
             }
 
             @Override
@@ -278,10 +280,21 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
             @Override
             public void onSuccess() {
                 Toast.makeText(SuperflyGamePage.this, "Refresh successful", Toast.LENGTH_SHORT).show();
-                finish();
-                overridePendingTransition(0, 0);
-                startActivity(getIntent());
-                overridePendingTransition(0, 0);
+                NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), SuperflyGamePage.this, new RetrofitResponseListener() {
+                    @Override
+                    public void onSuccess() {
+                        finish();
+                        overridePendingTransition(0, 0);
+                        startActivity(getIntent());
+                        overridePendingTransition(0, 0);
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        Toast.makeText(SuperflyGamePage.this, "All refresh checks done", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
 
             @Override
@@ -290,6 +303,25 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
             }
         });
 
+    }
+
+    void sendTradeRequest(UserInfo recipient){
+        if(recipient==null)
+            return;
+        HashMap<String, Integer> requestedButterflies = new HashMap<>();
+        requestedButterflies.put("b0_requested", 2);
+        requestedButterflies.put("b1_requested", 2);
+        NetworkCalls.sendTradeRequest(MainActivity.user_info.getUser_id(), recipient.getUser_id(), requestedButterflies,this, new RetrofitResponseListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(SuperflyGamePage.this, "Sent trade request!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure() {
+                Toast.makeText(SuperflyGamePage.this, "Trade request failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -430,7 +462,30 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
         //Otherwise, check which other bubble it was. We can include the user's bubble as the condition
         //above will handle it.
-        //else if(view_id)
+        else {
+            UserInfo otherUser = null;
+
+            if(participants[0] != null && view_id == participantBubbles[0].getId()){
+                otherUser = participants[0];
+            }
+            else if(participants[1] != null && view_id == participantBubbles[1].getId()){
+                otherUser = participants[1];
+            }
+            else if(participants[2] != null && view_id == participantBubbles[2].getId()){
+                otherUser = participants[2];
+
+            }
+            else if(participants[3] != null && participantCount > 3 && view_id == participantBubbles[3].getId()){
+                otherUser = participants[3];
+            }
+            else if(participants[4] != null && view_id == participantBubbles[0].getId()){
+                otherUser = participants[4];
+            }
+
+            if(sessionStarted)
+                Toast.makeText(this, "Sending request to " + otherUser.getUser_name(), Toast.LENGTH_SHORT).show();
+                sendTradeRequest(otherUser);
+        }
     }
 
 

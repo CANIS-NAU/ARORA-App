@@ -12,6 +12,7 @@ import com.example.aorora.model.QuestReport;
 import com.example.aorora.model.RetroPhoto;
 import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.model.SuperflySession;
+import com.example.aorora.model.TradeRequest;
 import com.example.aorora.model.UserAuth;
 import com.example.aorora.model.UserIdReturn;
 import com.example.aorora.model.UserInfo;
@@ -133,6 +134,11 @@ public interface GetDataService {
     @PATCH("/superflysession/{session_id}")
     @FormUrlEncoded
     Call<SuperflySession> startSession(@Path("session_id") Integer session_id, @Field("session_started") Boolean session_started);
+
+    //Call to create a new trade request between the provided users.
+    @POST("/traderequest")
+    @FormUrlEncoded
+    Call<TradeRequest> createTradeRequest(@Field("uid_sender") Integer uid_sender, @Field("uid_recipient") Integer uid_recipient, @FieldMap Map<String, Integer> requested_butterflies);
 
     //Updates the number of contributed butterflies. 
     @PATCH("/superflysession/{session_id}")

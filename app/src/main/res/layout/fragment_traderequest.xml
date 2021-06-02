@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_name"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:weightSum="5"
+    android:layout_margin="20dp"
+    android:orientation="vertical"  >
+
+    <LinearLayout
+        android:id="@+id/red_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/red_butterfly_img"
+            android:layout_marginTop="5dp"
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/red_1" />
+
+        <TextView
+            android:id="@+id/red_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Red Desired"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/red_entry"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/yellow_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/yellow_butterfly_img"
+            android:layout_marginTop="5dp"
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/yellow_1" />
+
+        <TextView
+            android:id="@+id/yellow_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Yellow Desired"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/yellow_entry"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/violet_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/violet_butterfly_img"
+            android:layout_marginTop="5dp"
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/violet_1" />
+
+        <TextView
+            android:id="@+id/violet_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Violet Desired"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/_entry"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/green_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/green_butterfly_img"
+            android:layout_marginTop="5dp"
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/green_1" />
+
+        <TextView
+            android:id="@+id/green_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Green Desired"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/green_entry"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/blue_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/blue_butterfly_img"
+            android:layout_marginTop="5dp"
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/blue_1" />
+
+        <TextView
+            android:id="@+id/blue_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Blue Desired"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/blue_entry"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/trade_submit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="submit Request"/>
+
+</LinearLayout>

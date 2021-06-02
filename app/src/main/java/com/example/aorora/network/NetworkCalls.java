@@ -18,6 +18,7 @@ import com.example.aorora.model.QuestReportCreateReturn;
 import com.example.aorora.model.Superfly;
 import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.model.SuperflySession;
+import com.example.aorora.model.TradeRequest;
 import com.example.aorora.model.UserInfo;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
@@ -771,6 +772,26 @@ public class NetworkCalls {
             }
         });
 
+    }
+
+    public static void sendTradeRequest(int sender_id, int recipient_id, Map<String, Integer> requestedButterflies, final Context context, RetrofitResponseListener networkCallListener){
+        Call<TradeRequest> call = service.createTradeRequest(sender_id, recipient_id, requestedButterflies);
+        call.enqueue(new Callback<TradeRequest>() {
+            @Override
+            public void onResponse(Call<TradeRequest> call, Response<TradeRequest> response) {
+                if(response.isSuccess()){
+                    networkCallListener.onSuccess();
+                }
+                else{
+                    networkCallListener.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TradeRequest> call, Throwable t) {
+                networkCallListener.onFailure();
+            }
+        });
     }
 
     /**
