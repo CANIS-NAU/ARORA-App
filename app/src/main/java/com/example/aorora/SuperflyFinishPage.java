@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.aorora.model.UserInfo;
+import com.example.aorora.network.NetworkCalls;
 
 public class SuperflyFinishPage extends AppCompatActivity implements View.OnClickListener {
     Button homeButton;
@@ -34,6 +35,9 @@ public class SuperflyFinishPage extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         int view_id = view.getId();
         if(view_id == homeButton.getId()){
+            //Remove from session
+            MainActivity.user_info.setCurrentSession(null);
+            NetworkCalls.leaveSession(MainActivity.user_info.getUser_id(), this);
             Intent to_navigate = new Intent(this, HomeScreen.class);
             startActivity(to_navigate);
         }

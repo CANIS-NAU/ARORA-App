@@ -62,6 +62,7 @@ public class UserInfo {
     public String toString() {
         return "UserInfo{" +
                 "user_superflysession_id=" + user_superflysession_id +
+                ", user_id='" + user_id + '\'' +
                 ", user_name='" + user_name + '\'' +
                 ", email='" + email + '\'' +
                 ", currentSession=" + currentSession +
@@ -311,6 +312,11 @@ public class UserInfo {
     //Set the copy of the current session here.
     public void setCurrentSession (SuperflySession newSession) {
         this.currentSession = newSession;
-        this.user_superflysession_id = currentSession.getSession_id();
+        if(newSession == null){
+            this.user_superflysession_id = -1;
+        }
+        else{
+            this.user_superflysession_id = currentSession.getSession_id();
+        }
     }
 }

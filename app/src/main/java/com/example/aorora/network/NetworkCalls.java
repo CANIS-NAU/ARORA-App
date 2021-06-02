@@ -698,6 +698,22 @@ public class NetworkCalls {
         });
     }
 
+
+    public static void leaveSession(int user_id, final Context context){
+        Call<UserInfo> call = service.leaveSession(user_id, -1);
+        call.enqueue(new Callback<UserInfo>() {
+            @Override
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<UserInfo> call, Throwable t) {
+
+            }
+        });
+    }
+
     /**
      * Marks the session specified by id as started, setting a boolean flag in the backend.
      * Utilizes a PATCH request in GetDataService:
@@ -734,6 +750,7 @@ public class NetworkCalls {
                     @Override
                     public void onSuccess() {
                         MainActivity.user_info.getCurrentSession().buildAssignedButterfliesArray();
+                        MainActivity.user_info.getCurrentSession().setSession_started(true);
 
                         Log.d("StartSession", "Session started successfully");
                         networkCallListener.onSuccess();

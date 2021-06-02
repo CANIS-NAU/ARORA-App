@@ -106,7 +106,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         backButton.setOnClickListener(this);
         startButton.setOnClickListener(this);
         refreshButton.setOnClickListener(this);
-        for(ImageView currBubble : participantBubbles ){
+        for(ImageView currBubble : participantBubbles){
             currBubble.setOnClickListener(this);
         }
 
@@ -147,17 +147,18 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         if(participantCount < 2){
             startButton.setEnabled(false);
         }
-        //Check what needs to be contributed to the current superfly
-        assignedButterflies = currentSession.getAssignedButterflies();
-        Log.d("INIT PARTICIPANTS", "Assigned butterflies: " + Arrays.toString(assignedButterflies));
+        //Check what needs to be contributed to the current superfly if the session is started.
+        if(sessionStarted){
+            assignedButterflies = currentSession.getAssignedButterflies();
+            Log.d("INIT PARTICIPANTS", "Assigned butterflies: " + Arrays.toString(assignedButterflies));
 
-        //Set the current user's bubble image to be the butterfly color they need to contribute.
-        userPosition = getUserPosition();
-        Log.d("INIT PARTICIPANTS", "Current User's position in session: " + userPosition.toString());
-
-        if(currentSession.getSession_started()){
+            //Set the current user's bubble image to be the butterfly color they need to contribute.
+            userPosition = getUserPosition();
+            Log.d("INIT PARTICIPANTS", "Current User's position in session: " + userPosition.toString());
+            //Display the needed butterfly
             displayAssignedButterfly();
         }
+
     }
 
     void displayAssignedButterfly(){
@@ -180,6 +181,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
     Integer getUserPosition(){
         int index = 0;
+        Log.d("Get User Position", Arrays.toString(currentSession.getParticipantsArray()));
         for(UserInfo curr : currentSession.getParticipantsArray()){
             if(MainActivity.user_info.getUser_id() == curr.getUser_id())
                 return index;
@@ -270,6 +272,25 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    void refreshSession() {
+        //Call the GET request again and then recreate()
+        NetworkCalls.getSuperflySession(currentSession.getSession_id(), this, new RetrofitResponseListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(SuperflyGamePage.this, "Refresh successful", Toast.LENGTH_SHORT).show();
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -296,53 +317,33 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                 //If the current user is participant_0 (the owner) and the session is NOT started.
                 else if(!MainActivity.user_info.getCurrentSession().getSession_started()){
                     Toast.makeText(this, "Starting game", Toast.LENGTH_SHORT).show();
-                    NetworkCalls.startSession(currentSession.getSession_id(), this);
-                    MainActivity.user_info.getCurrentSession().setSession_started(true);
+                    NetworkCalls.startSession(currentSession.getSession_id(), this, new RetrofitResponseListener() {
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(SuperflyGamePage.this, "Starting session!", Toast.LENGTH_SHORT).show();
+                            refreshSession();
+                        }
+
+                        @Override
+                        public void onFailure() {
+
+                        }
+                    });
+
                 }
                 //Otherwise we are the owner and the session is STARTED, so contribute this round.
                 else{
                     Toast.makeText(this, "Contributing butterflies for this round", Toast.LENGTH_SHORT).show();
                     addRoundToSession();
                 }
-                finish();
-                overridePendingTransition(0, 0);
-                startActivity(getIntent());
-                overridePendingTransition(0, 0);
+
+
             }
         }
 
         else if(view_id == refreshButton.getId()){
             //Use StartSession to check current status.
-            /*NetworkCalls.startSession(currentSession.getSession_id(), this, new RetrofitResponseListener() {
-                @Override
-                public void onSuccess() {
-                    //Refresh session
-                    currentSession = MainActivity.user_info.getCurrentSession();
-                    Log.d("Refresh sesh", Arrays.toString(currentSession.buildParticipantsArray()));
-                    Log.d("Refresh sesh assigned buffs", Arrays.toString(currentSession.buildAssignedButterfliesArray()));
-                }
-
-                @Override
-                public void onFailure() {
-
-                }
-            });*/
-            //Call the GET request again and then recreate()
-            NetworkCalls.getSuperflySession(currentSession.getSession_id(), this, new RetrofitResponseListener() {
-                @Override
-                public void onSuccess() {
-                    Toast.makeText(SuperflyGamePage.this, "Refresh successful", Toast.LENGTH_SHORT).show();
-                    finish();
-                    overridePendingTransition(0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition(0, 0);
-                }
-
-                @Override
-                public void onFailure() {
-
-                }
-            });
+            refreshSession();
 
         }
 
@@ -383,8 +384,11 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                                         NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), SuperflyGamePage.this, new RetrofitResponseListener() {
                                             @Override
                                             public void onSuccess() {
-                                                Toast.makeText(SuperflyGamePage.this, "All refresh checks passed", Toast.LENGTH_SHORT).show();
-                                                recreate();
+                                                Toast.makeText(SuperflyGamePage.this, "All staging checks passed", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                                overridePendingTransition(0, 0);
+                                                startActivity(getIntent());
+                                                overridePendingTransition(0, 0);
                                             }
 
                                             @Override
