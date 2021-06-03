@@ -4,7 +4,35 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:weightSum="5"
     android:layout_margin="20dp"
-    android:orientation="vertical"  >
+    android:orientation="vertical"
+    android:background="#AA9c7a63">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+
+    <TextView
+        android:id="@+id/other_participant_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trading with &lt;NAME&gt;"
+        android:textSize="30dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_weight="2"
+        android:layout_marginLeft="5dp"/>
+
+    <ImageView
+        android:id="@+id/close_trade_menu"
+        android:layout_width="39dp"
+        android:layout_height="34dp"
+        android:src="@drawable/exit_button_breathing"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>
 
     <LinearLayout
         android:id="@+id/red_row"
@@ -27,6 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Red Desired"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_weight="1"/>
 
         <EditText
@@ -35,7 +64,10 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
-            android:inputType="text" />
+            android:inputType="number"
+            android:hint="0"
+            android:digits="0123456789"
+            android:maxLength="2"/>
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +91,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Yellow Desired"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <EditText
             android:id="@+id/yellow_entry"
@@ -67,7 +100,10 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
-            android:inputType="text" />
+            android:inputType="number"
+            android:hint="0"
+            android:digits="0123456789"
+            android:maxLength="2"/>
     </LinearLayout>
 
     <LinearLayout
@@ -84,22 +120,27 @@
             android:layout_height="30dp"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:src="@drawable/violet_1" />
+            android:src="@drawable/violet_1"
+            />
 
         <TextView
             android:id="@+id/violet_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Violet Desired"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <EditText
-            android:id="@+id/_entry"
+            android:id="@+id/violet_entry"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
-            android:inputType="text" />
+            android:inputType="number"
+            android:hint="0"
+            android:digits="0123456789"
+            android:maxLength="2" />
     </LinearLayout>
 
     <LinearLayout
@@ -123,7 +164,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Green Desired"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <EditText
             android:id="@+id/green_entry"
@@ -131,7 +173,10 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
-            android:inputType="text" />
+            android:inputType="number"
+            android:hint="0"
+            android:digits="0123456789"
+            android:maxLength="2"/>
     </LinearLayout>
 
     <LinearLayout
@@ -155,7 +200,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Blue Desired"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <EditText
             android:id="@+id/blue_entry"
@@ -163,7 +209,10 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
-            android:inputType="text" />
+            android:inputType="number"
+            android:hint="0"
+            android:digits="0123456789"
+            android:maxLength="2"/>
     </LinearLayout>
 
     <Button

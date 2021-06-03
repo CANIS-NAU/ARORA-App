@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:id="@+id/row_layout"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/invite_border">
+
+    <LinearLayout
+        android:id="@+id/trade_title_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/requesting_user_tv"
+            android:layout_width="354dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Trade request from ya GEE"
+            android:textSize="16dp" />
+
+        <LinearLayout
+            android:id="@+id/butterfly_row_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <ImageView
+                android:id="@+id/red_needed_img"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/red_1"
+                android:layout_weight="1"
+                ></ImageView>
+
+            <TextView
+                android:id="@+id/red_needed_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:text="Red: "
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/yellow_needed_img"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/yellow_1"
+                android:layout_weight="1"
+                ></ImageView>
+
+
+            <TextView
+                android:id="@+id/yellow_needed_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:text="Yellow: "
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/violet_needed_img"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/violet_1"
+                android:layout_weight="1"
+                ></ImageView>
+
+
+            <TextView
+                android:id="@+id/violet_needed_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:text="Violet: "
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/butterfly_row_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/green_needed_img"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/green_1"
+                android:layout_weight="1"
+                ></ImageView>
+
+            <TextView
+                android:id="@+id/green_needed_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:text="Green: "
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/blue_needed_img"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/blue_1"
+                android:layout_weight="1"
+                ></ImageView>
+
+
+            <TextView
+                android:id="@+id/blue_needed_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:text="Blue: "
+                android:textStyle="bold"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/accept_decline_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+
+            <Button
+                android:id="@+id/accept_btn"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:text="Accept"
+                android:textSize="8dp"
+                android:minHeight="0dp"/>
+
+            <Button
+                android:id="@+id/decline_btn"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:text="Decline"
+                android:textSize="8dp"
+                android:minHeight="0dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

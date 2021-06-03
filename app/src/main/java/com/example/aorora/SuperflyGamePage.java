@@ -14,8 +14,10 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +56,22 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     Boolean sessionEnded;
     Integer userPosition;
     Boolean resetSucceeded;
+
+    //Trade request menu layout
+    LinearLayout tradingMenu;
+    TextView otherParticipantTv;
+    EditText[] editTexts;
+    EditText redEditText;
+    EditText yellowEditText;
+    EditText violetEditText;
+    EditText greenEditText;
+    EditText blueEditText;
+    ImageView closeTradeMenu;
+    Button submitTrade;
+
+    //Trade request list and recyclerview vars
+
+
 
     @Override
     public void onBackPressed() {
@@ -102,10 +120,28 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         startButton = findViewById(R.id.start_button);
         refreshButton = findViewById(R.id.refreshsesh_button);
 
+        //Trading menu vars
+        tradingMenu = (LinearLayout) findViewById((R.id.trade_menu));
+        otherParticipantTv = (TextView) findViewById(R.id.other_participant_tv);
+        closeTradeMenu = (ImageView) findViewById(R.id.close_trade_menu);
+        submitTrade = (Button) findViewById(R.id.trade_submit_btn);
+
+        //Edit texts
+        editTexts = new EditText[]{(EditText) findViewById(R.id.red_entry), (EditText) findViewById(R.id.yellow_entry),
+                (EditText) findViewById(R.id.violet_entry), (EditText) findViewById(R.id.green_entry),(EditText) findViewById(R.id.blue_entry)};
+
+        //Request list vars and layouts
+
+
+
         //Set all onclicklisteners here
         backButton.setOnClickListener(this);
         startButton.setOnClickListener(this);
         refreshButton.setOnClickListener(this);
+
+
+
+
         for(ImageView currBubble : participantBubbles){
             currBubble.setOnClickListener(this);
         }
@@ -305,24 +341,76 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
     }
 
-    void sendTradeRequest(UserInfo recipient){
-        if(recipient==null)
-            return;
-        HashMap<String, Integer> requestedButterflies = new HashMap<>();
-        requestedButterflies.put("b0_requested", 2);
-        requestedButterflies.put("b1_requested", 2);
-        NetworkCalls.sendTradeRequest(MainActivity.user_info.getUser_id(), recipient.getUser_id(), requestedButterflies,this, new RetrofitResponseListener() {
+    void showTradingMenu(UserInfo recipient){
+        otherParticipantTv.setText("Trading with " + recipient.getUser_name());
+        tradingMenu.setVisibility(View.VISIBLE);
+        closeTradeMenu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess() {
-                Toast.makeText(SuperflyGamePage.this, "Sent trade request!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure() {
-                Toast.makeText(SuperflyGamePage.this, "Trade request failed!", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                tradingMenu.setVisibility(View.GONE);
             }
         });
+
+        submitTrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, Integer> requestedButterflies = buildTradeRequest();
+                sendTradeRequest(recipient, requestedButterflies);
+            }
+        });
+
     }
+
+    HashMap<String, Integer> buildTradeRequest(){
+        HashMap<String, Integer> requestMap = new HashMap<>();
+        for(int index = 0; index < editTexts.length; index++){
+            String key = "b" + index + "_requested";
+            String editVal = editTexts[index].getText().toString();
+            int defaultVal = 0;
+            if(editVal.length() > 0){
+                requestMap.put(key, Integer.parseInt(editVal));
+            }
+            else{
+                requestMap.put(key, defaultVal);
+            }
+
+        }
+        //If we hit a non-zero value, return the valid map
+        for(Integer currVal : requestMap.values()){
+            if(currVal > 0){
+                return requestMap;
+            }
+        }
+        Log.d("buildingRequest", requestMap.toString());
+        //If they are all zero, return null as the map is not valid.
+        return null;
+    }
+
+    void sendTradeRequest(UserInfo recipient, Map<String, Integer> requestedButterflies){
+        if(recipient==null)
+            return;
+        //Check to see if they actually put values in the map.
+        if(requestedButterflies != null){
+            NetworkCalls.sendTradeRequest(MainActivity.user_info.getUser_id(), recipient.getUser_id(), requestedButterflies, SuperflyGamePage.this, new RetrofitResponseListener() {
+                @Override
+                public void onSuccess() {
+                    tradingMenu.setVisibility(View.GONE);
+                    Toast.makeText(SuperflyGamePage.this, "Trade Request sent!", Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public void onFailure() {
+                    Toast.makeText(SuperflyGamePage.this, "Trade Request failed!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        //If the map is null then it was not valid (i.e. empty)
+        else{
+            Toast.makeText(SuperflyGamePage.this, "Cannot send an empty trade request!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -376,7 +464,6 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         else if(view_id == refreshButton.getId()){
             //Use StartSession to check current status.
             refreshSession();
-
         }
 
         //User clicks their own bubble, ask them to contribute assigned butterfly
@@ -484,7 +571,8 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
             if(sessionStarted)
                 Toast.makeText(this, "Sending request to " + otherUser.getUser_name(), Toast.LENGTH_SHORT).show();
-                sendTradeRequest(otherUser);
+                showTradingMenu(otherUser);
+            //sendTradeRequest(otherUser);
         }
     }
 
