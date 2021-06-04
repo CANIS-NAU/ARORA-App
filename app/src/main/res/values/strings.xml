@@ -35,6 +35,14 @@
         <item>Blue</item> <!--B4-->
     </string-array>
 
+    <string-array name="butterfly_counts">
+        <item>user_b0_count</item> <!--B0-->
+        <item>user_b1_count</item> <!--B1-->
+        <item>user_b2_count</item> <!--B2-->
+        <item>user_b3_count</item> <!--B3-->
+        <item>user_b4_count</item> <!--B4-->
+    </string-array>
+
     <string-array name="mindfulness_description">
         <item>accomplished breathing exercise!</item>
         <item>accomplished meditation exercise!</item>

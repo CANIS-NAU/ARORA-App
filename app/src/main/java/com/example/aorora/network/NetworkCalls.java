@@ -15,7 +15,6 @@ import com.example.aorora.model.LocalUpdate;
 import com.example.aorora.model.MoodReportIdReturn;
 import com.example.aorora.model.NotificationCreateReturn;
 import com.example.aorora.model.QuestReportCreateReturn;
-import com.example.aorora.model.Superfly;
 import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.TradeRequest;
@@ -34,7 +33,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -209,6 +207,7 @@ public class NetworkCalls {
                     }
                     //Load invites without listening for the response.
                     NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), context);
+                    NetworkCalls.loadTradeRequests(MainActivity.user_info.getUser_id(), context);
 
                     Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
                     //Toast.makeText(context, "User Info Gathered", Toast.LENGTH_SHORT).show();
@@ -502,6 +501,8 @@ public class NetworkCalls {
         });
     }
 
+
+
     /*
     Loads all invite objects corresponding to the passed user id.
     */
@@ -540,6 +541,83 @@ public class NetworkCalls {
     }
 
 
+    /*
+   Loads all trade objects corresponding to the passed user id, no listener here.
+   */
+    public static void loadTradeRequests(int recipient_id, final Context context ){
+        Call<ArrayList<TradeRequest>> call = service.getTradeRequests(recipient_id);
+        //This is used when we want to refresh the UI and need a synchronous method to do so.
+        //execute() runs this method synchronously.
+        //TODO Refresh invite list.
+
+
+        //Otherwise we don't need it to be synchronous
+        call.enqueue(new Callback<ArrayList<TradeRequest>>() {
+            @Override
+            public void onResponse(Call<ArrayList<TradeRequest>> call, Response<ArrayList<TradeRequest>> response) {
+                Log.d("Response list", response.body().toString());
+                try{
+                    Log.d("Trade response", response.body().toString());
+                    MainActivity.user_info.setCurrentTrades(response.body());
+                    //Show the invites for debugging if desired.
+                    for(TradeRequest currRequest : response.body()){
+                        Log.d("Trade Item", currRequest.toString());
+                    }
+                }
+                catch(Exception e){
+                    Log.d("Trades loading error", "No invites found. " + e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("TradesGet", "Yeah it broke" + t.getMessage());
+            }
+        });
+    }
+
+
+
+    /*
+   Loads all traderequest objects corresponding to the passed user id. Has a listener to callback to the UI.
+   */
+    public static void loadTradeRequests(int recipient_id, final Context context, RetrofitResponseListener networkCallListener ){
+        Call<ArrayList<TradeRequest>> call = service.getTradeRequests(recipient_id);
+        //This is used when we want to refresh the UI and need a synchronous method to do so.
+        //execute() runs this method synchronously.
+        //TODO Refresh invite list.
+
+
+        //Otherwise we don't need it to be synchronous
+        call.enqueue(new Callback<ArrayList<TradeRequest>>() {
+            @Override
+            public void onResponse(Call<ArrayList<TradeRequest>> call, Response<ArrayList<TradeRequest>> response) {
+                Log.d("Response list", response.body().toString());
+                try{
+                    Log.d("Trade response", response.body().toString());
+                    MainActivity.user_info.setCurrentTrades(response.body());
+                    //Show the invites for debugging if desired.
+                    for(TradeRequest currRequest : response.body()){
+                        Log.d("Trade Item", currRequest.toString());
+                    }
+                    networkCallListener.onSuccess();
+                }
+                catch(Exception e){
+                    Log.d("Trades loading error", "No invites found. " + e.getMessage());
+                    networkCallListener.onFailure();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("TradesGet", "Yeah it broke" + t.getMessage());
+                networkCallListener.onFailure();
+
+            }
+        });
+    }
 
 
     public static void updateSuperflyProgress(int session_id, Map<String, Integer> currentCounts, final Context context, RetrofitResponseListener networkCallListener){

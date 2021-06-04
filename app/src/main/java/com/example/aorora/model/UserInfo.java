@@ -55,6 +55,8 @@ public class UserInfo {
     //The current session of this user.
     private SuperflySession currentSession;
     private ArrayList<SuperflyInvite> currentInvites;
+    private ArrayList<TradeRequest> currentTrades;
+
 
 
 
@@ -237,6 +239,14 @@ public class UserInfo {
 
     public void setCurrentInvites(ArrayList<SuperflyInvite> currentInvites) {
         this.currentInvites = currentInvites;
+    }
+
+    public ArrayList<TradeRequest> getCurrentTrades() {
+        return currentTrades;
+    }
+
+    public void setCurrentTrades(ArrayList<TradeRequest> currentTrades) {
+        this.currentTrades = currentTrades;
     }
 
     public Integer getUser_staged_butterfly() {

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Html;
 import android.util.Log;
@@ -21,8 +23,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aorora.adapter.InvitePageAdapter;
+import com.example.aorora.adapter.TradeAdapter;
 import com.example.aorora.model.Superfly;
 import com.example.aorora.model.SuperflySession;
+import com.example.aorora.model.TradeRequest;
 import com.example.aorora.model.UserInfo;
 import com.example.aorora.network.NetworkCalls;
 import com.example.aorora.network.RetrofitResponseListener;
@@ -30,6 +35,7 @@ import com.example.aorora.network.RetrofitResponseListener;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +62,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     Boolean sessionEnded;
     Integer userPosition;
     Boolean resetSucceeded;
+    Button tradeRequestsBtn;
 
     //Trade request menu layout
     LinearLayout tradingMenu;
@@ -70,7 +77,11 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     Button submitTrade;
 
     //Trade request list and recyclerview vars
-
+    private RecyclerView tradesRecyclerView;
+    public TradeAdapter tradesAdapter;
+    RecyclerView.LayoutManager layoutManager;
+    ArrayList<TradeRequest> currTrades;
+    TextView noTrades;
 
 
     @Override
@@ -119,6 +130,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         backButton = (ImageButton) findViewById(R.id.back_button);
         startButton = findViewById(R.id.start_button);
         refreshButton = findViewById(R.id.refreshsesh_button);
+        tradeRequestsBtn = findViewById(R.id.trade_requests_btn);
 
         //Trading menu vars
         tradingMenu = (LinearLayout) findViewById((R.id.trade_menu));
@@ -131,6 +143,14 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                 (EditText) findViewById(R.id.violet_entry), (EditText) findViewById(R.id.green_entry),(EditText) findViewById(R.id.blue_entry)};
 
         //Request list vars and layouts
+        tradesRecyclerView = findViewById(R.id.trade_request_list);
+        currTrades = MainActivity.user_info.getCurrentTrades();
+        layoutManager = new LinearLayoutManager(this);
+        tradesAdapter = new TradeAdapter(this, currTrades);
+        tradesRecyclerView.setAdapter(tradesAdapter);
+        tradesRecyclerView.setLayoutManager(layoutManager);
+        tradesRecyclerView.setHasFixedSize(true);
+        noTrades = findViewById(R.id.no_trades);
 
 
 
@@ -138,6 +158,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         backButton.setOnClickListener(this);
         startButton.setOnClickListener(this);
         refreshButton.setOnClickListener(this);
+        tradeRequestsBtn.setOnClickListener(this);
 
 
 
@@ -464,6 +485,24 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         else if(view_id == refreshButton.getId()){
             //Use StartSession to check current status.
             refreshSession();
+        }
+
+        else if(view_id == tradeRequestsBtn.getId()){
+            Log.d("Recyclerview vis", "Pressing button");
+            if(tradesRecyclerView.getVisibility() == View.GONE){
+                Log.d("RecyclerView vis", "View is gone, set visible");
+                tradesRecyclerView.setVisibility(View.VISIBLE);
+                if(currTrades.size() == 0){
+                    noTrades.setVisibility(View.VISIBLE);
+                }
+            }
+            //Hide the menu if it is open
+            else{
+                tradesRecyclerView.setVisibility(View.GONE);
+                noTrades.setVisibility(View.GONE);
+            }
+
+
         }
 
         //User clicks their own bubble, ask them to contribute assigned butterfly

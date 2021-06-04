@@ -399,18 +399,39 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.182" />
 
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trade_request_list"
         android:layout_width="357dp"
         android:layout_height="615dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:elevation="10dp"
-        android:visibility="visible"
+        android:background="#AA9c7a63"
+        android:elevation="5dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.182" />
+        app:layout_constraintVertical_bias="0.215" />
+
+    <TextView
+        android:id="@+id/no_trades"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:elevation="11dp"
+        android:text="No trades available"
+        android:textColor="@color/colorWhite"
+        android:textSize="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/trade_request_list"
+        app:layout_constraintEnd_toEndOf="@id/trade_request_list"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="@id/trade_request_list"
+        app:layout_constraintTop_toTopOf="@id/trade_request_list"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

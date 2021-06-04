@@ -40,6 +40,19 @@ public class TradeRequest {
         this.b4_requested = b4_requested;
     }
 
+    @Override
+    public String toString() {
+        return "TradeRequest{" +
+                "request_id=" + request_id +
+                ", uid_sender=" + uid_sender +
+                ", uid_recipient=" + uid_recipient +
+                ", b0_requested=" + b0_requested +
+                ", b1_requested=" + b1_requested +
+                ", b2_requested=" + b2_requested +
+                ", b3_requested=" + b3_requested +
+                ", b4_requested=" + b4_requested +
+                '}';
+    }
 
     public Integer getRequest_id() {
         return request_id;

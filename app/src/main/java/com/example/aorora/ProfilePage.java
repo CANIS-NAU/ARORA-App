@@ -211,8 +211,20 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
                         }
                         //Otherwise move to the game in progress
                         else{
-                            final Intent to_navigate = new Intent(profilePage, SuperflyGamePage.class);
-                            startActivity(to_navigate);
+                            NetworkCalls.loadTradeRequests(MainActivity.user_info.getUser_id(), ProfilePage.this, new RetrofitResponseListener() {
+                                @Override
+                                public void onSuccess() {
+                                    //Since we loaded our trades, move to the game
+                                    final Intent to_navigate = new Intent(profilePage, SuperflyGamePage.class);
+                                    startActivity(to_navigate);
+                                }
+
+                                @Override
+                                public void onFailure() {
+                                    Toast.makeText(ProfilePage.this, "Couldn't connect to superfly lobby, try again!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }
 
                     }

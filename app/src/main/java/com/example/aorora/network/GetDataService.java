@@ -149,6 +149,9 @@ public interface GetDataService {
     @GET("/superflyinvite/{uid_recipient}")
     Call<ArrayList<SuperflyInvite>> getSuperflyInvites(@Path("uid_recipient") Integer recipient_uid);
 
+    @GET("/traderequest/{uid_recipient}")
+    Call<ArrayList<TradeRequest>> getTradeRequests(@Path("uid_recipient") Integer recipient_uid);
+
     //TODO Delete invite after accepting it.
     @DELETE("/superflyinvite/{uid_recipient}")
     Call<SuperflyInvite> deleteSuperflyInvite(@Path("uid_recipient") Integer recipient_uid);
