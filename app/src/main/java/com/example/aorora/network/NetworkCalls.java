@@ -246,11 +246,22 @@ public class NetworkCalls {
                         NetworkCalls.getSuperflySession(MainActivity.user_info.getUser_superflysession_id(), context, new RetrofitResponseListener() {
                             @Override
                             public void onSuccess() {
-                                //Load invites without listening for the response.
-                                NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), context);
+                                NetworkCalls.loadTradeRequests(MainActivity.user_info.getUser_id(), context, new RetrofitResponseListener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        //Load invites without listening for the response.
+                                        NetworkCalls.loadInvites(MainActivity.user_info.getUser_id(), context);
 
-                                Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
-                                networkCallListener.onSuccess();
+                                        Log.d("RESPONSESTR", new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                                        networkCallListener.onSuccess();
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+
+                                    }
+                                });
+
                             }
 
                             @Override
