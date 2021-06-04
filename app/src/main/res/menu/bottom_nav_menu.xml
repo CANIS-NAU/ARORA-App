@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/profile_filled_button"
+        android:title="@string/title_profile"
+        />
+
+    <item
+        android:id="@+id/navigation_practice"
+        android:icon="@drawable/butterfly_logo"
+        android:title="@string/title_practice"
+        />
+
+    <item
+        android:id="@+id/navigation_learn"
+        android:icon="@drawable/ic_learn_new"
+        android:title="@string/title_learn"/>
+
+<!--    <item-->
+<!--        android:id="@+id/navigation_community"-->
+<!--        android:icon="@drawable/community_button_filled"-->
+<!--        android:title="@string/title_community"-->
+<!--        android:enabled="false"/>-->
+
+<!--    <item-->
+<!--        android:id="@+id/profilePage"-->
+<!--        android:icon="@drawable/profile_filled_button"-->
+<!--        android:title="Profile Page AC"-->
+<!--        />-->
+</menu>

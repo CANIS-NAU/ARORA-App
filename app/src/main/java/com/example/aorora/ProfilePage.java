@@ -132,8 +132,9 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         }
         else if(view_id == community_button_bottombar.getId())
         {
-            to_navigate = new Intent(profilePage, CommunityPage.class);
-            startActivity(to_navigate);
+            Toast.makeText(this, "Community page is under maintenance.", Toast.LENGTH_SHORT).show();
+            //to_navigate = new Intent(bfDetailsPage, CommunityPage.class);
+            //startActivity(to_navigate);
         }
         else if(view_id == quest_button_bottombar.getId())
         {

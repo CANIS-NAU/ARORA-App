@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/speck_holder_cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/dusk_background"
-    tools:context=".HomeScreen"
-    android:id="@+id/speck_holder_cl">
+    tools:context=".HomeScreen">
 
     <include
         android:id="@+id/include_quick_access_menu"
@@ -26,12 +25,12 @@
         android:id="@+id/user_butterfly_imageView"
         android:layout_width="255dp"
         android:layout_height="234dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="192dp"
+        app:layout_constraintBottom_toTopOf="@+id/pop_up_buttons_button"
+        app:layout_constraintEnd_toEndOf="@+id/quest_button_ll"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="@+id/ar_game_button_ll"
+        app:layout_constraintTop_toBottomOf="@+id/include_quick_access_menu"
         app:srcCompat="@drawable/orange_butterfly_image" />
 
     <ImageButton
@@ -40,12 +39,14 @@
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="104dp"
         android:background="#00000000"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/three_dots_middle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.977"
         app:srcCompat="@drawable/menu_button_filled" />
 
     <TextView
@@ -90,39 +91,44 @@
         android:id="@+id/ar_game_button_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/pop_up_buttons_button"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
-        android:orientation="vertical"
-        android:layout_marginBottom="60dp"
-        android:gravity="center"
-        android:visibility="invisible">
+        app:layout_constraintTop_toBottomOf="@+id/user_butterfly_imageView"
+        app:layout_constraintVertical_bias="0.45">
+
         <ImageButton
             android:id="@+id/ar_game_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="#00000000"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ar_button"/>
+            app:srcCompat="@drawable/ar_button" />
+
         <TextView
             android:id="@+id/label_ar_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AR Game"
             android:layout_marginTop="4dp"
-            android:textColor="@color/customGray"/>
+            android:text="AR Game"
+            android:textColor="@color/customGray" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/quest_button_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/quest_button_ll"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/pop_up_buttons_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        android:orientation="vertical"
-        android:layout_marginBottom="60dp"
-        android:gravity="center">
+        app:layout_constraintTop_toBottomOf="@+id/user_butterfly_imageView">
 
         <ImageButton
             android:id="@+id/quest_button"
@@ -134,13 +140,13 @@
             app:srcCompat="@drawable/quest_button" />
 
         <TextView
+            android:id="@+id/label_quest_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quest"
             android:layout_marginTop="4dp"
-            android:visibility="invisible"
-            android:id="@+id/label_quest_button"
-            android:textColor="@color/customGray"/>
+            android:text="Quest"
+            android:textColor="@color/customGray"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
@@ -156,9 +162,9 @@
         android:text="@string/quest_notification"
         android:textColor="#FFFFFF"
         android:textSize="6pt"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.constraintlayout.widget.Barrier

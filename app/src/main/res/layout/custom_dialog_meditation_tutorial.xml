@@ -31,19 +31,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Press the button when \nthe ring around it appearst"
+        android:text="Press the button when \nthe ring around it appears"
         android:textAlignment="center"
-        android:textColor="#313131"
-        android:textSize="9pt" />
+
+        style="@style/inverse_text_views"/>
 
     <Button
         android:id="@+id/continue_button"
+
         android:layout_width="170dp"
         android:layout_height="28dp"
+
         android:layout_marginTop="30dp"
-        android:background="@color/common_google_signin_btn_text_light_pressed"
-        android:backgroundTint="#000000"
+
         android:text="continue"
+        style="@style/buttons"
+
         android:textColor="@color/colorWhite" />
 
 </LinearLayout>

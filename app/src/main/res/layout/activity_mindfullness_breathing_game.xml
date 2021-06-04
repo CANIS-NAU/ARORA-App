@@ -4,46 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MindfullnessBreathingGame"
-    android:background="@drawable/background">
+    android:background="@drawable/dusk_background"
+    tools:context=".MindfullnessBreathingGame">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/river"
         app:lottie_autoPlay="true"
-        />
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/river" />
 
     <ImageButton
         android:id="@+id/exit_button_walking"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:background="#00000000"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/exit_button_breathing" />
+        app:layout_constraintVertical_bias="0.022"
+        app:srcCompat="@drawable/exit_button_breathing"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/breath_count_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="140dp"
+        android:layout_marginTop="28dp"
         android:text="BreathCount"
         android:textColor="#FFFFFF"
         android:textSize="10pt"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exit_button_walking" />
 
     <ImageView
@@ -51,39 +52,25 @@
         android:layout_width="255dp"
         android:layout_height="234dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/breath_count_tv"
-        app:srcCompat="@drawable/butterfly_breathing" />
-
-    <TextView
-        android:id="@+id/remaining_time_breathing_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="Remaning Time"
-        android:textColor="@color/colorWhite"
-        android:textSize="9pt"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/butterfly_image_breathinggame" />
+        app:srcCompat="@drawable/b_frame1" />
 
     <TextView
         android:id="@+id/desc_to_breathinggame_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="96dp"
         android:gravity="center_horizontal"
         android:text="Press and hold as \n you breathe in"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/remaining_time_breathing_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/butterfly_image_breathinggame"
+        style="@style/inverse_text_views"/>
 
     <ImageView
         android:id="@+id/breathing_inhale_button"
@@ -98,8 +85,6 @@
         app:layout_constraintTop_toBottomOf="@+id/desc_to_breathinggame_tv"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/breathing_button" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

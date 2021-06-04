@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aorora.adapter.HorizontalTimeAdapter;
 
@@ -52,10 +53,11 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
         time_selection_recyler_view = (RecyclerView) findViewById(R.id.recycler_view_time_selection_breathing);
 
         //Removed "5 Breaths" and "15 Breaths" strings from array list for testing purposes
-        List<String> data = Arrays.asList("", "10 Breaths" ,"");
+        List<String> data = Arrays.asList("5 Breathes", "10 Breaths" ,"15 Breathes");
         generateTimeDataList(data);
         time_selection_recyler_view.smoothScrollToPosition(3);
-        /*
+
+        /* TODO: idk what this is put we gotta find out
         short_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,8 +140,7 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
 
                 if(isInMiddle)
                 {
-                    //TODO Fix this, it is currently hardcoded, setting to 1 for the 1 breath option.
-                    timerCount = 1; //viewHolder.getAdapterPosition();
+                    timerCount = viewHolder.getAdapterPosition();
                     text_view.setTextColor(getResources().getColor(R.color.colorWhite));
                 }
             }
@@ -165,8 +166,9 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
         }
         else if(view_id == community_button_bottombar.getId())
         {
-            to_navigate = new Intent(mindfullnessBreathing, CommunityPage.class);
-            startActivity(to_navigate);
+            Toast.makeText(this, "Community page is under maintenance.", Toast.LENGTH_SHORT).show();
+            //to_navigate = new Intent(bfDetailsPage, CommunityPage.class);
+            //startActivity(to_navigate);
         }
         else if(view_id == play_button.getId())
         {

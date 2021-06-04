@@ -95,8 +95,9 @@ public class DailyQuestPage extends AppCompatActivity implements View.OnClickLis
         }
         else if(view_id == community_button_bottombar.getId())
         {
-            to_navigate = new Intent(dailyQuestPage, CommunityPage.class);
-            startActivity(to_navigate);
+            Toast.makeText(this, "Community page is under maintenance.", Toast.LENGTH_SHORT).show();
+            //to_navigate = new Intent(bfDetailsPage, CommunityPage.class);
+            //startActivity(to_navigate);
         }
     }
 }

@@ -9,6 +9,7 @@
 
     <ImageButton
         android:id="@+id/community_button_bottom_bar"
+        android:clickable="false"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_weight="1"

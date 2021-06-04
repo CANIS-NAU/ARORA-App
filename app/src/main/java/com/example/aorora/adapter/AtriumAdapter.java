@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -34,7 +35,7 @@ public class AtriumAdapter extends RecyclerView.Adapter<AtriumAdapter.AtriumView
     @Override
     public AtriumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.atrium_row, parent, false);
+        View view = inflater.inflate(R.layout.atrium_card, parent, false);
         AtriumViewHolder atriumViewHolder = new AtriumViewHolder(view);
         return atriumViewHolder;
     }
@@ -44,7 +45,7 @@ public class AtriumAdapter extends RecyclerView.Adapter<AtriumAdapter.AtriumView
     public void onBindViewHolder(@NonNull AtriumViewHolder atriumAdapterHolder, @SuppressLint("RecyclerView") final int position) {
         atriumAdapterHolder.butterflyImage.setImageResource(imgs[position]);
         atriumAdapterHolder.butterflyCount.setText(Integer.toString(counts[position]));
-        atriumAdapterHolder.rowLayout.setOnClickListener(new View.OnClickListener() {
+        atriumAdapterHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("CLICKIGN ATRIUM", "Clicked imagebutton in atrium");
@@ -64,14 +65,12 @@ public class AtriumAdapter extends RecyclerView.Adapter<AtriumAdapter.AtriumView
     public class AtriumViewHolder extends RecyclerView.ViewHolder{
         ImageView butterflyImage;
         TextView butterflyCount;
-        LinearLayout rowLayout;
+        CardView cardView;
         public AtriumViewHolder(@NonNull View itemView) {
             super(itemView);
             butterflyImage = itemView.findViewById(R.id.butterfly_img);
             butterflyCount = itemView.findViewById(R.id.butterfly_count);
-            rowLayout = itemView.findViewById(R.id.row_layout);
-
+            cardView = itemView.findViewById(R.id.card_view);
         }
-
     }
 }

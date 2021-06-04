@@ -4,110 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReceiptPage"
-    android:background="@drawable/receipt_page_backgrpund">
+    android:background="@drawable/dusk_background"
+    tools:context=".ReceiptPage">
 
-
-    <TextView
-        android:id="@+id/receipt_desc_text_view_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="68dp"
-        android:text="Total Pollen "
-        android:textColor="@android:color/white"
-        android:textSize="8pt"
-        app:layout_constraintEnd_toStartOf="@+id/pollen_totalcount_tv"
-        app:layout_constraintHorizontal_bias="0.326"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/receipt_desc_text_view" />
-
-    <ImageView
-        android:id="@+id/receipt_page_pollen_point_holder"
-        android:layout_width="142dp"
-        android:layout_height="143dp"
-        android:layout_marginTop="60dp"
-        android:background="#00000000"
-        android:scaleType="fitCenter"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:srcCompat="@drawable/receipt_page_pollen" />
-
-    <TextView
-        android:id="@+id/receipt_page_pollen_points_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:text="100"
-        android:textColor="#000000"
-        android:textSize="20dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-    <ImageButton
-        android:id="@+id/receipt_page_exit_activity_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="16dp"
-        android:background="#00000000"
-        android:scaleType="fitCenter"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/continue_receipt_page" />
-
-
-    <ImageButton
-        android:id="@+id/receipt_page_home_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="16dp"
-        android:background="#00000000"
-        android:scaleType="fitCenter"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/receipt_page_exit_activity_button"
-        app:srcCompat="@drawable/home_button_receipt_page" />
-
-    <ImageButton
-        android:id="@+id/play_again_button_receipt_page"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="#00000000"
-        android:scaleType="fitCenter"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/receipt_page_home_button"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/play_again_receipt_page" />
-
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/receipt_page_jar_button"
-        android:layout_width="598dp"
-        android:layout_height="303dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tap_to_collect_receipt_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/receipt_page_pollen_point_holder"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/jar_wiggle" />
 
     <TextView
         android:id="@+id/textView10"
@@ -123,55 +22,138 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/receipt_desc_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="8dp"
-        android:text="Pollen Earned: "
-        android:textColor="@android:color/white"
-        android:textSize="8pt"
-        app:layout_constraintEnd_toStartOf="@+id/pollen_earnedcount_tv"
-        app:layout_constraintHorizontal_bias="0.261"
+    <ImageView
+        android:id="@+id/pollenImage"
+        android:layout_width="369dp"
+        android:layout_height="597dp"
+        android:layout_marginTop="44dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintVertical_bias="0.466"
+        app:srcCompat="@drawable/pollen2_00000" />
 
     <TextView
-        android:id="@+id/pollen_earnedcount_tv"
+        android:id="@+id/press_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginBottom="25dp"
+        android:text="Press Pouch to Collect Pollen"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/pollenImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintVertical_bias="0.86" />
+
+    <ImageButton
+        android:id="@+id/homeButton"
+        android:layout_width="163dp"
+        android:layout_height="122dp"
+        android:background="#00382D2D"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.942"
+        app:srcCompat="@drawable/orange_butterfly_image" />
+
+    <TextView
+        android:id="@+id/homeButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back Home"
+        android:textColor="#FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/homeButton"
+        app:layout_constraintStart_toStartOf="@+id/homeButton"
+        app:layout_constraintTop_toBottomOf="@+id/homeButton" />
+
+    <ImageView
+        android:id="@+id/closedPouch"
+        android:layout_width="145dp"
+        android:layout_height="236dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65"
+        app:srcCompat="@drawable/pollen_pouch" />
+
+    <TextView
+        android:id="@+id/earnedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:text="Pollen Earned:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <TextView
+        android:id="@+id/pollenEarnedCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="88dp"
+        android:text="-1"
+        android:textAlignment="textEnd"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/earnedTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.098"
+        app:layout_constraintStart_toEndOf="@+id/earnedTextView"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/totalPollenCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-1"
+        android:textAlignment="textEnd"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/closedPouch"
+        app:layout_constraintEnd_toEndOf="@+id/pollenEarnedCount"
+        app:layout_constraintStart_toStartOf="@+id/pollenEarnedCount"
+        app:layout_constraintTop_toBottomOf="@+id/earnedTextView"
+        app:layout_constraintVertical_bias="0.571" />
+
+    <TextView
+        android:id="@+id/totalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="64dp"
-        android:text="0000"
-        android:textColor="@color/colorWhite"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        android:text="Total Pollen:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/closedPouch"
+        app:layout_constraintEnd_toEndOf="@+id/earnedTextView"
+        app:layout_constraintEnd_toStartOf="@+id/totalPollenCount"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/earnedTextView"
+        app:layout_constraintTop_toBottomOf="@+id/earnedTextView"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/pollen_totalcount_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="64dp"
-        android:text="0000"
-        android:textColor="@color/colorWhite"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pollen_earnedcount_tv" />
-
-
-    <TextView
-        android:id="@+id/tap_to_collect_receipt_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Tap Jar to Collect"
-        android:textColor="@color/customGray"
-        android:textSize="7pt"
-        app:layout_constraintBottom_toTopOf="@+id/receipt_page_home_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

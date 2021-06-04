@@ -308,11 +308,12 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
             to_navigate = new Intent(arScreen, ProfilePage.class);
             startActivity(to_navigate);
         }
-        else if(view_id == community_button_bottombar.getId())
-        {
-            to_navigate = new Intent(arScreen, CommunityPage.class);
-            startActivity(to_navigate);
-        }
+        //TODO: add back community navigation once page is complete
+//        else if(view_id == community_button_bottombar.getId())
+//        {
+//            to_navigate = new Intent(arScreen, CommunityPage.class);
+//            startActivity(to_navigate);
+//        }
         else if(view_id == quest_button_bottombar.getId())
         {
             to_navigate = new Intent(arScreen, MindfullnessSelection.class);

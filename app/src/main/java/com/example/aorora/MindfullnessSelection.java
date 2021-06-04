@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MindfullnessSelection extends AppCompatActivity implements View.OnClickListener, GestureDetector.OnGestureListener {
     Context mindfullnessSelection;
@@ -103,8 +104,9 @@ public class MindfullnessSelection extends AppCompatActivity implements View.OnC
         }
         else if(view_id == community_button_bottombar.getId())
         {
-            to_navigate = new Intent(mindfullnessSelection, CommunityPage.class);
-            startActivity(to_navigate);
+            Toast.makeText(this, "Community page is under maintenance.", Toast.LENGTH_SHORT).show();
+            //to_navigate = new Intent(bfDetailsPage, CommunityPage.class);
+            //startActivity(to_navigate);
         }
         else if(view_id == mindfullness_breathing.getId())
         {

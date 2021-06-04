@@ -361,8 +361,9 @@ public class HomeScreen extends AppCompatActivity implements GestureDetector.OnG
         }
         else if(view_id == community_button_bottombar.getId())
         {
-            to_navigate = new Intent(homeScreen, CommunityPage.class);
-            startActivity(to_navigate);
+            Toast.makeText(this, "Community page is under maintenance.", Toast.LENGTH_SHORT).show();
+            //to_navigate = new Intent(bfDetailsPage, CommunityPage.class);
+            //startActivity(to_navigate);
         }
         else if(view_id == quest_button_bottombar.getId() || view_id == quest_button.getId())
         {

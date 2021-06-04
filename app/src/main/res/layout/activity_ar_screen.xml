@@ -7,6 +7,21 @@
     android:background="@drawable/background"
     tools:context=".ARScreen">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:layout_constraintTop_toBottomOf="@id/ar_title"
+
+        android:src="@drawable/blue_butterfly_image"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:gravity="center_vertical|center_horizontal"
+        style="@style/inverse_text_views"
+        android:text="@string/pollen_requried_text"
+        app:layout_constraintTop_toBottomOf="@id/spend_pollen_btn"/>
 
     <Button
         android:id="@+id/geo_coord_bttn"
@@ -17,31 +32,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.822" />
+        app:layout_constraintVertical_bias="0.822"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/spend_pollen_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Catch Butterflies: Spend 10 Pollen"
+        android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.893" />
+        app:layout_constraintVertical_bias="0.893"
+        style="@style/buttons"/>
 
     <TextView
         android:id="@+id/ar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/ARPageTitle"
+        android:text="@string/ARPageTitle2"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        style="@style/inverse_page_header_text_views"/>
 
     <include
         android:id="@+id/include"
@@ -54,5 +72,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aorora.adapter.HorizontalAdapter;
 import com.example.aorora.adapter.HorizontalTimeAdapter;
@@ -71,7 +72,7 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
         exit_button.setOnClickListener(this);
 
         generateDataListHorizontal();
-        List<String> data = Arrays.asList("", "3 minutes", "5 minutes","");
+        List<String> data = Arrays.asList("", "1 minutes", "3 minutes","");
         generateTimeDataList(data);
         infinite_blink = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.infinite_blink);
@@ -79,7 +80,7 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
         recyclerView.smoothScrollToPosition(3);
         recyclerViewTime.smoothScrollToPosition(3);
         //DEV MODE FLAG TO END THE ACTIVITY QUICKLY
-        testMode = true;
+        testMode = false;
 
     }
 
@@ -214,22 +215,23 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
         }
         else if(view_id == community_button_bottombar.getId())
         {
-            to_navigate = new Intent(mindfulnessMeditation, CommunityPage.class);
-            startActivity(to_navigate);
+            Toast.makeText(this, "Community page is under maintenance.", Toast.LENGTH_SHORT).show();
+            //to_navigate = new Intent(bfDetailsPage, CommunityPage.class);
+            //startActivity(to_navigate);
         }
         else if(view_id == play_button.getId())
         {
             boolean two_digit = false;
             int duration_int = 0;
             duration_string = String.valueOf(text_view.getText());
-            if(duration_string.equals("3 minutes"))
+            if(duration_string.equals("1 minutes"))
             {
                 //Desired duration to be sent to the game in ms.
-                duration_int = 180000;
+                duration_int = 60000;
             }
-            else if(duration_string.equals("5 minutes"))
+            else if(duration_string.equals("3 minutes"))
             {
-                duration_int = 300000;
+                duration_int = 180000;
             }
 
             if(testMode){

@@ -359,7 +359,7 @@ public class ButterflyGameActivity extends AppCompatActivity {
         promptLeaveActivity();
     }
 
-    private void promptLeaveActivity(){
+    public void promptLeaveActivity(){
         new AlertDialog.Builder(mContext)
                 .setMessage("Are you sure you want to leave the game?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

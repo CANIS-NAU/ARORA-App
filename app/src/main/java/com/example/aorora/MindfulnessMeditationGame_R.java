@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.app.AlertDialog;
+import android.widget.Toast;
 
 import com.example.aorora.network.NetworkCalls;
 
@@ -64,6 +65,8 @@ public class MindfulnessMeditationGame_R extends AppCompatActivity implements Vi
 
     Animation expand;
     Timer myTimer;
+
+    private long pressedTime;
 
     int game_theme;
     @Override
@@ -282,19 +285,6 @@ public class MindfulnessMeditationGame_R extends AppCompatActivity implements Vi
 
     }
 
-
-    @Override
-    public void onBackPressed() {
-        //Allow us to leave the Activity as normal, but we need to stop the recording like the x button does.
-        if(theme_music.isPlaying())
-        {
-            Log.e("MUSIC", " STOPPED");
-            theme_music.stop();
-        }
-        myTimer.cancel();
-        super.onBackPressed();
-    }
-
     @Override
     public void onClick(View v) {
         if(animation_start)
@@ -441,6 +431,24 @@ public class MindfulnessMeditationGame_R extends AppCompatActivity implements Vi
         myDialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
 
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            //Allow us to leave the Activity as normal, but we need to stop the recording like the x button does.
+            if(theme_music.isPlaying())
+            {
+                Log.e("MUSIC", " STOPPED");
+                theme_music.stop();
+            }
+            myTimer.cancel();
+            super.onBackPressed();
+            finish();
+
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+        pressedTime = System.currentTimeMillis();
+    }
 
 }

@@ -19,16 +19,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".slider_survey_page" />
+        <activity android:name=".mMainActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".slider_survey_page"
+            android:noHistory="true"/>
         <activity android:name=".SuperflyInvites" />
         <activity android:name=".SuperflyLobby" />
         <activity android:name=".AtriumDetail" />
-        <activity android:name=".ARScreen" />
-        <activity android:name=".ButterflyGameActivity" />
-        <activity android:name=".MindfulnessMeditationGame_R" />
+        <activity android:name=".ARScreen"
+            android:noHistory="true"/>
+        <activity android:name=".ButterflyGameActivity"
+            android:noHistory="true"/>
+        <activity android:name=".MindfulnessMeditationGame_R"
+            android:noHistory="true"/>
         <activity
             android:name=".ReceiptPage"
-            android:parentActivityName=".HomeScreen">
+            android:parentActivityName=".HomeScreen"
+            android:noHistory="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeScreen" />
@@ -37,24 +49,32 @@
         <activity android:name=".PollenStoreDailyQuestPage" />
         <activity android:name=".PollenShopPage" />
         <activity android:name=".DailyQuestPage" />
-        <activity android:name=".MindfullnessWalking" />
+        <activity android:name=".MindfullnessWalking"
+            android:noHistory="true"/>
         <activity android:name=".BackendTest" />
         <activity
             android:name=".MindfullnessWalkingGame"
-            android:screenOrientation="portrait" />
-        <activity android:name=".MindfullnessMeditation" />
+            android:screenOrientation="portrait"
+            android:noHistory="true"/>
+        <activity android:name=".MindfullnessMeditation"
+            android:noHistory="true"/>
         <activity android:name=".MindfullnessFeatherSelection" />
-        <activity android:name=".MindfullnessBreathingGame" />
-        <activity android:name=".MindfullnessBreathing" />
+        <activity android:name=".MindfullnessBreathingGame"
+            android:noHistory="true"/>
+        <activity android:name=".MindfullnessBreathing"
+            android:noHistory="true"/>
         <activity android:name=".ButterflyDetailsPage" />
         <activity android:name=".ButterflyCollectionPage" />
-        <activity android:name=".AtriumScreen" />
+        <activity android:name=".AtriumScreen"
+            />
         <activity android:name=".ProfilePage" />
         <activity android:name=".CommunityPage" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".MindfullnessSelection" />
         <activity android:name=".SurveyPage" />
-        <activity android:name=".MainActivity" android:windowSoftInputMode="adjustResize|stateHidden">
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

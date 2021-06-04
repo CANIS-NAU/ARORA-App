@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -54,13 +55,14 @@ public class MindfullnessWalkingGame extends AppCompatActivity {
     Integer pollen_payout;
     Boolean testMode;
 
+    private long pressedTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mindfullness_walking_game);
         //DEV MODE FLAG TO END THE ACTIVITY QUICKLY
-        testMode = true;
+        testMode = false;
         //Display the finishButton after x seconds
         finishButton = (Button) findViewById(R.id.finish_walk_btn);
         timeUntilFinished = 6000;
@@ -387,5 +389,25 @@ public class MindfullnessWalkingGame extends AppCompatActivity {
         public void onFinish() {
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            //Allow us to leave the Activity as normal, but we need to stop the recording like the x button does.
+            if(walking_music.isPlaying())
+            {
+                Log.e("MUSIC", " STOPPED");
+                walking_music.stop();
+            }
+//            time.cancel();
+            super.onBackPressed();
+            finish();
+
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+        pressedTime = System.currentTimeMillis();
     }
 }
