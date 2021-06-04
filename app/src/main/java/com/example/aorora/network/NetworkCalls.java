@@ -487,9 +487,9 @@ public class NetworkCalls {
         call.enqueue(new Callback<ArrayList<SuperflyInvite>>() {
             @Override
             public void onResponse(Call<ArrayList<SuperflyInvite>> call, Response<ArrayList<SuperflyInvite>> response) {
-                Log.d("Response list", response.body().toString());
                 try{
                     Log.d("Invite response", response.body().toString());
+                    Log.d("Response list", response.body().toString());
                     MainActivity.user_info.setCurrentInvites(response.body());
                     //Show the invites for debugging if desired.
                     for(SuperflyInvite currInvite : response.body()){
@@ -557,10 +557,6 @@ public class NetworkCalls {
    */
     public static void loadTradeRequests(int recipient_id, final Context context ){
         Call<ArrayList<TradeRequest>> call = service.getTradeRequests(recipient_id);
-        //This is used when we want to refresh the UI and need a synchronous method to do so.
-        //execute() runs this method synchronously.
-        //TODO Refresh invite list.
-
 
         //Otherwise we don't need it to be synchronous
         call.enqueue(new Callback<ArrayList<TradeRequest>>() {
@@ -595,10 +591,6 @@ public class NetworkCalls {
    */
     public static void loadTradeRequests(int recipient_id, final Context context, RetrofitResponseListener networkCallListener ){
         Call<ArrayList<TradeRequest>> call = service.getTradeRequests(recipient_id);
-        //This is used when we want to refresh the UI and need a synchronous method to do so.
-        //execute() runs this method synchronously.
-        //TODO Refresh invite list.
-
 
         //Otherwise we don't need it to be synchronous
         call.enqueue(new Callback<ArrayList<TradeRequest>>() {
@@ -629,6 +621,48 @@ public class NetworkCalls {
             }
         });
     }
+
+    public static void deleteTradeRequest(int recipient_id, final Context context, RetrofitResponseListener networkCallListener ){
+        Call call = service.deleteTradeRequest(recipient_id);
+
+        //Otherwise we don't need it to be synchronous
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                Log.d("Response list", response.body().toString());
+                if (response.isSuccess()) {
+                    Log.d("Delete request", "Deleted request successfully.");
+                    networkCallListener.onSuccess();
+                }
+            }
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("TradesGet", "Yeah it broke" + t.getMessage());
+                networkCallListener.onFailure();
+
+            }
+        });
+    }
+
+    public static void deleteSuperflyInvites(int recipient_id, final Context context ){
+        Call call = service.deleteInvites(recipient_id);
+
+        //Otherwise we don't need it to be synchronous
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccess()) {
+                    Log.d("Delete invites", "Deleted invites successfully.");
+                }
+            }
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("Delete invites", "Yeah it broke" + t.getMessage());
+
+            }
+        });
+    }
+
 
 
     public static void updateSuperflyProgress(int session_id, Map<String, Integer> currentCounts, final Context context, RetrofitResponseListener networkCallListener){
@@ -701,7 +735,7 @@ public class NetworkCalls {
                     SuperflySession newSession = response.body();
                     newSession.buildParticipantsArray();
                     newSession.buildAssignedButterfliesArray();
-                    MainActivity.user_info.setCurrentSession(response.body());
+                    MainActivity.user_info.setCurrentSession(newSession);
                     Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
                     networkCallListener.onSuccess();
                 }
@@ -730,6 +764,11 @@ public class NetworkCalls {
         Integer sessionId = desiredSession.getSession_id();
         //Declare call
         Call<SuperflySession> call = null;
+
+        if(desiredSession.getSession_started()){
+            Toast.makeText(context, "Cannot join started session!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         //Cases as we need to update one of the fields, participant 1 - 4, depending on other users.
         switch(participantCount){
             case 1:
@@ -768,10 +807,13 @@ public class NetworkCalls {
                 Boolean testing = false;
 
                 if(response.code() == 200){
-                    desiredSession.setSession_participant_count(newCount);
-                    Log.d("Joined session", "Setting local session" + desiredSession.toString());
+                    SuperflySession newSession = response.body();
+                    newSession.buildParticipantsArray();
+                    newSession.buildAssignedButterfliesArray();
+                    newSession.setSession_participant_count(newCount);
+                    Log.d("Joined session", "Setting local session" + newSession.toString());
                     //Add the user to their new session so they can load the game page.
-                    MainActivity.user_info.setCurrentSession(desiredSession);
+                    MainActivity.user_info.setCurrentSession(newSession);
                     //Since we succeeded, navigate to the new session with passed context.
                     if(!testing) {
                         Intent intent = new Intent(context, SuperflyGamePage.class);
@@ -799,6 +841,33 @@ public class NetworkCalls {
 
             @Override
             public void onFailure(Call<UserInfo> call, Throwable t) {
+
+            }
+        });
+    }
+
+    /**
+     * Call to delete the session corresponding to this id.
+     */
+    public static void deleteSuperflySession(Integer session_id, final Context context){
+        Call call = service.deleteSession(session_id);
+        call.enqueue(new Callback<SuperflySession>() {
+            @Override
+            public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
+
+                if(response.code() == 404){
+                    Log.d("SuperflySession GET", "No active superfly session found for this user.");
+
+                }
+                if(response.isSuccess()){
+                    Log.d("DeleteSEssion", "Deleted session " + session_id.toString());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SuperflySession> call, Throwable t) {
+                Log.d("DeleteSession", "Error deleting superfly session!");
 
             }
         });

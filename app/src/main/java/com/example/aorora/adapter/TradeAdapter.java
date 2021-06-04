@@ -112,9 +112,20 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeAdapter
                         NetworkCalls.updateUserAtrium(currRequest.getUid_sender(), updatedSenderAtrium, context, new RetrofitResponseListener() {
                             @Override
                             public void onSuccess() {
-                                //If both PATCHES work, update locally
-                                MainActivity.user_info.update_local_atrium(updatedRecipientAtrium);
-                                Toast.makeText(context, "Trade successful!", Toast.LENGTH_SHORT).show();
+                                NetworkCalls.deleteTradeRequest(currRequest.getUid_recipient(), context, new RetrofitResponseListener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        //If all calls work, update locally
+                                        MainActivity.user_info.update_local_atrium(updatedRecipientAtrium);
+                                        Toast.makeText(context, "Trade successful!", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+
+                                    }
+                                });
+
                             }
 
                             @Override
@@ -137,9 +148,20 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeAdapter
         tradeViewHolder.declineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                TradeRequest currRequest = currRequests.get(position);
                 //Decline and delete the request
                 Toast.makeText(context, "Declining", Toast.LENGTH_SHORT).show();
+                NetworkCalls.deleteTradeRequest(currRequest.getUid_recipient(), context, new RetrofitResponseListener() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d("Decline Button", "Deleted request, please refresh");
+                    }
 
+                    @Override
+                    public void onFailure() {
+                        Log.d("Decline Button", "Delete request FAILED!");
+                    }
+                });
             }
         });
 

@@ -60,7 +60,10 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
             @Override
             public void onClick(View view) {
                 Log.d("Joining session", "Joining session created by " + currInvites.get(position).getSession().getParticipant_0().getUser_name());
+                //TODO Is this causing the refresh bug where the bubble doesn't popup right away?
+                //TODO Check for in-progress session.
                 NetworkCalls.joinSession(currInvites.get(position).getSession(), MainActivity.user_info, context);
+                NetworkCalls.deleteSuperflyInvites(MainActivity.user_info.getUser_id(), context);
                 //Intent intent = new Intent(context, SuperflyGamePage.class);
                 //context.startActivity(intent);
             }

@@ -506,7 +506,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         }
 
         //User clicks their own bubble, ask them to contribute assigned butterfly
-        else if(view_id == participantBubbles[userPosition].getId()){
+        else if(sessionStarted && view_id == participantBubbles[userPosition].getId()){
             //Make dialog fragment and show it here, submit button basically.
             //First check if the user has enough to actually contribute
             String assignedButterflyKey = "user_b"  + assignedButterflies[userPosition] + "_count";
@@ -589,6 +589,9 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         //Otherwise, check which other bubble it was. We can include the user's bubble as the condition
         //above will handle it.
         else {
+            if(!sessionStarted)
+                return;
+
             UserInfo otherUser = null;
 
             if(participants[0] != null && view_id == participantBubbles[0].getId()){
@@ -608,10 +611,8 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                 otherUser = participants[4];
             }
 
-            if(sessionStarted)
-                Toast.makeText(this, "Sending request to " + otherUser.getUser_name(), Toast.LENGTH_SHORT).show();
-                showTradingMenu(otherUser);
-            //sendTradeRequest(otherUser);
+            showTradingMenu(otherUser);
+
         }
     }
 

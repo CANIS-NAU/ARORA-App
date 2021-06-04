@@ -101,6 +101,12 @@ public interface GetDataService {
     @GET("/superflysession/{session_id}")
     Call<SuperflySession> getSession(@Path("session_id") Integer session_id);
 
+    @DELETE("/superflysession/{session_id}")
+    Call<SuperflySession> deleteSession(@Path("session_id") Integer session_id);
+
+    @DELETE("/superflyinvites/{recipient_id}")
+    Call<SuperflyInvite> deleteInvites(@Path("recipient_id") Integer recipient_id);
+
     //Replaces the whole session object. Not working currently due to foreign key recursion issues.
     //@PUT("/superflysession/{session_id}")
     //Call<SuperflySession> updateSession(@Path("session_id") Integer session_id, @Body SuperflySession new_session);
@@ -140,6 +146,7 @@ public interface GetDataService {
     @FormUrlEncoded
     Call<TradeRequest> createTradeRequest(@Field("uid_sender") Integer uid_sender, @Field("uid_recipient") Integer uid_recipient, @FieldMap Map<String, Integer> requested_butterflies);
 
+
     //Updates the number of contributed butterflies. 
     @PATCH("/superflysession/{session_id}")
     @FormUrlEncoded
@@ -153,8 +160,8 @@ public interface GetDataService {
     Call<ArrayList<TradeRequest>> getTradeRequests(@Path("uid_recipient") Integer recipient_uid);
 
     //TODO Delete invite after accepting it.
-    @DELETE("/superflyinvite/{uid_recipient}")
-    Call<SuperflyInvite> deleteSuperflyInvite(@Path("uid_recipient") Integer recipient_uid);
+    @DELETE("/traderequest/{uid_recipient}")
+    Call<TradeRequest> deleteTradeRequest(@Path("uid_recipient") Integer uid_recipient);
 
 
 
