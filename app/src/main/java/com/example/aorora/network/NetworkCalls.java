@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.aorora.MainActivity;
+import com.example.aorora.R;
 import com.example.aorora.SuperflyGamePage;
 import com.example.aorora.model.DailyTask;
 import com.example.aorora.model.DailyTaskReturn;
@@ -294,7 +295,22 @@ public class NetworkCalls {
         });
     }
 
+    public static void createUserSuperfly(int user_id, int superfly_id, final Context context){
+        Call call = service.createUserSuperfly(user_id, superfly_id);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.isSuccess()){
+                    Toast.makeText(context, "Superfly created!", Toast.LENGTH_SHORT).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("CreateUserSuperfly","Creation post request failed.");
+            }
+        });
+    }
 
     public static void createMoodReport(int user_id, int q1_response, int q2_response, final Context context)
     {

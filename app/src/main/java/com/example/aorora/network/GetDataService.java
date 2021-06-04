@@ -66,9 +66,9 @@ public interface GetDataService {
     Call<List<ButterflyLike>> getAllLikes();
 
 
-    @POST("/butterflies")
-    Call<Butterfly> createButterfly(@Field("butterfly_id") Integer butterfly_id,
-                                    @Field("user_id") Integer user_id);
+    @POST("/usersuperfly")
+    Call createUserSuperfly(@Field("id_user") Integer user_id,
+                                    @Field("id_superfly") Integer superfly_id);
 
     @POST("/userbutterfly")
     Call<Butterfly> createButterfly(@Body Butterfly user);
