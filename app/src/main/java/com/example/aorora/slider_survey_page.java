@@ -87,7 +87,7 @@ public class slider_survey_page extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent homeAcivity = new Intent(slider_survey_page.this, HomeScreen.class);
+                Intent homeAcivity = new Intent(slider_survey_page.this, mMainActivity.class);
                 startActivity(homeAcivity);
             }
         });

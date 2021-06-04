@@ -82,9 +82,9 @@ public class ReceiptPage extends AppCompatActivity{
 
         //Home button listener will send user to home screen and destroy this one.
         homeButton.setOnClickListener(v -> {
-            startActivity(new Intent(mContext, LearnFragment.class));
-//            finish();
-            finishActivity(0);
+//            startActivity(new Intent(mContext, mMainActivity.class));
+            finish();
+//            finishActivity(0);
         });
 
 
@@ -117,10 +117,10 @@ public class ReceiptPage extends AppCompatActivity{
         totalPollenCount.setText(Integer.toString(userPollen));
     }
 
-    //Intential override to prevent improper back button navigation.
-    @Override
-    public void onBackPressed() {
-        //Do nothing. Do not pop the stack and go back into the mindfulness activity.
-    }
+//    //Intential override to prevent improper back button navigation.
+//    @Override
+//    public void onBackPressed() {
+//        //Do nothing. Do not pop the stack and go back into the mindfulness activity.
+//    }
 
 }

@@ -49,75 +49,88 @@
 
             app:srcCompat="@drawable/mindfulness_meditation_button" />
 
-        <TextView
-            android:id="@+id/textView3"
-
-            android:layout_width="wrap_content"
-            android:layout_height="46dp"
-
-            android:layout_centerHorizontal="true"
-            android:text="Focus on the meditation audio \n to regain your calm mind"
-
-            style="@style/inverse_text_views"
-            android:layout_below="@id/alpha_channel_meditation_icon"
-            />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-
-            android:text="Choose Time (in minutes)"
-            android:layout_centerHorizontal="true"
-
-            android:textColor="@android:color/white"
-            android:textSize="8pt"
-            android:layout_below="@id/textView3"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewTime"
-
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-
-            android:layout_below="@id/textView4"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_marginStart="@dimen/activity_vertical_margin"
-            android:layout_marginEnd="@dimen/activity_vertical_margin"
-            />
-
-        <TextView
-            android:id="@+id/theme"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/survey_card_view_inverse"
+            android:layout_below="@id/alpha_channel_meditation_icon">
 
-            android:text="Choose Theme"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                >
+                <TextView
+                    android:id="@+id/textView3"
 
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+
+                    android:layout_centerHorizontal="true"
+                    android:text="Focus on the meditation audio \n to regain your calm mind"
+
+                    style="@style/inverse_text_views"
+                    android:layout_below="@id/alpha_channel_meditation_icon"
+                    />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+
+                    android:text="Choose Time (in minutes)"
+                    android:layout_centerHorizontal="true"
+
+                    android:textColor="@android:color/white"
+                    android:textSize="8pt"
+                    android:layout_below="@id/textView3"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewTime"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+
+                    android:layout_below="@id/textView4"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_vertical_margin"
+                    android:layout_marginEnd="@dimen/activity_vertical_margin"
+                    />
+
+                <TextView
+                    android:id="@+id/theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Choose Theme"
+
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
 
 
-            android:textColor="@android:color/white"
-            android:textSize="8pt"
+                    android:textColor="@android:color/white"
+                    android:textSize="8pt"
 
-            android:layout_below="@id/recyclerViewTime"
-            />
+                    android:layout_below="@id/recyclerViewTime"
+                    />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/horizontal_recycler_view_meditation"
-            android:layout_width="match_parent"
-            android:layout_height="88dp"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/horizontal_recycler_view_meditation"
+                    android:layout_width="match_parent"
+                    android:layout_height="88dp"
 
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_marginStart="@dimen/activity_vertical_margin"
-            android:layout_marginEnd="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_vertical_margin"
+                    android:layout_marginEnd="@dimen/activity_vertical_margin"
 
-            android:layout_below="@id/theme"
-            />
+                    android:layout_below="@id/theme"
+                    />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
         <ImageButton
             android:id="@+id/play_button_walking"
@@ -133,7 +146,6 @@
             android:layout_centerHorizontal="true"
 
             app:srcCompat="@drawable/play_button"  />
-
     </RelativeLayout>
 
     <include
