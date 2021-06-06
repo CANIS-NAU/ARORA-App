@@ -230,7 +230,6 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
                     //TODO: Why are the network calls here instead of recieptpage? KISS and add a flat number of points when we reach that page.
 
                     MainActivity.user_info.setUser_pollen(new_user_points);
-
                     Intent to_navigate = new Intent(mindfullness_breathing_game, ReceiptPage.class);
 
                     to_navigate.putExtra("NavigatedFrom", 1);
@@ -317,5 +316,18 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
         }
         pressedTime = System.currentTimeMillis();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        breathing_music.stop();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        breathing_music.stop();
     }
 }
