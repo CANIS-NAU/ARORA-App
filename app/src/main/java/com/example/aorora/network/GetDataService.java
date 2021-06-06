@@ -18,6 +18,7 @@ import com.example.aorora.model.UserIdReturn;
 import com.example.aorora.model.UserInfo;
 import com.example.aorora.model.UserInteraction;
 import com.example.aorora.model.Notification;
+import com.example.aorora.model.UserSuperfly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +68,9 @@ public interface GetDataService {
 
 
     @POST("/usersuperfly")
-    Call createUserSuperfly(@Field("id_user") Integer user_id,
-                                    @Field("id_superfly") Integer superfly_id);
+    @FormUrlEncoded
+    Call<UserSuperfly> createUserSuperfly(@Field("id_user") Integer id_user,
+                                          @Field("id_superfly") Integer id_superfly);
 
     @POST("/userbutterfly")
     Call<Butterfly> createButterfly(@Body Butterfly user);
@@ -106,6 +108,9 @@ public interface GetDataService {
 
     @DELETE("/superflyinvites/{recipient_id}")
     Call<SuperflyInvite> deleteInvites(@Path("recipient_id") Integer recipient_id);
+
+    @DELETE("/superflyinvites/{recipient_id}")
+    Call<SuperflyInvite> deleteInvitesBySession(@Path("session_id") Integer session_id);
 
     //Replaces the whole session object. Not working currently due to foreign key recursion issues.
     //@PUT("/superflysession/{session_id}")

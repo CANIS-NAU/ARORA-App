@@ -294,6 +294,8 @@ public class NetworkCalls {
             }
         });
     }
+    //TODO Make some sort of assurance/callback if the user loses connection while trying to POST
+    //their
 
     public static void createUserSuperfly(int user_id, int superfly_id, final Context context){
         Call call = service.createUserSuperfly(user_id, superfly_id);
@@ -308,6 +310,25 @@ public class NetworkCalls {
             @Override
             public void onFailure(Call call, Throwable t) {
                 Log.d("CreateUserSuperfly","Creation post request failed.");
+            }
+        });
+    }
+
+    public static void createUserSuperfly(int user_id, int superfly_id, final Context context, RetrofitResponseListener networkCallListener){
+        Call call = service.createUserSuperfly(user_id, superfly_id);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.isSuccess()){
+                    Toast.makeText(context, "Superfly created!", Toast.LENGTH_SHORT).show();
+                    networkCallListener.onSuccess();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("CreateUserSuperfly","Creation post request failed.");
+                networkCallListener.onFailure();
             }
         });
     }
@@ -679,6 +700,24 @@ public class NetworkCalls {
         });
     }
 
+    public static void deleteSuperflyInvitesBySession(int session_id, final Context context ){
+        Call call = service.deleteInvites(session_id);
+
+        //Otherwise we don't need it to be synchronous
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccess()) {
+                    Log.d("Delete invites", "Deleted invites successfully.");
+                }
+            }
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("Delete invites", "Yeah it broke" + t.getMessage());
+
+            }
+        });
+    }
 
 
     public static void updateSuperflyProgress(int session_id, Map<String, Integer> currentCounts, final Context context, RetrofitResponseListener networkCallListener){
@@ -707,21 +746,20 @@ public class NetworkCalls {
      * Call to get the current status of a superfly session
      */
     public static void getSuperflySession(Integer session_id, final Context context){
-        Call call = service.getSession(session_id);
+        Call<SuperflySession> call = service.getSession(session_id);
         call.enqueue(new Callback<SuperflySession>() {
             @Override
             public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
-
-                if(response.code() == 404){
-                    Log.d("SuperflySession GET", "No active superfly session found for this user.");
-
-                }
-                else{
+                if(response.isSuccess()){
                     SuperflySession newSession = response.body();
+                    //Local init for the game session
                     newSession.buildParticipantsArray();
                     newSession.buildAssignedButterfliesArray();
                     MainActivity.user_info.setCurrentSession(response.body());
                     Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
+                }
+                else{
+                    Log.d("getSuperflySession", "Error retrieving superfly session!");
                 }
 
             }
@@ -781,11 +819,13 @@ public class NetworkCalls {
         //Declare call
         Call<SuperflySession> call = null;
 
+        //Prevent joining a session in progress.
         if(desiredSession.getSession_started()){
             Toast.makeText(context, "Cannot join started session!", Toast.LENGTH_SHORT).show();
             return;
         }
         //Cases as we need to update one of the fields, participant 1 - 4, depending on other users.
+        //This creates a call depending on which player slot we need to fill.
         switch(participantCount){
             case 1:
                 desiredSession.setParticipant_1(newParticipant);

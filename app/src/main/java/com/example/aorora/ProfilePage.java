@@ -143,12 +143,23 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         int view_id =  v.getId();
         Intent to_navigate;
-        if(view_id == butterfly_selection_button.getId() || view_id == jar_button.getId())
+        //TODO replace this. view_id == butterfly_selection_button.getId() ||
+        if(view_id == jar_button.getId())
         {
             //Atrium navigation
             to_navigate = new Intent(profilePage, AtriumScreen.class);
             startActivity(to_navigate);
 
+        }
+        else if(view_id == butterfly_selection_button.getId()){
+            //Testing POST request for new usersuperfly.
+            if(MainActivity.user_info.getCurrentSession() != null){
+                NetworkCalls.createUserSuperfly(MainActivity.user_info.getUser_id(),
+                        MainActivity.user_info.getCurrentSession().getSuperfly_recipe().getSuperfly_id(), this);
+            }
+            else{
+                Toast.makeText(profilePage, "No session currently", Toast.LENGTH_SHORT).show();
+            }
         }
         else if(view_id == community_button_bottombar.getId())
         {

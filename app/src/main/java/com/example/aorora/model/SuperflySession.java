@@ -50,7 +50,7 @@ public class SuperflySession {
     @SerializedName("participant_4")
     public UserInfo participant_4;
 
-    UserInfo[] participantsArray;
+
 
     @SerializedName("superfly_recipe")
     private Superfly superfly_recipe;
@@ -78,7 +78,9 @@ public class SuperflySession {
     @SerializedName("butterfly_participant_4")
     private Integer butterfly_participant_4;
 
+    //Locally initialized variables
     Integer[] assignedButterflies;
+    UserInfo[] participantsArray;
 
 
     public SuperflySession(Integer session_id, String session_start_date,
@@ -122,16 +124,18 @@ public class SuperflySession {
     //Gets the next set of needed butterflies for the session.
     public UserInfo[] buildParticipantsArray() {
         Log.d("getParticipantsArray", "Creating array");
-        participantsArray = new UserInfo[session_participant_count];
         int numParticipants = this.getSession_participant_count();
+        participantsArray = new UserInfo[numParticipants];
         Log.d("Current participant numbers", this.getSession_participant_count().toString());
         for(int i = 0; i < numParticipants; i++){
+            //Get the actual string name of the method.
             String getterName = "getParticipant_" + i;
-            Log.d("Participant id", getterName);
+
             try {
+                //Since we found the method, invoke it
                 Method method = SuperflySession.class.getMethod(getterName);
-                Object currPart = method.invoke(this);
-                participantsArray[i] = (UserInfo) currPart;
+                Object currentParticipant = method.invoke(this);
+                participantsArray[i] = (UserInfo) currentParticipant;
             } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 Log.d("getNextRound", "No method found");
                 e.printStackTrace();
@@ -152,13 +156,12 @@ public class SuperflySession {
             Log.d("Participant id", getterName);
             try {
                 Method method = SuperflySession.class.getMethod(getterName);
-                Object currParticipant = method.invoke(this);
-                assignedButterflies[i] = (Integer) currParticipant;
+                Object currParticipantButterfly = method.invoke(this);
+                assignedButterflies[i] = (Integer) currParticipantButterfly;
             } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 Log.d("getNextRound", "No method found");
                 e.printStackTrace();
             }
-
         }
         return this.assignedButterflies;
     }
