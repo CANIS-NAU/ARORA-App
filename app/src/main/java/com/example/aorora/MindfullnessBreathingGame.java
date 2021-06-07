@@ -1,9 +1,12 @@
 package com.example.aorora;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -14,6 +17,7 @@ import android.os.Vibrator;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -81,6 +85,8 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
         //TODO: for dev purposes remove
         tempBreathCount = 5;
 
+        tutorialPopUp();
+
         LottieAnimationView animationView = findViewById(R.id.animation_view);
         animationView.setSpeed(1f);
         animationView.playAnimation();
@@ -106,6 +112,7 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
             int text = getIntent().getIntExtra("TimerValue", 1);
 
             //Disabling all breath options to dev temp count
+          
             if(text == 1)
             {
                 initial_game_count = text;
@@ -227,9 +234,8 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
                     int new_user_points = MainActivity.user_info.getUser_pollen() + pollen_payout;
                     Log.e("NEW USER POINTS ", new_user_points + " ");
 
-                    //TODO: Why are the network calls here instead of recieptpage? KISS and add a flat number of points when we reach that page.
-
                     MainActivity.user_info.setUser_pollen(new_user_points);
+
                     Intent to_navigate = new Intent(mindfullness_breathing_game, ReceiptPage.class);
 
                     to_navigate.putExtra("NavigatedFrom", 1);
@@ -263,12 +269,13 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
                 {
                     possible_points = 0;
                 }
-                Intent to_navigate = new Intent(mindfullness_breathing_game, MindfullnessBreathing.class);
                 if(breathing_music.isPlaying())
                 {
                     breathing_music.stop();
                 }
-                startActivity(to_navigate);
+                //kill activity with no pollen payout
+                //TODO: put a warning popup to close activity
+                finish();
             }
         });
     }
@@ -282,7 +289,7 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
         @Override
         public void onTick(long millisUntilFinished) {
             if(millisUntilFinished < 2000 ){
-                myVibrate.vibrate(350);
+                myVibrate.vibrate(VibrationEffect.createOneShot(350, VibrationEffect.DEFAULT_AMPLITUDE));
             }
             if(millisUntilFinished < 1000 ){
                 myVibrate.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
@@ -297,6 +304,7 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
             desc_tv.setText("" + exhale_text);
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -329,5 +337,25 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         breathing_music.stop();
+
+    /**Tutorial pop-up that overlays the game's view*/
+    public void tutorialPopUp()
+    {
+        final AlertDialog myDialog = new AlertDialog.Builder(this).create();
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        //This allows us to use custom views instead of the basic AlertDialog
+        View dialogView = LayoutInflater.from(this)
+                .inflate(R.layout.custom_dialog_breathing_tutorial, null);
+
+        Button cont_button = dialogView.findViewById(R.id.continue_button);
+        cont_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+        myDialog.setView(dialogView);
+        myDialog.show();
     }
 }

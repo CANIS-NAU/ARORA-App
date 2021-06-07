@@ -34,6 +34,7 @@
         app:srcCompat="@drawable/exit_button_breathing"
         android:visibility="gone"/>
 
+
     <TextView
         android:id="@+id/breath_count_tv"
         android:layout_width="wrap_content"
@@ -71,6 +72,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/butterfly_image_breathinggame"
         style="@style/inverse_text_views"/>
+
 
     <ImageView
         android:id="@+id/breathing_inhale_button"

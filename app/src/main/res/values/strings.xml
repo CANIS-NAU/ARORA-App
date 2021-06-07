@@ -81,6 +81,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="arora">ARORA</string>
+    <string name="breathing_tutorial_text">press and hold green button - when you breathe in. release the button - when breathing out.</string>
 
     <string name="title_profile">Profile</string>
     <string name="title_practice">Practice</string>

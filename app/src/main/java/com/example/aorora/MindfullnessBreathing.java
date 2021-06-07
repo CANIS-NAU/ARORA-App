@@ -53,40 +53,10 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
         time_selection_recyler_view = (RecyclerView) findViewById(R.id.recycler_view_time_selection_breathing);
 
         //Removed "5 Breaths" and "15 Breaths" strings from array list for testing purposes
-        List<String> data = Arrays.asList("5 Breathes", "10 Breaths" ,"15 Breathes");
+
+        List<String> data = Arrays.asList("", "5 Breaths" ,"");
         generateTimeDataList(data);
         time_selection_recyler_view.smoothScrollToPosition(3);
-
-        /* TODO: idk what this is put we gotta find out
-        short_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerCount = 1;
-                short_button.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                medium_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                long_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            }
-        });
-        medium_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerCount = 2;
-                short_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                medium_button.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                long_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            }
-        });
-        long_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerCount = 3;
-                short_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                medium_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                long_button.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-            }
-        });
-
-*/
         home_button_bottombar.setOnClickListener(this);
         profile_button_bottombar.setOnClickListener(this);
         community_button_bottombar.setOnClickListener(this);
@@ -179,8 +149,7 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
         }
         else if(view_id == exit_button.getId())
         {
-            to_navigate = new Intent(mindfullnessBreathing, MindfullnessSelection.class);
-            startActivity(to_navigate);
+            finish();
         }
     }
 }

@@ -6,7 +6,6 @@
     android:background="@drawable/dusk_background"
     tools:context=".MindfullnessMeditation">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -163,6 +162,17 @@
         android:visibility="gone"/>
 
 
+    <ImageView
+        android:id="@+id/imageView_meditation_mindfullness"
+        android:layout_width="133dp"
+        android:layout_height="128dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/alpha_channel_meditation_icon"
+        app:layout_constraintEnd_toEndOf="@+id/alpha_channel_meditation_icon"
+        app:layout_constraintStart_toStartOf="@+id/alpha_channel_meditation_icon"
+        app:layout_constraintTop_toTopOf="@+id/alpha_channel_meditation_icon"
+        app:srcCompat="@drawable/mindfulness_meditation_button" />
+
     <ImageButton
         android:id="@+id/exit_button_meditation"
         android:layout_width="25dp"
@@ -175,5 +185,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/exit_button_breathing"
         android:visibility="gone"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

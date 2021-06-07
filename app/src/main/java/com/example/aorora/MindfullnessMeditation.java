@@ -72,7 +72,9 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
         exit_button.setOnClickListener(this);
 
         generateDataListHorizontal();
-        List<String> data = Arrays.asList("", "1 minutes", "3 minutes","");
+      
+        List<String> data = Arrays.asList("","90 seconds", "");
+      
         generateTimeDataList(data);
         infinite_blink = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.infinite_blink);
@@ -206,7 +208,7 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
         }
         else if(view_id == quest_button_bottombar.getId())
         {
-            to_navigate = new Intent(mindfulnessMeditation, MindfullnessSelection.class);
+            finish();
         }
         else if(view_id == home_button_bottombar.getId())
         {
@@ -224,10 +226,10 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
             boolean two_digit = false;
             int duration_int = 0;
             duration_string = String.valueOf(text_view.getText());
-            if(duration_string.equals("1 minutes"))
+            if(duration_string.equals("90 seconds"))
             {
                 //Desired duration to be sent to the game in ms.
-                duration_int = 60000;
+                duration_int = 90000;
             }
             else if(duration_string.equals("3 minutes"))
             {
@@ -246,8 +248,7 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
         }
         else if(view_id == exit_button.getId())
         {
-            to_navigate = new Intent(mindfulnessMeditation, MindfullnessSelection.class);
-            startActivity(to_navigate);
+            finish();
         }
     }
 }

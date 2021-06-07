@@ -32,8 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:layout_constraintVertical_bias="0.466"
-        app:srcCompat="@drawable/pollen2_00000" />
+        app:layout_constraintVertical_bias="0.466" />
 
     <TextView
         android:id="@+id/press_text"
