@@ -106,10 +106,10 @@ public interface GetDataService {
     @DELETE("/superflysession/{session_id}")
     Call<SuperflySession> deleteSession(@Path("session_id") Integer session_id);
 
-    @DELETE("/superflyinvites/{recipient_id}")
-    Call<SuperflyInvite> deleteInvites(@Path("recipient_id") Integer recipient_id);
+    @DELETE("/superflyinvite/{sender_id}")
+    Call<SuperflyInvite> deleteInvites(@Path("sender_id") Integer sender_id);
 
-    @DELETE("/superflyinvites/{recipient_id}")
+    @DELETE("/superflyinvitebysession/{session_id}")
     Call<SuperflyInvite> deleteInvitesBySession(@Path("session_id") Integer session_id);
 
     //Replaces the whole session object. Not working currently due to foreign key recursion issues.

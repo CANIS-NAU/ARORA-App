@@ -295,7 +295,7 @@ public class NetworkCalls {
         });
     }
     //TODO Make some sort of assurance/callback if the user loses connection while trying to POST
-    //their
+    //their new superfly
 
     public static void createUserSuperfly(int user_id, int superfly_id, final Context context){
         Call call = service.createUserSuperfly(user_id, superfly_id);
@@ -681,8 +681,8 @@ public class NetworkCalls {
         });
     }
 
-    public static void deleteSuperflyInvites(int recipient_id, final Context context ){
-        Call call = service.deleteInvites(recipient_id);
+    public static void deleteSuperflyInvites(int sender_id, final Context context ){
+        Call call = service.deleteInvites(sender_id);
 
         //Otherwise we don't need it to be synchronous
         call.enqueue(new Callback() {
@@ -701,7 +701,7 @@ public class NetworkCalls {
     }
 
     public static void deleteSuperflyInvitesBySession(int session_id, final Context context ){
-        Call call = service.deleteInvites(session_id);
+        Call call = service.deleteInvitesBySession(session_id);
 
         //Otherwise we don't need it to be synchronous
         call.enqueue(new Callback() {
@@ -863,6 +863,8 @@ public class NetworkCalls {
                 Boolean testing = false;
 
                 if(response.code() == 200){
+                    //Delete the invite to this session and join
+                    NetworkCalls.deleteSuperflyInvites(MainActivity.user_info.getUser_id(), context);
                     SuperflySession newSession = response.body();
                     newSession.buildParticipantsArray();
                     newSession.buildAssignedButterfliesArray();
