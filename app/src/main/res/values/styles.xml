@@ -37,6 +37,8 @@
         <item name="android:layout_marginLeft">@dimen/vertical_margin</item>
         <item name="android:layout_marginRight">@dimen/vertical_margin</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
     </style>
 
     <style name="login_page_fields" parent="width_matchparent_height_wrapcontent">
@@ -96,5 +98,13 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+
+    <style name="SelectableItemTheme">
+        <item name="colorControlHighlight">#ffffff</item>
+    </style>
+    <style name="SelectableItemBackground">
+        <item name="android:theme">@style/SelectableItemTheme</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
 
 </resources>

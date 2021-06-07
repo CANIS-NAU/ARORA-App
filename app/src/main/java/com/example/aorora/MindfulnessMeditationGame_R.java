@@ -195,7 +195,7 @@ public class MindfulnessMeditationGame_R extends AppCompatActivity implements Vi
             gameDuration = meditation_game.getIntExtra("Duration", 1);
         }
 
-        theme_music.start();
+//        theme_music.start();
 
         exit_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -424,6 +424,7 @@ public class MindfulnessMeditationGame_R extends AppCompatActivity implements Vi
                 myTimer = new Timer(gameDuration, 1000);
                 myTimer.start();
                 myDialog.dismiss();
+                theme_music.start();
             }
         });
 

@@ -134,7 +134,7 @@
 
                     android:layout_marginStart="@dimen/activity_vertical_margin"
                     android:layout_weight="8"
-                    android:text="View All Butterflies" />
+                    android:text="Atrium - View All Butterflies" />
 
                 <TextView
                     android:id="@+id/atirum_count"

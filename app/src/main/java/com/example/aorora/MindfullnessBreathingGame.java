@@ -105,14 +105,14 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
             //Changing default value from 1 to 2
             int text = getIntent().getIntExtra("TimerValue", 1);
 
-           //Disabling all breath options to dev temp count
+            //Disabling all breath options to dev temp count
             if(text == 1)
             {
                 initial_game_count = text;
                 possible_points = tempBreathCount;
                 text = tempBreathCount;
             }
-           else if( text == 2)
+            else if( text == 2)
             {
                 initial_game_count = text;
                 possible_points = tempBreathCount;
