@@ -84,7 +84,6 @@ public class SuperflyFinishPage extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         int view_id = view.getId();
         if(view_id == homeButton.getId()){
-
             Intent to_navigate = new Intent(this, HomeScreen.class);
             startActivity(to_navigate);
         }

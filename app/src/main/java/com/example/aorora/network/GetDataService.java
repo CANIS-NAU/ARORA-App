@@ -106,11 +106,17 @@ public interface GetDataService {
     @DELETE("/superflysession/{session_id}")
     Call<SuperflySession> deleteSession(@Path("session_id") Integer session_id);
 
-    @DELETE("/superflyinvite/{sender_id}")
+    @DELETE("/superflyinvite/{uid_recipient}")
     Call<SuperflyInvite> deleteInvites(@Path("sender_id") Integer sender_id);
+
+    @DELETE("/superflyinvitebysender/{uid_sender}")
+    Call<SuperflyInvite> deleteInvitesBySender(@Path("uid_sender") Integer uid_sender);
 
     @DELETE("/superflyinvitebysession/{session_id}")
     Call<SuperflyInvite> deleteInvitesBySession(@Path("session_id") Integer session_id);
+
+    @GET("/superflyinvite/{uid_recipient}")
+    Call<ArrayList<SuperflyInvite>> getSuperflyInvites(@Path("uid_recipient") Integer recipient_uid);
 
     //Replaces the whole session object. Not working currently due to foreign key recursion issues.
     //@PUT("/superflysession/{session_id}")
@@ -151,22 +157,21 @@ public interface GetDataService {
     @FormUrlEncoded
     Call<TradeRequest> createTradeRequest(@Field("uid_sender") Integer uid_sender, @Field("uid_recipient") Integer uid_recipient, @FieldMap Map<String, Integer> requested_butterflies);
 
-
     //Updates the number of contributed butterflies. 
     @PATCH("/superflysession/{session_id}")
     @FormUrlEncoded
     Call<SuperflySession> updateSuperflyProgress(@Path("session_id") Integer session_id,
                                                  @FieldMap Map<String, Integer> butterflyCounts);
 
-    @GET("/superflyinvite/{uid_recipient}")
-    Call<ArrayList<SuperflyInvite>> getSuperflyInvites(@Path("uid_recipient") Integer recipient_uid);
-
     @GET("/traderequest/{uid_recipient}")
     Call<ArrayList<TradeRequest>> getTradeRequests(@Path("uid_recipient") Integer recipient_uid);
 
-    //TODO Delete invite after accepting it.
+
     @DELETE("/traderequest/{uid_recipient}")
     Call<TradeRequest> deleteTradeRequest(@Path("uid_recipient") Integer uid_recipient);
+
+    @DELETE("/traderequestdeleteid/{request_id}")
+    Call<TradeRequest> deleteTradeRequestById(@Path("request_id") Integer request_id);
 
 
 

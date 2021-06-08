@@ -9,8 +9,10 @@ public class UserSuperfly {
     private Integer id_user;
     @SerializedName("id_superfly")
     private Integer id_superfly;
-    //@SerializedName("user")
-    //private Integer b0_count;
+    @SerializedName("user")
+    private UserInfo user;
+    @SerializedName("superfly")
+    private Superfly superfly;
 
 
     public UserSuperfly(Integer user_superfly_id, Integer id_user, Integer id_superfly) {

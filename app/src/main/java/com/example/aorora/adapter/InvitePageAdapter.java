@@ -2,7 +2,7 @@ package com.example.aorora.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,18 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aorora.MainActivity;
 import com.example.aorora.R;
-import com.example.aorora.SuperflyGamePage;
 import com.example.aorora.model.SuperflyInvite;
-import com.example.aorora.model.SuperflySession;
 import com.example.aorora.network.NetworkCalls;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.InvitePageViewHolder> {
     Context context;
@@ -63,7 +58,7 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
                 //TODO Is this causing the refresh bug where the bubble doesn't popup right away?
                 //TODO Check for in-progress session.
                 NetworkCalls.joinSession(currInvites.get(position).getSession(), MainActivity.user_info, context);
-                NetworkCalls.deleteSuperflyInvites(MainActivity.user_info.getUser_id(), context);
+                NetworkCalls.deleteSuperflyInvitesBySender(MainActivity.user_info.getUser_id(), context);
                 //Intent intent = new Intent(context, SuperflyGamePage.class);
                 //context.startActivity(intent);
             }

@@ -146,13 +146,16 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         //TODO replace this. view_id == butterfly_selection_button.getId() ||
         if(view_id == jar_button.getId())
         {
-
+            to_navigate = new Intent(profilePage, AtriumScreen.class);
+            startActivity(to_navigate);
 
         }
         else if(view_id == butterfly_selection_button.getId()){
             //Atrium navigation
-            to_navigate = new Intent(profilePage, AtriumScreen.class);
-            startActivity(to_navigate);
+            NetworkCalls.deleteSuperflyInvitesBySender(MainActivity.user_info.getUser_id(), this);
+
+            //to_navigate = new Intent(profilePage, AtriumScreen.class);
+            //startActivity(to_navigate);
         }
         else if(view_id == community_button_bottombar.getId())
         {
@@ -194,6 +197,10 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
             //Toast.makeText(ProfilePage.this, "Pollen page is under development", Toast.LENGTH_SHORT).show();
             //Toast.makeText(ProfilePage.this, "Settings is under maintenance", Toast.LENGTH_SHORT).show();
         }
+
+        //This will check if there is a superfly session to join. If so, it will load the session.
+        //If there is NOT a session to join, the user is navigated to the InvitesPage
+        //IF there is not a network connection, a Toast will tell them that they cannot connect.
         else if(view_id == superfly_button.getId())
         {
             int session_id = MainActivity.user_info.getUser_superflysession_id();
@@ -210,6 +217,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
                     public void onSuccess() {
                         //If we completed the game, go to the win screen.
                         if(MainActivity.user_info.getCurrentSession().getSession_ended()){
+                            //This takes you to the game page, which then sends you to the finish page.
                             final Intent to_navigate = new Intent(profilePage, SuperflyGamePage.class);
                             startActivity(to_navigate);
                         }

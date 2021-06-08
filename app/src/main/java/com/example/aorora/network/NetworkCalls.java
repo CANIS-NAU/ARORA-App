@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.aorora.MainActivity;
-import com.example.aorora.R;
 import com.example.aorora.SuperflyGamePage;
 import com.example.aorora.model.DailyTask;
 import com.example.aorora.model.DailyTaskReturn;
@@ -20,6 +19,7 @@ import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.TradeRequest;
 import com.example.aorora.model.UserInfo;
+import com.example.aorora.model.UserSuperfly;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -315,11 +315,11 @@ public class NetworkCalls {
     }
 
     public static void createUserSuperfly(int user_id, int superfly_id, final Context context, RetrofitResponseListener networkCallListener){
-        Call call = service.createUserSuperfly(user_id, superfly_id);
-        call.enqueue(new Callback() {
+        Call<UserSuperfly> call = service.createUserSuperfly(user_id, superfly_id);
+        call.enqueue(new Callback<UserSuperfly>() {
             @Override
-            public void onResponse(Call call, Response response) {
-                if(response.isSuccess()){
+            public void onResponse(Call<UserSuperfly> call, Response<UserSuperfly> response) {
+                if(response.code() == 200){
                     Toast.makeText(context, "Superfly created!", Toast.LENGTH_SHORT).show();
                     networkCallListener.onSuccess();
                 }
@@ -659,6 +659,7 @@ public class NetworkCalls {
         });
     }
 
+    //This method deletes trade requests sent to the recipient matching the passed recipient_id parameter.
     public static void deleteTradeRequest(int recipient_id, final Context context, RetrofitResponseListener networkCallListener ){
         Call call = service.deleteTradeRequest(recipient_id);
 
@@ -681,13 +682,21 @@ public class NetworkCalls {
         });
     }
 
-    public static void deleteSuperflyInvites(int sender_id, final Context context ){
-        Call call = service.deleteInvites(sender_id);
+    //This method is called when declining a specific trade request in the menu.
+    public static void deleteTradeRequestById(int request_id, final Context context, RetrofitResponseListener networkCallListener){
+        //TODO Meet
+    }
+
+    //This will delete all invites with the sender_id passed
+    public static void deleteSuperflyInvitesBySender(int sender_id, final Context context ){
+        Call call = service.deleteInvitesBySender(sender_id);
 
         //Otherwise we don't need it to be synchronous
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
+                //TODO: Why is this returning a failure when the delete works? Probably because Call does not have
+                /// a type associated with it (ex: we use Call instead of Call<SuperflyInvite>
                 if (response.isSuccess()) {
                     Log.d("Delete invites", "Deleted invites successfully.");
                 }
@@ -864,7 +873,7 @@ public class NetworkCalls {
 
                 if(response.code() == 200){
                     //Delete the invite to this session and join
-                    NetworkCalls.deleteSuperflyInvites(MainActivity.user_info.getUser_id(), context);
+                    NetworkCalls.deleteSuperflyInvitesBySender(MainActivity.user_info.getUser_id(), context);
                     SuperflySession newSession = response.body();
                     newSession.buildParticipantsArray();
                     newSession.buildAssignedButterfliesArray();

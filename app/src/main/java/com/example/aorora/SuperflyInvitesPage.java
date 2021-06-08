@@ -46,9 +46,9 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
         backButton.setOnClickListener(this);
         newSessionButton.setOnClickListener(this);
         refreshButton.setOnClickListener(this);
-        this.currInvites = MainActivity.user_info.getCurrentInvites();
+        currInvites = MainActivity.user_info.getCurrentInvites();
 
-        if(currInvites.size() == 0)
+        if(currInvites == null || currInvites.size() == 0)
             noInvites.setVisibility(View.VISIBLE);
 
         inviteRecyclerView = findViewById(R.id.invite_recycler);
