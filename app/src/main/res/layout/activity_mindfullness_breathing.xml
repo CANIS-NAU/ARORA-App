@@ -7,132 +7,93 @@
     tools:context=".MindfullnessBreathing"
     android:background="@drawable/dusk_background">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="31dp"
-        android:layout_marginTop="60dp"
-        android:text="Mindfulness Breathing"
-        android:textColor="#FFFFFF"
-        android:textSize="10pt"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_meditation_mindfullness" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:id="@+id/breathing_page_header"
+        style="@style/inverse_page_header_text_views"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center_horizontal"
-        android:text="Focus on your breath to \n regain your calm"
-        android:textColor="#989898"
-        android:textSize="7pt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_time_selection_breathing"
-        android:layout_width="371dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8dp"
+        android:text="@string/mindfulness_breathing"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView_meditation_mindfullness"
+
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="48dp"
+        android:layout_below="@id/breathing_page_header"
+
+        android:layout_centerHorizontal="true"
         android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintBottom_toBottomOf="@+id/alpha_channel_breathing_icon"
+        app:layout_constraintEnd_toEndOf="@+id/alpha_channel_breathing_icon"
+        app:layout_constraintStart_toStartOf="@+id/alpha_channel_breathing_icon"
+        app:layout_constraintTop_toTopOf="@+id/alpha_channel_breathing_icon"
         app:srcCompat="@drawable/breathing_button" />
 
-    <ImageButton
-        android:id="@+id/play_button_walking"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:background="#00000000"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:srcCompat="@drawable/play_button" />
-
-    <TextView
-        android:id="@+id/start_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Start"
-        android:textColor="#FFFFFF"
-        android:textSize="10pt"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/play_button_walking" />
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/bottom_menu_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/alpha_channel_breathing_icon"
+
         android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
+
+        android:layout_centerHorizontal="true"
+
         android:alpha="0.5"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/breathing_page_header"
         app:srcCompat="@drawable/breathing_button" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="26dp"
-        android:layout_marginTop="8dp"
-        android:text="Scroll to select breath count"
-        android:textColor="#989898"
-        android:textSize="7pt"
+
+    <androidx.cardview.widget.CardView
+        style="@style/survey_card_view_inverse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alpha_channel_breathing_icon"
+
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toTopOf="@+id/play_button_walking"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view_time_selection_breathing" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_meditation_mindfullness"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView3"
+
+            style="@style/inverse_text_views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="INSTRUCTIONS:\n\nFocus on your breath to regain your calm\n\nLet's exercise 5 Breaths\n\nPress the icon below to start\n\nHold the button when you breathe in \nRelease the icon when you breathe out" />
+    </androidx.cardview.widget.CardView>
 
     <ImageButton
-        android:id="@+id/exit_button_walking"
-        android:layout_width="25dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:id="@+id/play_button_walking"
+
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="16dp"
         android:background="#00000000"
+
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/exit_button_breathing" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/play_button" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.example.aorora.network;
 
+import java.util.Locale;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -9,9 +11,9 @@ public class RetrofitClientInstance {
     //"https://jsonplaceholder.typicode.com";
     //"https://aroraserver.com" ip adress :8000
     //"http://104.248.178.78:8000"
-    private static final String BASE_URL = "http://104.248.178.78:8000";
     public static final String IP = "104.248.178.78";
     public static final Integer PORT = 8000;
+    private static final String BASE_URL = String.format(Locale.ENGLISH,"http://%s:%d", IP, PORT);
 
 
     public static Retrofit getRetrofitInstance() {

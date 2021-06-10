@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dusk_background"
+    tools:context=".ui.PracticeFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- TODO: Update blank fragment layout -->
+
+        <TextView
+            android:id="@+id/practice_page_header"
+            style="@style/inverse_page_header_text_views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="Practice" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/practice_page_header"
+            android:layout_gravity="center|center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/catch_butterfly"
+                style="@style/survey_card_view_inverse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/activity_vertical_margin">
+
+                    <ImageView
+                        android:id="@+id/ar_button_imageview"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/catch_butterfly"
+
+                        />
+
+                    <TextView
+                        style="@style/inverse_text_views"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginStart="@dimen/activity_vertical_margin"
+
+                        android:layout_weight="8"
+                        android:text="AR Game - Catch Butterfly" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_action_name" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/superfly"
+                style="@style/survey_card_view_inverse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/activity_vertical_margin">
+
+                    <ImageView
+                        android:id="@+id/superfly_button_imageview"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/superfly"
+
+                        />
+
+                    <TextView
+                        style="@style/inverse_text_views"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginStart="@dimen/activity_vertical_margin"
+
+                        android:layout_weight="8"
+                        android:text="Superfly" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_action_name" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

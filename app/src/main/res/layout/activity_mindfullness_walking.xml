@@ -4,129 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MindfullnessWalking"
-    android:background="@drawable/dusk_background">
+    android:background="@drawable/dusk_background"
+    tools:context=".MindfullnessWalking">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="31dp"
-        android:layout_marginTop="60dp"
+        android:id="@+id/walking_page_header"
+
+        style="@style/inverse_page_header_text_views"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Mindfulness Walking"
-        android:textColor="#FFFFFF"
-        android:textSize="10pt"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_meditation_mindfullness" />
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:gravity="center_horizontal"
         android:text="Take a walk to clear your mind \n and regain your calm mind"
-        android:textColor="#989898"
+        android:textColor="#FFFFFF"
         android:textSize="7pt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/horizontal_recycler_view_walking"
-        android:layout_width="371dp"
-        android:layout_height="103dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/alpha_channel_walking_icon" />
 
     <ImageView
         android:id="@+id/imageView_meditation_mindfullness"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="48dp"
         android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/alpha_channel_walking_icon"
+        app:layout_constraintEnd_toEndOf="@+id/alpha_channel_walking_icon"
+        app:layout_constraintStart_toStartOf="@+id/alpha_channel_walking_icon"
+        app:layout_constraintTop_toBottomOf="@+id/walking_page_header"
+        app:layout_constraintVertical_bias="0.63"
         app:srcCompat="@drawable/mindfulness_meditation_button" />
 
     <ImageButton
         android:id="@+id/play_button_walking"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="48dp"
         android:background="#00000000"
+        android:baselineAlignBottom="true"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_recycler_view_walking"
         app:srcCompat="@drawable/play_button" />
-
-    <TextView
-        android:id="@+id/start_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Start"
-        android:textColor="#FFFFFF"
-        android:textSize="10pt"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/play_button_walking" />
 
     <TextView
         android:id="@+id/description_breathing_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:gravity="center_horizontal"
         android:text="Walk and listen with headphones \n to the audio"
-        android:textColor="#989898"
+        android:textColor="#FFFFFF"
         android:textSize="7pt"
-        app:layout_constraintBottom_toTopOf="@+id/include"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_text_view"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toTopOf="@+id/play_button_walking"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.053" />
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/bottom_menu_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/alpha_channel_walking_icon"
         android:layout_width="250dp"
         android:layout_height="250dp"
+        android:layout_marginTop="24dp"
         android:alpha="0.5"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/walking_page_header"
         app:srcCompat="@drawable/mindfulness_meditation_button" />
-
 
     <ImageButton
         android:id="@+id/exit_button_walking"
@@ -136,6 +95,7 @@
         android:layout_marginEnd="16dp"
         android:background="#00000000"
         android:scaleType="fitCenter"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/exit_button_breathing" />

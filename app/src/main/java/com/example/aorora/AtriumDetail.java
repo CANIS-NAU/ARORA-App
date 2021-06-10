@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Random;
+
 /*
 This class is navigated to once the user taps on a butterfly in their atrium.
 It takes in the image associated with the atrium entry and displays it in the middle of this page.
@@ -18,6 +20,7 @@ implemented as they will have more details, such as the recipe of the five basic
 make them, along with a more unique image.
  */
 public class AtriumDetail extends AppCompatActivity implements View.OnClickListener {
+
     //Class member declarations
     Context atriumDetail;
     ImageView displayImageView;
@@ -25,6 +28,14 @@ public class AtriumDetail extends AppCompatActivity implements View.OnClickListe
     TextView descriptionTv;
     int displayImage;
     String desc;
+
+    static Random random = new Random();
+    final static String descArray[] = {
+            "Nahongvita-ay! Be strong! You are able to adapt well, even in the middle of hard times.",
+            "Kwakwhay. There is so much to be thankful for today. What are some things that you are thankful for right now?",
+            "Askwali. There is so much to be thankful for today. Practice telling one person about why you are thankful for their presence in your community.",
+            "What is something beautiful you can create for your community today? How will you share it?"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +55,19 @@ public class AtriumDetail extends AppCompatActivity implements View.OnClickListe
         //Update the ImageView in the UI
         setData();
     }
+
     //Getter for our extras bundled with the navigating Intent. Grabs the atrium image currently.
     private void getData() {
         if(getIntent().hasExtra("image")){
             displayImage = getIntent().getIntExtra("image", 1);
+            desc = descArray[random.nextInt(4)];
         }
     }
+
     //Takes the data we gathered from the intent and updates the UI.
     private void setData(){
         displayImageView.setImageResource(displayImage);
+        descriptionTv.setText(desc);
     }
 
     @Override
@@ -64,6 +79,5 @@ public class AtriumDetail extends AppCompatActivity implements View.OnClickListe
              to_navigate = new Intent(this, AtriumScreen.class);
              startActivity(to_navigate);
             }
-
     }
 }

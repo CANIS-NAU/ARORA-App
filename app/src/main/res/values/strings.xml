@@ -11,7 +11,9 @@
         <font fgcolor='#FFD200'>999</font>
         <font fgcolor='#FFFFFF'> Pollens </font>
     </string>
-    <string name="ARPageTitle">"Welcome to the AR Page: 10 pollen to start!</string>
+    <string name="ARPageTitle">Welcome to the AR Page: 10 pollen to start!</string>
+    <string name="ARPageTitle2">Catch Butterfly</string>
+    <string name="pollen_requried_text">10 Pollens required to start the game</string>
     <string name="ARPollenPurchase">"Spend 10 pollen"</string>
 
     <string-array name="breathing_menu_selection">
@@ -47,7 +49,7 @@
 
 
     <string name="survey_question_1">How is your mood today?</string>
-    <string name="survey_question_2">Are you feeling stressed out?</string>
+    <string name="survey_question_2">How stressed do you feel today?</string>
     <string name="a_white_butterfly">a white butterfly</string>
     <string name="a_black_butterfly">a black butterfly</string>
     <string name="username">Username</string>
@@ -79,5 +81,14 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="arora">ARORA</string>
+    <string name="breathing_tutorial_text">press and hold green button - when you breathe in. release the button - when breathing out.</string>
+
+    <string name="title_profile">Profile</string>
+    <string name="title_practice">Practice</string>
+    <string name="title_learn">Learn</string>
+    <string name="title_community">Community</string>
+    <string name="mindfulness_breathing">Mindfulness Breathing</string>
+    <string name="mindfulness_meditation">Mindfulness Meditation</string>
+    <string name="mindfulness_walking">Mindfulness Walking</string>
 
 </resources>

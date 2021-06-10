@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/receipt_page_backgrpund">
+    android:background="@drawable/atrium_background">
+
 
     <ImageButton
         android:id="@+id/back_button_atrium"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginTop="24dp"
         android:layout_weight="1"
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/back_button"
-        app:layout_constraintBottom_toTopOf="@+id/atriumRecycler"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
         app:layout_constraintEnd_toStartOf="@+id/textView13"
-        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintHorizontal_bias="0.118"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
-
+        app:layout_constraintTop_toTopOf="@+id/textView13"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:text="Atrium"
-        android:textColor="@color/colorWhite"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/atriumRecycler"
+        style="@style/inverse_page_header_text_views"
+        app:layout_constraintBottom_toTopOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.045" />
 
     <Button
         android:id="@+id/add_button"
@@ -48,38 +44,32 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="7dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/atriumRecycler"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_card_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.907"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/atriumRecycler"
-        android:layout_width="331dp"
-        android:layout_height="540dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/include"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.796" />
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/bottom_menu_bar"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="22dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="wrap_content"
+        style="@style/survey_card_view_inverse"
+        android:id="@+id/recycler_card_view"
+        app:layout_constraintTop_toBottomOf="@+id/textView13">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/atriumRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/include"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            app:layout_constraintVertical_bias="0.236" />
+    </androidx.cardview.widget.CardView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

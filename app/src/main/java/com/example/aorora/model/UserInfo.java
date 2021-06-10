@@ -322,4 +322,8 @@ public class UserInfo {
             }
         }
     }
+
+    public Integer getTotalButterflyCount(){
+        return (this.user_b0_count+this.user_b1_count+this.user_b2_count+this.user_b3_count+this.user_b4_count);
+    }
 }

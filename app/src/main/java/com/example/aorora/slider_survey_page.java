@@ -87,7 +87,7 @@ public class slider_survey_page extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent homeAcivity = new Intent(slider_survey_page.this, HomeScreen.class);
+                Intent homeAcivity = new Intent(slider_survey_page.this, mMainActivity.class);
                 startActivity(homeAcivity);
             }
         });
@@ -98,7 +98,7 @@ public class slider_survey_page extends AppCompatActivity {
                 Log.v("RESPONSE INTEGER 1", String.valueOf(q1_response));
                 Log.v("RESPONSE INTEGER 2", String.valueOf(q2_response));
                 NetworkCalls.createMoodReport(MainActivity.user_info.getUser_id(), q1_response, q2_response, slider_survey_page.this);
-                Intent homeAcivity = new Intent(slider_survey_page.this, HomeScreen.class);
+                Intent homeAcivity = new Intent(slider_survey_page.this, mMainActivity.class);
                 startActivity(homeAcivity);
             }
         });
