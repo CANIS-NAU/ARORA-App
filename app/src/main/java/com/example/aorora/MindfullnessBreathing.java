@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aorora.adapter.HorizontalTimeAdapter;
 
@@ -25,15 +26,10 @@ import java.util.List;
 public class MindfullnessBreathing extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton play_button;
-    int timerCount;
+    int timerCount = 1;
     Context mindfullnessBreathing;
-    ImageButton home_button_bottombar;
-    ImageButton profile_button_bottombar;
-    ImageButton community_button_bottombar;
-    ImageButton quest_button_bottombar;
     ImageView alpha_channel_iv;
     Animation infinite_blink;
-    ImageButton exit_button;
     RecyclerView time_selection_recyler_view;
     com.example.aorora.adapter.HorizontalTimeAdapter horizontalTimeAdapter;
     @Override
@@ -42,55 +38,16 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_mindfullness_breathing);
         mindfullnessBreathing = this;
 
-        home_button_bottombar = (ImageButton) findViewById(R.id.home_button_bottom_bar);
-        profile_button_bottombar = (ImageButton) findViewById(R.id.profile_button_bottom_bar);
-        community_button_bottombar = (ImageButton) findViewById(R.id.community_button_bottom_bar);
-        quest_button_bottombar = (ImageButton) findViewById(R.id.quest_button_bottom_bar);
         play_button = (ImageButton) findViewById(R.id.play_button_walking);
         alpha_channel_iv = (ImageView) findViewById(R.id.alpha_channel_breathing_icon);
-        exit_button = (ImageButton) findViewById(R.id.exit_button_walking);
-        time_selection_recyler_view = (RecyclerView) findViewById(R.id.recycler_view_time_selection_breathing);
 
+        //TODO: implement different breath counts again
         //Removed "5 Breaths" and "15 Breaths" strings from array list for testing purposes
-        List<String> data = Arrays.asList("", "10 Breaths" ,"");
-        generateTimeDataList(data);
-        time_selection_recyler_view.smoothScrollToPosition(3);
-        /*
-        short_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerCount = 1;
-                short_button.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                medium_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                long_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            }
-        });
-        medium_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerCount = 2;
-                short_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                medium_button.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                long_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            }
-        });
-        long_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerCount = 3;
-                short_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                medium_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                long_button.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-            }
-        });
+        //List<String> data = Arrays.asList("", "5 Breaths" ,"");
+        //generateTimeDataList(data);
+        //time_selection_recyler_view.smoothScrollToPosition(3);
 
-*/
-        home_button_bottombar.setOnClickListener(this);
-        profile_button_bottombar.setOnClickListener(this);
-        community_button_bottombar.setOnClickListener(this);
-        quest_button_bottombar.setOnClickListener(this);
         play_button.setOnClickListener(this);
-        exit_button.setOnClickListener(this);
 
         infinite_blink = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.infinite_blink);
@@ -138,8 +95,7 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
 
                 if(isInMiddle)
                 {
-                    //TODO Fix this, it is currently hardcoded, setting to 1 for the 1 breath option.
-                    timerCount = 1; //viewHolder.getAdapterPosition();
+                    timerCount = viewHolder.getAdapterPosition();
                     text_view.setTextColor(getResources().getColor(R.color.colorWhite));
                 }
             }
@@ -149,35 +105,10 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         int view_id = v.getId();
         Intent to_navigate;
-        if(view_id == profile_button_bottombar.getId())
-        {
-            to_navigate = new Intent(mindfullnessBreathing, ProfilePage.class );
-            startActivity(to_navigate);
-        }
-        else if(view_id == quest_button_bottombar.getId())
-        {
-            to_navigate = new Intent(mindfullnessBreathing, MindfullnessSelection.class);
-        }
-        else if(view_id == home_button_bottombar.getId())
-        {
-            to_navigate = new Intent(mindfullnessBreathing, HomeScreen.class);
-            startActivity(to_navigate);
-        }
-        else if(view_id == community_button_bottombar.getId())
-        {
-            to_navigate = new Intent(mindfullnessBreathing, CommunityPage.class);
-            startActivity(to_navigate);
-        }
-        else if(view_id == play_button.getId())
+        if(view_id == play_button.getId())
         {
             to_navigate = new Intent(mindfullnessBreathing, MindfullnessBreathingGame.class);
             to_navigate.putExtra("TimerValue", timerCount);
-            //to_navigate.putExtra("NavigatedFrom", -1);
-            startActivity(to_navigate);
-        }
-        else if(view_id == exit_button.getId())
-        {
-            to_navigate = new Intent(mindfullnessBreathing, MindfullnessSelection.class);
             startActivity(to_navigate);
         }
     }

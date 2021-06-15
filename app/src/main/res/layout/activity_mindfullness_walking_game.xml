@@ -43,7 +43,8 @@
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/exit_button_breathing" />
+        app:srcCompat="@drawable/exit_button_breathing"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/finish_walk_btn"
@@ -55,7 +56,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="invisible"/>
+        style="@style/buttons"
+        android:visibility="invisible"
+        />
 
     <!--   <ImageView
            android:id="@+id/loading_walking_image_view"

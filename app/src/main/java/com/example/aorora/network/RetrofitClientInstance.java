@@ -2,6 +2,8 @@ package com.example.aorora.network;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import java.util.Locale;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -16,6 +18,10 @@ public class RetrofitClientInstance {
     private static final String BASE_URL = "http://104.248.178.78:5050";
     public static final String IP = "104.248.178.78";
     public static final Integer PORT = 5050;
+
+    // public static final String IP = "104.248.178.78";
+    // public static final Integer PORT = 8000;
+    // private static final String BASE_URL = String.format(Locale.ENGLISH,"http://%s:%d", IP, PORT);
 
 
     public static Retrofit getRetrofitInstance() {

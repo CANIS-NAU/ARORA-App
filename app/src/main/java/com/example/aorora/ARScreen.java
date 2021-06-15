@@ -67,10 +67,10 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
     private FusedLocationProviderClient fusedLocationClient;
     //Coordinate list we defined
     Context arScreen;
-    ImageButton home_button_bottombar;
-    ImageButton profile_button_bottombar;
-    ImageButton community_button_bottombar;
-    ImageButton quest_button_bottombar;
+//    ImageButton home_button_bottombar;
+//    ImageButton profile_button_bottombar;
+//    ImageButton community_button_bottombar;
+//    ImageButton quest_button_bottombar;
     Button spendPollenBtn;
     Button coordsBtn;
     Location currentLocation;
@@ -100,19 +100,15 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
 
         setContentView(R.layout.activity_ar_screen);
         arScreen = this;
-        home_button_bottombar = (ImageButton) findViewById(R.id.home_button_bottom_bar);
-        profile_button_bottombar = (ImageButton) findViewById(R.id.profile_button_bottom_bar);
-        community_button_bottombar = (ImageButton) findViewById(R.id.community_button_bottom_bar);
-        quest_button_bottombar = (ImageButton) findViewById(R.id.quest_button_bottom_bar);
         spendPollenBtn = (Button) findViewById(R.id.spend_pollen_btn);
         coordsBtn = (Button) findViewById(R.id.geo_coord_bttn);
 
 
         //Onclicklisteners for this class.
-        home_button_bottombar.setOnClickListener(this);
-        profile_button_bottombar.setOnClickListener(this);
-        community_button_bottombar.setOnClickListener(this);
-        quest_button_bottombar.setOnClickListener(this);
+//        home_button_bottombar.setOnClickListener(this);
+//        profile_button_bottombar.setOnClickListener(this);
+//        community_button_bottombar.setOnClickListener(this);
+//        quest_button_bottombar.setOnClickListener(this);
 
         //This onClickListener will spend pollen if the user has at least 10 of it.
         spendPollenBtn.setOnClickListener(new View.OnClickListener() {
@@ -301,30 +297,8 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
    @Override
     public void onClick(View v) {
         int view_id = v.getId();
-        Intent to_navigate;
 
-        if(view_id == profile_button_bottombar.getId())
-        {
-            to_navigate = new Intent(arScreen, ProfilePage.class);
-            startActivity(to_navigate);
-        }
-        else if(view_id == community_button_bottombar.getId())
-        {
-            to_navigate = new Intent(arScreen, CommunityPage.class);
-            startActivity(to_navigate);
-        }
-        else if(view_id == quest_button_bottombar.getId())
-        {
-            to_navigate = new Intent(arScreen, MindfullnessSelection.class);
-            startActivity(to_navigate);
-
-        }
-        else if(view_id == home_button_bottombar.getId())
-        {
-            to_navigate = new Intent(arScreen, HomeScreen.class);
-            startActivity(to_navigate);
-        }
-        else if(view_id == coordsBtn.getId()){
+        if(view_id == coordsBtn.getId()){
             writeFileTest();
             runConnCheck();
             if(!isConnected) {

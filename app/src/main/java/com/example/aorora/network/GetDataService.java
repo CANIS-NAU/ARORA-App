@@ -81,7 +81,8 @@ public interface GetDataService {
     Call<MoodReportIdReturn> createMoodReport(@Field("user_id") Integer user_id,
                                               @Field("q1_response") Integer q1_response,
                                               @Field("q2_response") Integer q2_response);
-    //Authentication POST request.
+
+
     @POST("/api-token-auth")
     @FormUrlEncoded
     Call<UserAuth> login(@Field("username") String username, @Field("password") String password);

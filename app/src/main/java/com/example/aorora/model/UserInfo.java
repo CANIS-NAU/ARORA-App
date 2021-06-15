@@ -330,5 +330,7 @@ public class UserInfo {
         else{
             this.user_superflysession_id = currentSession.getSession_id();
         }
+    public Integer getTotalButterflyCount(){
+        return (this.user_b0_count+this.user_b1_count+this.user_b2_count+this.user_b3_count+this.user_b4_count);
     }
 }
