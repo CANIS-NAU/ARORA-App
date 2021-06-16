@@ -12,16 +12,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.aorora.adapter.InvitePageAdapter;
-import com.example.aorora.model.Superfly;
 import com.example.aorora.model.SuperflyInvite;
-import com.example.aorora.model.SuperflySession;
 import com.example.aorora.network.NetworkCalls;
 import com.example.aorora.network.RetrofitResponseListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class SuperflyInvitesPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -65,7 +60,7 @@ public class SuperflyInvitesPage extends AppCompatActivity implements View.OnCli
         if(view_id == backButton.getId())
         {
             //Finish this activity and pop backwards
-            finish();
+            finishActivity(0);
         }
         //New session button to create new lobby.
         else if(view_id == newSessionButton.getId()){

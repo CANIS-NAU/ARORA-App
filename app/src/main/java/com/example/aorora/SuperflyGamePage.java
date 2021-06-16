@@ -31,6 +31,7 @@ import com.example.aorora.model.TradeRequest;
 import com.example.aorora.model.UserInfo;
 import com.example.aorora.network.NetworkCalls;
 import com.example.aorora.network.RetrofitResponseListener;
+import com.example.aorora.ui.PracticeFragment;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -87,9 +88,10 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent returnHome = new Intent(this, ProfilePage.class);
-        returnHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(returnHome);
+//        Intent returnHome = new Intent(this, PracticeFragment.class);
+//        returnHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(returnHome);
+        finishActivity(0);
     }
 
     @Override
@@ -440,7 +442,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         if(view_id == backButton.getId())
         {
             //Finish this activity and pop backwards
-            Intent returnHome = new Intent(this, ProfilePage.class);
+            Intent returnHome = new Intent(this, mMainActivity.class);
             returnHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(returnHome);
         }

@@ -15,12 +15,22 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_profile"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            style="@style/inverse_page_header_text_views"
+            android:id="@+id/profile_page_header"/>
+
         <LinearLayout
             android:id="@+id/user_name_layout"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_gravity="end"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_vertical_margin"
             android:orientation="horizontal">
 
@@ -42,9 +52,11 @@
 
         <ImageView
             android:id="@+id/user_butterfly_imageView"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:src="@drawable/orange_butterfly_image" />
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/orange_butterfly_image"
+
+            />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/pollen_score_card_view"

@@ -13,7 +13,6 @@
         style="@style/inverse_page_header_text_views"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Mindfulness Walking"
         android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent"
