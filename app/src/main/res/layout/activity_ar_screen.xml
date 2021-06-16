@@ -51,14 +51,11 @@
         android:id="@+id/ar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="@string/ARPageTitle2"
-        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
-        android:textSize="18dp"
         style="@style/inverse_page_header_text_views"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
