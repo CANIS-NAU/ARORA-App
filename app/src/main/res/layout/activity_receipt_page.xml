@@ -13,10 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Well Done!"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="14pt"
-        android:textStyle="bold"
+        style="@style/inverse_page_header_text_views"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -85,73 +82,66 @@
         app:layout_constraintVertical_bias="0.65"
         app:srcCompat="@drawable/pollen_pouch" />
 
-    <TextView
-        android:id="@+id/earnedTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:text="Pollen Earned:"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.303"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:layout_constraintVertical_bias="0.025" />
 
-    <TextView
-        android:id="@+id/pollenEarnedCount"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="88dp"
-        android:text="-1"
-        android:textAlignment="textEnd"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/earnedTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
-        app:layout_constraintStart_toEndOf="@+id/earnedTextView"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:layout_constraintVertical_bias="1.0" />
+        android:orientation="horizontal"
+        android:id="@+id/pollenEarnedLinearTextView"
+        app:layout_constraintTop_toBottomOf="@id/textView10"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        >
+        <TextView
+            android:id="@+id/earnedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pollen Earned:"
+            android:visibility="gone"
+            android:layout_weight="9"
+            style="@style/inverse_text_views"/>
 
-    <TextView
-        android:id="@+id/totalPollenCount"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/pollenEarnedCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-1"
+            android:layout_weight="1"
+            android:visibility="gone"
+            style="@style/inverse_text_views"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="-1"
-        android:textAlignment="textEnd"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/closedPouch"
-        app:layout_constraintEnd_toEndOf="@+id/pollenEarnedCount"
-        app:layout_constraintStart_toStartOf="@+id/pollenEarnedCount"
-        app:layout_constraintTop_toBottomOf="@+id/earnedTextView"
-        app:layout_constraintVertical_bias="0.571" />
+        android:orientation="horizontal"
+        android:id="@+id/totalpollenEarnedLinearTextView"
+        app:layout_constraintTop_toBottomOf="@id/pollenEarnedLinearTextView"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        >
 
-    <TextView
-        android:id="@+id/totalTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="64dp"
-        android:text="Total Pollen:"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/closedPouch"
-        app:layout_constraintEnd_toEndOf="@+id/earnedTextView"
-        app:layout_constraintEnd_toStartOf="@+id/totalPollenCount"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/earnedTextView"
-        app:layout_constraintTop_toBottomOf="@+id/earnedTextView"
-        app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/totalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Pollen:"
+            android:visibility="gone"
+            style="@style/inverse_text_views"
+            android:layout_weight="9"
+            />
+        <TextView
+            android:id="@+id/totalPollenCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-1"
+            android:visibility="gone"
+            style="@style/inverse_text_views"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

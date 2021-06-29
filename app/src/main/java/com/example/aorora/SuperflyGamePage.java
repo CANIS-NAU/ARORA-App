@@ -1,17 +1,9 @@
 package com.example.aorora;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -23,28 +15,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.aorora.adapter.InvitePageAdapter;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.aorora.adapter.TradeAdapter;
-import com.example.aorora.model.Superfly;
 import com.example.aorora.model.SuperflySession;
 import com.example.aorora.model.TradeRequest;
 import com.example.aorora.model.UserInfo;
 import com.example.aorora.network.NetworkCalls;
 import com.example.aorora.network.RetrofitResponseListener;
-import com.example.aorora.ui.PracticeFragment;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
 public class SuperflyGamePage extends AppCompatActivity implements View.OnClickListener {
 
+    public TradeAdapter tradesAdapter;
     ImageButton backButton;
     TextView[] participantNames;
     ImageView[] participantBubbles;
@@ -52,7 +43,6 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     ImageView[] stagedButterflies;
     int[] butterflyImages;
     String[] butterflyColors;
-
     UserInfo[] participants;
     SuperflySession currentSession;
     Integer[] assignedButterflies;
@@ -64,7 +54,6 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     Integer userPosition;
     Boolean resetSucceeded;
     Button tradeRequestsBtn;
-
     //Trade request menu layout
     LinearLayout tradingMenu;
     TextView otherParticipantTv;
@@ -76,14 +65,11 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     EditText blueEditText;
     ImageView closeTradeMenu;
     Button submitTrade;
-
-    //Trade request list and recyclerview vars
-    private RecyclerView tradesRecyclerView;
-    public TradeAdapter tradesAdapter;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<TradeRequest> currTrades;
     TextView noTrades;
-
+    //Trade request list and recyclerview vars
+    private RecyclerView tradesRecyclerView;
 
     @Override
     public void onBackPressed() {
@@ -98,32 +84,49 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_superfly_game);
+
         currentSession = MainActivity.user_info.getCurrentSession();
         participantCount = currentSession.getSession_participant_count();
-        participantNames = new TextView[]{(TextView) findViewById(R.id.participant0_tv),
+
+        participantNames = new TextView[]{
+                (TextView) findViewById(R.id.participant0_tv),
                 (TextView) findViewById(R.id.participant1_tv),
-                (TextView) findViewById(R.id.participant2_tv), (TextView) findViewById(R.id.participant3_tv),
-                (TextView) findViewById(R.id.participant4_tv)};
-        participantBubbles = new ImageView[]{(ImageView) findViewById(R.id.participant0_bubble),
+                (TextView) findViewById(R.id.participant2_tv),
+                (TextView) findViewById(R.id.participant3_tv),
+                (TextView) findViewById(R.id.participant4_tv)
+        };
+        participantBubbles = new ImageView[]{
+                (ImageView) findViewById(R.id.participant0_bubble),
                 (ImageView) findViewById(R.id.participant1_bubble),
-                (ImageView) findViewById(R.id.participant2_bubble), (ImageView) findViewById(R.id.participant3_bubble),
-                (ImageView) findViewById(R.id.participant4_bubble)};
-        participantButterflies = new ImageView[]{(ImageView) findViewById(R.id.participant0_butterfly),
-                (ImageView) findViewById(R.id.participant1_butterfly),
-                (ImageView) findViewById(R.id.participant2_butterfly), (ImageView) findViewById(R.id.participant3_butterfly),
-                (ImageView) findViewById(R.id.participant4_butterfly)};
-        participants = new UserInfo[]{(UserInfo) currentSession.getParticipant_0(),
+                (ImageView) findViewById(R.id.participant2_bubble),
+                (ImageView) findViewById(R.id.participant3_bubble),
+                (ImageView) findViewById(R.id.participant4_bubble)
+        };
+        participantButterflies = new ImageView[]{
+                (ImageView) findViewById(R.id.participant0_bubble),
+                (ImageView) findViewById(R.id.participant1_bubble),
+                (ImageView) findViewById(R.id.participant2_bubble),
+                (ImageView) findViewById(R.id.participant3_bubble),
+                (ImageView) findViewById(R.id.participant4_bubble)
+        };
+        participants = new UserInfo[]{
+                (UserInfo) currentSession.getParticipant_0(),
                 (UserInfo) currentSession.getParticipant_1(),
-                (UserInfo) currentSession.getParticipant_2(),(UserInfo) currentSession.getParticipant_3(),
-                (UserInfo) currentSession.getParticipant_4()};
+                (UserInfo) currentSession.getParticipant_2(),
+                (UserInfo) currentSession.getParticipant_3(),
+                (UserInfo) currentSession.getParticipant_4()
+        };
         butterflyImages = new int[]{R.drawable.red_1, R.drawable.yellow_1,
                 R.drawable.violet_1, R.drawable.green_1,
                 R.drawable.blue_2};
         butterflyColors = getResources().getStringArray(R.array.butterfly_colors);
-        stagedButterflies = new ImageView[]{(ImageView) findViewById(R.id.participant0_staged),
-                (ImageView) findViewById(R.id.participant1_staged),
-                (ImageView) findViewById(R.id.participant2_staged), (ImageView) findViewById(R.id.participant3_staged),
-                (ImageView) findViewById(R.id.participant4_staged)};;
+        stagedButterflies = new ImageView[]{
+                (ImageView) findViewById(R.id.participant0_bubble),
+                (ImageView) findViewById(R.id.participant1_bubble),
+                (ImageView) findViewById(R.id.participant2_bubble),
+                (ImageView) findViewById(R.id.participant3_bubble),
+                (ImageView) findViewById(R.id.participant4_bubble)
+        };
 
         sessionStarted = currentSession.getSession_started();
         sessionEnded = currentSession.getSession_ended();
@@ -142,7 +145,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
         //Edit texts
         editTexts = new EditText[]{(EditText) findViewById(R.id.red_entry), (EditText) findViewById(R.id.yellow_entry),
-                (EditText) findViewById(R.id.violet_entry), (EditText) findViewById(R.id.green_entry),(EditText) findViewById(R.id.blue_entry)};
+                (EditText) findViewById(R.id.violet_entry), (EditText) findViewById(R.id.green_entry), (EditText) findViewById(R.id.blue_entry)};
 
         //Request list vars and layouts
         tradesRecyclerView = findViewById(R.id.trade_request_list);
@@ -155,7 +158,6 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         noTrades = findViewById(R.id.no_trades);
 
 
-
         //Set all onclicklisteners here
         backButton.setOnClickListener(this);
         startButton.setOnClickListener(this);
@@ -163,24 +165,27 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         tradeRequestsBtn.setOnClickListener(this);
 
 
-
-
-        for(ImageView currBubble : participantBubbles){
+        for (ImageView currBubble : participantBubbles) {
             currBubble.setOnClickListener(this);
         }
 
-        if(sessionEnded){
+
+        //State managmement based on the current state of the session.
+        //IF we finish the game, navigate to the finish activity
+        if (sessionEnded) {
             Intent to_navigate = new Intent(this, SuperflyFinishPage.class);
             startActivity(to_navigate);
         }
-        else if(sessionStarted){
-            startButton.setText("Contribute butterfly");
-            if(!allUsersStaged()){
-                startButton.setEnabled(false);
-            }
-            else{
-                startButton.setEnabled(true);
-            }
+        //If the game has not yet started, display the start button to the owner user only.
+        else if (!sessionStarted && currentUserIsOwner()){
+            startButton.setVisibility(View.VISIBLE);
+        }
+        //If we started the game, display the contribute butterfly round button to the owner if
+        // all other users staged a butterfly already.
+        else if (sessionStarted && currentUserIsOwner() && allUsersStaged()) {
+            startButton.setVisibility(View.VISIBLE);
+            startButton.setText("Contribute butterflies");
+            startButton.setEnabled(true);
         }
 
         //Call the initialization function to display the current game configuration.
@@ -192,10 +197,10 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
     void initParticipants() {
         int index = 0;
         UserInfo currentParticipant;
-        while(index < participantCount){
+        while (index < participantCount) {
             currentParticipant = participants[index];
             //Set the textView if we have a name available for a player.
-            if(currentParticipant != null) {
+            if (currentParticipant != null) {
                 participantNames[index].setText(currentParticipant.getUser_name());
                 participantNames[index].setVisibility(View.VISIBLE);
                 participantBubbles[index].setVisibility(View.VISIBLE);
@@ -203,11 +208,11 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
             }
             index++;
         }
-        if(participantCount < 2){
+        if (participantCount < 2) {
             startButton.setEnabled(false);
         }
         //Check what needs to be contributed to the current superfly if the session is started.
-        if(sessionStarted){
+        if (sessionStarted) {
             assignedButterflies = currentSession.getAssignedButterflies();
             Log.d("INIT PARTICIPANTS", "Assigned butterflies: " + Arrays.toString(assignedButterflies));
 
@@ -220,17 +225,17 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
     }
 
-    void displayAssignedButterfly(){
+    void displayAssignedButterfly() {
         participantButterflies[userPosition].setImageResource(butterflyImages[assignedButterflies[userPosition]]);
     }
 
     //Loop through all participants, return false if one of them does not have a butterfly staged.
-    boolean allUsersStaged(){
+    boolean allUsersStaged() {
         boolean staged = true;
-        for(int index = 0; index < participantCount; index++){
+        for (int index = 0; index < participantCount; index++) {
             UserInfo currUser = participants[index];
             Log.d("AllusersStaged", currUser.toString());
-            if(currUser.getUser_staged_butterfly() == -1){
+            if (currUser.getUser_staged_butterfly() == -1) {
                 staged = false;
                 break;
             }
@@ -238,11 +243,11 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         return staged;
     }
 
-    Integer getUserPosition(){
+    Integer getUserPosition() {
         int index = 0;
         Log.d("Get User Position", Arrays.toString(currentSession.getParticipantsArray()));
-        for(UserInfo curr : currentSession.getParticipantsArray()){
-            if(MainActivity.user_info.getUser_id() == curr.getUser_id())
+        for (UserInfo curr : currentSession.getParticipantsArray()) {
+            if (MainActivity.user_info.getUser_id() == curr.getUser_id())
                 return index;
             index++;
         }
@@ -251,12 +256,11 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
     //Checks to see if the user hasn't staged a butterfly yet and they have enough butterflies to
     //stage a new one for the round.
-    private boolean canStageButterfly(String assignedButterflyKey){
-        if(MainActivity.user_info.getUser_staged_butterfly() > -1){
+    private boolean canStageButterfly(String assignedButterflyKey) {
+        if (MainActivity.user_info.getUser_staged_butterfly() > -1) {
             Toast.makeText(this, "Already staged a butterfly this round", Toast.LENGTH_SHORT).show();
             return false;
-        }
-        else if(MainActivity.user_info.get_local_atrium().get(assignedButterflyKey) < 1){
+        } else if (MainActivity.user_info.get_local_atrium().get(assignedButterflyKey) < 1) {
             Toast.makeText(this, "Not enough butterflies, please trade with a friend!", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -264,25 +268,23 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
     }
 
-    void addRoundToSession(){
-        UserInfo currentParticipant;
+    void addRoundToSession() {
         Map<String, Integer> round = new HashMap<String, Integer>();
         String currentButterflyKey;
-        Integer currentButterflyType;
 
-        for(int index = 0; index < participantCount; index++){
-            currentButterflyKey = "current_b"  + assignedButterflies[index] + "_count";
+        for (int index = 0; index < participantCount; index++) {
+            currentButterflyKey = "current_b" + assignedButterflies[index] + "_count";
             //Add a new entry to the map if there is not a current butterfly of that type inserted.
-            if(!round.containsKey(currentButterflyKey)){
+            if (!round.containsKey(currentButterflyKey)) {
                 round.put(currentButterflyKey, 1);
             }
             //Update the current entry if we have already logged the current type
-            else{
+            else {
                 round.put(currentButterflyKey, round.get(currentButterflyKey) + 1);
             }
         }
 
-        Log.d("ROUND TEST", round.toString());
+
 
         //Push this to the network
         NetworkCalls.updateSuperflyProgress(currentSession.getSession_id(), round, this, new RetrofitResponseListener() {
@@ -294,7 +296,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                 resetSucceeded = true;
                 //ResetStagedButterfly will set the class member boolean, resetSucceeded, to false
                 //if a network error occurs.
-                for(int participantIndex = 0; participantIndex < participantCount; participantIndex++){
+                for (int participantIndex = 0; participantIndex < participantCount; participantIndex++) {
                     resetStagedButterfly(participantIndex);
                 }
                 //After everything suceeds, refresh the UI.
@@ -308,7 +310,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    void resetStagedButterfly(Integer participantIndex){
+    void resetStagedButterfly(Integer participantIndex) {
         UserInfo currParticipant = participants[participantIndex];
         //Resets the staged butterfly to the empty value -1 for this user.
         NetworkCalls.setUserStagedButterfly(currParticipant.getUser_id(), -1, this, new RetrofitResponseListener() {
@@ -321,7 +323,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                         + currParticipant.getUser_staged_butterfly().toString()
                         + "Array indexed participant butterfly: "
                         + participants[participantIndex].getUser_staged_butterfly().toString());
-                if(currParticipant.getUser_id() == MainActivity.user_info.getUser_id()){
+                if (currParticipant.getUser_id() == MainActivity.user_info.getUser_id()) {
                     MainActivity.user_info.setUser_staged_butterfly(-1);
                 }
             }
@@ -364,7 +366,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
     }
 
-    void showTradingMenu(UserInfo recipient){
+    void showTradingMenu(UserInfo recipient) {
         otherParticipantTv.setText("Trading with " + recipient.getUser_name());
         tradingMenu.setVisibility(View.VISIBLE);
         closeTradeMenu.setOnClickListener(new View.OnClickListener() {
@@ -384,23 +386,22 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
 
     }
 
-    HashMap<String, Integer> buildTradeRequest(){
+    HashMap<String, Integer> buildTradeRequest() {
         HashMap<String, Integer> requestMap = new HashMap<>();
-        for(int index = 0; index < editTexts.length; index++){
+        for (int index = 0; index < editTexts.length; index++) {
             String key = "b" + index + "_requested";
             String editVal = editTexts[index].getText().toString();
             int defaultVal = 0;
-            if(editVal.length() > 0){
+            if (editVal.length() > 0) {
                 requestMap.put(key, Integer.parseInt(editVal));
-            }
-            else{
+            } else {
                 requestMap.put(key, defaultVal);
             }
 
         }
         //If we hit a non-zero value, return the valid map
-        for(Integer currVal : requestMap.values()){
-            if(currVal > 0){
+        for (Integer currVal : requestMap.values()) {
+            if (currVal > 0) {
                 return requestMap;
             }
         }
@@ -409,11 +410,11 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         return null;
     }
 
-    void sendTradeRequest(UserInfo recipient, Map<String, Integer> requestedButterflies){
-        if(recipient==null)
+    void sendTradeRequest(UserInfo recipient, Map<String, Integer> requestedButterflies) {
+        if (recipient == null)
             return;
         //Check to see if they actually put values in the map.
-        if(requestedButterflies != null){
+        if (requestedButterflies != null) {
             NetworkCalls.sendTradeRequest(MainActivity.user_info.getUser_id(), recipient.getUser_id(), requestedButterflies, SuperflyGamePage.this, new RetrofitResponseListener() {
                 @Override
                 public void onSuccess() {
@@ -429,36 +430,37 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
             });
         }
         //If the map is null then it was not valid (i.e. empty)
-        else{
+        else {
             Toast.makeText(SuperflyGamePage.this, "Cannot send an empty trade request!", Toast.LENGTH_SHORT).show();
         }
     }
 
+    public boolean currentUserIsOwner(){
+        //checks if the participant is the owner of the session i.e. participant 0
+        return currentSession.getId_0().equals(MainActivity.user_info.getUser_id());
+    }
 
     @Override
     public void onClick(View v) {
         int view_id = v.getId();
         Intent to_navigate;
-        if(view_id == backButton.getId())
-        {
+        if (view_id == backButton.getId()) {
             //Finish this activity and pop backwards
             Intent returnHome = new Intent(this, mMainActivity.class);
             returnHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(returnHome);
-        }
+        } else if (view_id == startButton.getId()) {
 
-        else if(view_id == startButton.getId())
-        {
-
-            if(currentSession.getSession_participant_count() < 2){
+            if (currentSession.getSession_participant_count() < 2) {
+                // if player count less than 2 - so can't start the game yet
                 Toast.makeText(this, "Not enough players to start!", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                if(currentSession.getId_0() != MainActivity.user_info.getUser_id()){
+            } else {
+                // more than 2 --> if you are the owner of the sesion & atleast 2 people in the session than you can start the game
+                if (!currentUserIsOwner()) {
                     Toast.makeText(this, "You must be the session owner to do this.", Toast.LENGTH_SHORT).show();
                 }
                 //If the current user is participant_0 (the owner) and the session is NOT started.
-                else if(!MainActivity.user_info.getCurrentSession().getSession_started()){
+                else if (!MainActivity.user_info.getCurrentSession().getSession_started()) {
                     Toast.makeText(this, "Starting game", Toast.LENGTH_SHORT).show();
                     NetworkCalls.startSession(currentSession.getSession_id(), this, new RetrofitResponseListener() {
                         @Override
@@ -474,32 +476,28 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                     });
 
                 }
-                //Otherwise we are the owner and the session is STARTED, so contribute this round.
-                else{
+                // everyone has staged their butterflies & now we can contribute the round to the session
+                else {
                     Toast.makeText(this, "Contributing butterflies for this round", Toast.LENGTH_SHORT).show();
                     addRoundToSession();
                 }
 
 
             }
-        }
-
-        else if(view_id == refreshButton.getId()){
+        } else if (view_id == refreshButton.getId()) {
             //Use StartSession to check current status.
             refreshSession();
-        }
-
-        else if(view_id == tradeRequestsBtn.getId()){
+        } else if (view_id == tradeRequestsBtn.getId()) {
             Log.d("Recyclerview vis", "Pressing button");
-            if(tradesRecyclerView.getVisibility() == View.GONE){
+            if (tradesRecyclerView.getVisibility() == View.GONE) {
                 Log.d("RecyclerView vis", "View is gone, set visible");
                 tradesRecyclerView.setVisibility(View.VISIBLE);
-                if(currTrades.size() == 0){
+                if (currTrades.size() == 0) {
                     noTrades.setVisibility(View.VISIBLE);
                 }
             }
             //Hide the menu if it is open
-            else{
+            else {
                 tradesRecyclerView.setVisibility(View.GONE);
                 noTrades.setVisibility(View.GONE);
             }
@@ -508,13 +506,13 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         }
 
         //User clicks their own bubble, ask them to contribute assigned butterfly
-        else if(sessionStarted && view_id == participantBubbles[userPosition].getId()){
+        else if (sessionStarted && view_id == participantBubbles[userPosition].getId()) {
             //Make dialog fragment and show it here, submit button basically.
             //First check if the user has enough to actually contribute
-            String assignedButterflyKey = "user_b"  + assignedButterflies[userPosition] + "_count";
+            String assignedButterflyKey = "user_b" + assignedButterflies[userPosition] + "_count";
             Integer assignedButterflyType = assignedButterflies[userPosition];
 
-            if(canStageButterfly(assignedButterflyKey)) {
+            if (canStageButterfly(assignedButterflyKey)) {
                 //Set the Users staged butterfly
                 Log.d("Contribute butterfly", "Butterfly found of type: " + butterflyColors[assignedButterflyType]);
 
@@ -591,25 +589,21 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         //Otherwise, check which other bubble it was. We can include the user's bubble as the condition
         //above will handle it.
         else {
-            if(!sessionStarted)
+            if (!sessionStarted)
                 return;
 
             UserInfo otherUser = null;
 
-            if(participants[0] != null && view_id == participantBubbles[0].getId()){
+            if (participants[0] != null && view_id == participantBubbles[0].getId()) {
                 otherUser = participants[0];
-            }
-            else if(participants[1] != null && view_id == participantBubbles[1].getId()){
+            } else if (participants[1] != null && view_id == participantBubbles[1].getId()) {
                 otherUser = participants[1];
-            }
-            else if(participants[2] != null && view_id == participantBubbles[2].getId()){
+            } else if (participants[2] != null && view_id == participantBubbles[2].getId()) {
                 otherUser = participants[2];
 
-            }
-            else if(participants[3] != null && participantCount > 3 && view_id == participantBubbles[3].getId()){
+            } else if (participants[3] != null && participantCount > 3 && view_id == participantBubbles[3].getId()) {
                 otherUser = participants[3];
-            }
-            else if(participants[4] != null && view_id == participantBubbles[0].getId()){
+            } else if (participants[4] != null && view_id == participantBubbles[0].getId()) {
                 otherUser = participants[4];
             }
 

@@ -42,7 +42,8 @@
                 android:nextFocusRight="@id/login_password_et"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
-                android:textAlignment="viewStart" />
+                android:textAlignment="viewStart"
+                />
 
             <EditText
                 android:id="@+id/login_password_et"
@@ -56,9 +57,17 @@
                 android:nextFocusRight="@id/login_button"
                 style="@style/login_text_views"/>
 
+            <CheckBox
+                android:id="@+id/saveLoginCheckBox"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextPassword"
+                android:text="Remember Me"
+                android:textColor="#FFFfff"
+                />
+
             <Button
                 android:id="@+id/login_button"
-
                 android:text="@string/action_login"
                 style="@style/buttons"
                 />

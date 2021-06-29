@@ -384,7 +384,7 @@ public class MindfulnessMeditationGame_R extends AppCompatActivity implements Vi
         }
     }
 
-    /**Tutorial pop-up that overlays the game's view*/
+    /**Tutorial pop-up that overrlays the game's view*/
     public void tutorialPopUp()
     {
         final AlertDialog myDialog = new AlertDialog.Builder(this).create();
@@ -428,5 +428,8 @@ public class MindfulnessMeditationGame_R extends AppCompatActivity implements Vi
         }
         pressedTime = System.currentTimeMillis();
     }
+
+
+
 
 }

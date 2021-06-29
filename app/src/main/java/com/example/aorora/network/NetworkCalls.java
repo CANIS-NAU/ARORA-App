@@ -735,10 +735,8 @@ public class NetworkCalls {
             @Override
             public void onResponse(Call<SuperflySession> call, Response<SuperflySession> response) {
                 if(response.isSuccess()){
-                    //This might break things with stackoverflow error.
                     MainActivity.user_info.setCurrentSession(response.body());
                     networkCallListener.onSuccess();
-
                 }
 
 
