@@ -762,6 +762,7 @@ public class NetworkCalls {
                     //Local init for the game session
                     newSession.buildParticipantsArray();
                     newSession.buildAssignedButterfliesArray();
+                    newSession.buildLocalCounts();
                     MainActivity.user_info.setCurrentSession(response.body());
                     Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
                 }
@@ -796,6 +797,7 @@ public class NetworkCalls {
                     SuperflySession newSession = response.body();
                     newSession.buildParticipantsArray();
                     newSession.buildAssignedButterfliesArray();
+                    newSession.buildLocalCounts();
                     MainActivity.user_info.setCurrentSession(newSession);
                     Log.d("Session Retrieved", MainActivity.user_info.getCurrentSession().toString());
                     networkCallListener.onSuccess();

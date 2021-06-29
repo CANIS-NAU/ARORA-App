@@ -283,11 +283,12 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
                 round.put(currentButterflyKey, round.get(currentButterflyKey) + 1);
             }
         }
-
+        //Update the session counts and push to the backend
+        Map<String, Integer> updatedCounts = currentSession.addNewRound(round);
 
 
         //Push this to the network
-        NetworkCalls.updateSuperflyProgress(currentSession.getSession_id(), round, this, new RetrofitResponseListener() {
+        NetworkCalls.updateSuperflyProgress(currentSession.getSession_id(), updatedCounts, this, new RetrofitResponseListener() {
             @Override
             public void onSuccess() {
                 //Update local session?

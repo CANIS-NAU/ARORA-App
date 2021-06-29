@@ -10,6 +10,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /*This is an instance of the superfly creation game. This groups users together to create
 * superflies by contributing to the current butterfly counts until the recipe is made.*/
@@ -79,6 +82,9 @@ public class SuperflySession {
     private Integer butterfly_participant_4;
 
     //Locally initialized variables
+    //Non-serialized value for use in storing each count locally.
+    private Map<String, Integer> local_butterfly_counts;
+
     Integer[] assignedButterflies;
     UserInfo[] participantsArray;
 
@@ -166,6 +172,18 @@ public class SuperflySession {
         return this.assignedButterflies;
     }
 
+    //This builds the local count hashmap so we can easily update the backend using it.
+    public void buildLocalCounts(){
+        //Init local inventory hashmap
+        local_butterfly_counts = new HashMap<>();
+        //Populate our local HashMap
+        local_butterfly_counts.put("current_b0_count", this.current_b0_count);
+        local_butterfly_counts.put("current_b1_count", this.current_b1_count);
+        local_butterfly_counts.put("current_b2_count", this.current_b2_count);
+        local_butterfly_counts.put("current_b3_count", this.current_b3_count);
+        local_butterfly_counts.put("current_b4_count", this.current_b4_count);
+    }
+
     //Gets the next set of needed butterflies for the session.
     public void updateButterflyCount(int butterflyType, int butterflyCount) {
         String getterName = "getCurrent_b" + butterflyType + "_count";
@@ -181,7 +199,53 @@ public class SuperflySession {
             Log.d("getNextRound", "No method found");
             e.printStackTrace();
         }
+    }
 
+    //This will update the local count mappings for this session
+    public Map<String,Integer> addNewRound(Map<String, Integer> round){
+        //Refresh our local counts with the updates in the parameter
+        Iterator it = round.entrySet().iterator();
+        for(Map.Entry<String,Integer> currEntry : round.entrySet()) {
+            String currKey = currEntry.getKey();
+            Integer currVal = currEntry.getValue();
+
+            //if key is already initialized then add previous value, should always be there.
+            if(local_butterfly_counts.containsKey(currKey))
+            {
+                currVal += local_butterfly_counts.get(currKey);
+            }
+
+            this.local_butterfly_counts.put(currKey, currVal);
+        }
+        //Update the fields themselves in this model.
+        setSessionCounts();
+        return local_butterfly_counts;
+    }
+
+    //This will take translate the atrium mappings to the userinfo counts that are pushed to the
+    //backend, i.e. the user_b0_count through user_b4_count.
+    public void setSessionCounts(){
+        for(Map.Entry<String,Integer> currEntry : this.local_butterfly_counts.entrySet()){
+            String currKey = currEntry.getKey();
+            Integer currVal = currEntry.getValue();
+            switch(currKey){
+                case "user_b0_count":
+                    setCurrent_b0_count(currVal);
+                    break;
+                case "user_b1_count":
+                    setCurrent_b1_count(currVal);
+                    break;
+                case "user_b2_count":
+                    setCurrent_b2_count(currVal);
+                    break;
+                case "user_b3_count":
+                    setCurrent_b3_count(currVal);
+                    break;
+                case "user_b4_count":
+                    setCurrent_b4_count(currVal);
+                    break;
+            }
+        }
     }
 
     public Integer getSession_id() {
@@ -398,5 +462,9 @@ public class SuperflySession {
 
     public void setButterfly_participant_4(Integer butterfly_participant_4) {
         this.butterfly_participant_4 = butterfly_participant_4;
+    }
+
+    public Map<String, Integer> getLocal_butterfly_counts() {
+        return local_butterfly_counts;
     }
 }
