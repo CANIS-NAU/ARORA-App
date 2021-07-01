@@ -15,10 +15,13 @@ public class UserSuperfly {
     private Superfly superfly;
 
 
-    public UserSuperfly(Integer user_superfly_id, Integer id_user, Integer id_superfly) {
+    public UserSuperfly(Integer user_superfly_id, Integer id_user, Integer id_superfly,
+                            UserInfo user, Superfly superfly) {
         this.user_superfly_id = user_superfly_id;
         this.id_user = id_user;
         this.id_superfly = id_superfly;
+        this.user = user;
+        this.superfly = superfly;
     }
 
     @Override

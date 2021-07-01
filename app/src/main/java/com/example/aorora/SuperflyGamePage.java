@@ -501,6 +501,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
             else {
                 tradesRecyclerView.setVisibility(View.GONE);
                 noTrades.setVisibility(View.GONE);
+                refreshSession();
             }
 
 

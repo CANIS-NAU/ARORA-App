@@ -659,7 +659,7 @@ public class NetworkCalls {
         });
     }
 
-    //This method deletes trade requests sent to the recipient matching the passed recipient_id parameter.
+    //This method deletes trade requests sent to the recipient matching the passed recipient_id parameter
     public static void deleteTradeRequest(int recipient_id, final Context context, RetrofitResponseListener networkCallListener ){
         Call call = service.deleteTradeRequest(recipient_id);
 
@@ -685,6 +685,17 @@ public class NetworkCalls {
     //This method is called when declining a specific trade request in the menu.
     public static void deleteTradeRequestById(int request_id, final Context context, RetrofitResponseListener networkCallListener){
         //TODO Meet
+        Call<TradeRequest> call = service.deleteTradeRequestById(request_id);
+        call.enqueue(new Callback<TradeRequest>() {
+            @Override
+            public void onResponse(Call<TradeRequest> call, Response<TradeRequest> response) {
+            }
+
+            @Override
+            public void onFailure(Call<TradeRequest> call, Throwable t) {
+
+            }
+        });
     }
 
     //This will delete all invites with the sender_id passed
@@ -820,7 +831,7 @@ public class NetworkCalls {
      * @param newParticipant The user who seeks to join the superfly session
      * @param context Where this call came from.
      */
-    public static void joinSession(SuperflySession desiredSession, UserInfo newParticipant, final Context context){
+    public static void joinSession(SuperflySession desiredSession, UserInfo newParticipant, final Context context, RetrofitResponseListener networkCallListener){
         //First, determine how many participants are currently in the session
         Integer participantCount = desiredSession.getSession_participant_count();
         Integer newParticipantId = newParticipant.getUser_id();
@@ -862,7 +873,8 @@ public class NetworkCalls {
                 return;
         }
         //Make new variable for use in onResponse to set the current participant count locally.
-        final int newCount = participantCount++;
+        participantCount++;
+        final int newCount = participantCount;
 
         //Once we made our call and updated the session correctly, queue it up.
         call.enqueue(new Callback<SuperflySession>() {
@@ -875,16 +887,15 @@ public class NetworkCalls {
                     //Delete the invite to this session and join
                     NetworkCalls.deleteSuperflyInvitesBySender(MainActivity.user_info.getUser_id(), context);
                     SuperflySession newSession = response.body();
+                    newSession.setSession_participant_count(newCount);
                     newSession.buildParticipantsArray();
                     newSession.buildAssignedButterfliesArray();
-                    newSession.setSession_participant_count(newCount);
                     Log.d("Joined session", "Setting local session" + newSession.toString());
                     //Add the user to their new session so they can load the game page.
                     MainActivity.user_info.setCurrentSession(newSession);
                     //Since we succeeded, navigate to the new session with passed context.
                     if(!testing) {
-                        Intent intent = new Intent(context, SuperflyGamePage.class);
-                        context.startActivity(intent);
+                        networkCallListener.onSuccess();
                     }
                 }
             }
@@ -898,12 +909,11 @@ public class NetworkCalls {
     }
 
 
-    public static void leaveSession(int user_id, final Context context){
+    public static void leaveSession(int user_id){
         Call<UserInfo> call = service.leaveSession(user_id, -1);
         call.enqueue(new Callback<UserInfo>() {
             @Override
             public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
-
             }
 
             @Override

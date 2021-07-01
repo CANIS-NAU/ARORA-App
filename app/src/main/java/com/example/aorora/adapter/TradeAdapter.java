@@ -151,10 +151,11 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeAdapter
                 TradeRequest currRequest = currRequests.get(position);
                 //Decline and delete the request
                 Toast.makeText(context, "Declining", Toast.LENGTH_SHORT).show();
-                NetworkCalls.deleteTradeRequest(currRequest.getUid_recipient(), context, new RetrofitResponseListener() {
+                NetworkCalls.deleteTradeRequestById(currRequest.getRequest_id(), context, new RetrofitResponseListener() {
                     @Override
                     public void onSuccess() {
                         Log.d("Decline Button", "Deleted request, please refresh");
+
                     }
 
                     @Override
@@ -162,6 +163,7 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeAdapter
                         Log.d("Decline Button", "Delete request FAILED!");
                     }
                 });
+
             }
         });
 

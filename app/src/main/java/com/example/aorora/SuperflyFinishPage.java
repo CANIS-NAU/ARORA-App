@@ -1,6 +1,5 @@
 package com.example.aorora;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.aorora.model.SuperflySession;
-import com.example.aorora.model.UserInfo;
 import com.example.aorora.network.NetworkCalls;
 import com.example.aorora.network.RetrofitResponseListener;
 
@@ -66,7 +64,7 @@ public class SuperflyFinishPage extends AppCompatActivity implements View.OnClic
                 //Check 2: If posting suceeds, check if we need to delete the session.
                 //Remove from session
                 MainActivity.user_info.setCurrentSession(null);
-                NetworkCalls.leaveSession(MainActivity.user_info.getUser_id(), SuperflyFinishPage.this);
+                NetworkCalls.leaveSession(MainActivity.user_info.getUser_id());
             }
 
             @Override

@@ -19,8 +19,10 @@ import android.widget.TextView;
 
 import com.example.aorora.MainActivity;
 import com.example.aorora.R;
+import com.example.aorora.SuperflyGamePage;
 import com.example.aorora.model.SuperflyInvite;
 import com.example.aorora.network.NetworkCalls;
+import com.example.aorora.network.RetrofitResponseListener;
 
 import java.util.ArrayList;
 
@@ -61,10 +63,20 @@ public class InvitePageAdapter extends RecyclerView.Adapter<InvitePageAdapter.In
                 Log.d("Joining session", "Joining session created by " + currInvites.get(position).getSession().getParticipant_0().getUser_name());
                 //TODO Is this causing the refresh bug where the bubble doesn't popup right away?
                 //TODO Check for in-progress session.
-                NetworkCalls.joinSession(currInvites.get(position).getSession(), MainActivity.user_info, context);
-                NetworkCalls.deleteSuperflyInvitesBySender(MainActivity.user_info.getUser_id(), context);
-                //Intent intent = new Intent(context, SuperflyGamePage.class);
-                //context.startActivity(intent);
+                NetworkCalls.joinSession(currInvites.get(position).getSession(), MainActivity.user_info, context, new RetrofitResponseListener() {
+                    @Override
+                    public void onSuccess() {
+                        Intent intent = new Intent(context, SuperflyGamePage.class);
+                        context.startActivity(intent);
+                        NetworkCalls.deleteSuperflyInvitesBySender(MainActivity.user_info.getUser_id(), context);
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                });
+
             }
         });
     }
