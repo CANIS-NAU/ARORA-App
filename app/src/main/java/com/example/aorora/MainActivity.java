@@ -20,6 +20,7 @@ import com.example.aorora.model.UserInfo;
 import com.example.aorora.network.GetDataService;
 import com.example.aorora.network.NetworkCalls;
 import com.example.aorora.network.RetrofitClientInstance;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 
@@ -39,14 +40,12 @@ public class MainActivity extends AppCompatActivity {
     Intent surveyPage;
     Context context;
 
-    //Determined if a user has logged in before. To be used in autopopulating login form.
-    boolean is_first_time_username_et;
-    boolean is_first_time_password_et;
     //This service is our backend connection that will respond to http requests we made in GetDataService.java
     GetDataService service;
 
     SharedPreferences sp;
     Boolean saveLoginInfoBool;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,14 +62,14 @@ public class MainActivity extends AppCompatActivity {
         service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         context = this;
 
-//        saveLoginInfoBool = sp.getBoolean("save_login", false);
-//        if(saveLoginInfoBool){
-//            // call login function here
-//            String username = sp.getString("username","");
-//            String password = sp.getString("password","");
-//            login(username, password);
-//            Toast.makeText(this, "Welcome back " + sp.getString("username", ""), Toast.LENGTH_SHORT).show();
-//        }
+        saveLoginInfoBool = sp.getBoolean("save_login", false);
+        if(saveLoginInfoBool){
+            // call login function here
+            String username = sp.getString("username","");
+            String password = sp.getString("password","");
+            login(username, password);
+            Toast.makeText(this, "Welcome back " + sp.getString("username", ""), Toast.LENGTH_SHORT).show();
+        }
 
 
 
@@ -83,15 +82,15 @@ public class MainActivity extends AppCompatActivity {
                 if (validateLogin(username, password)) {
                     login(username, password);
                     editor.clear().apply();
-//                    if (saveLoginInfo.isChecked()){
-//                        editor.putBoolean("save_login", true);
-//                        editor.putString("username", username);
-//                        editor.putString("password", password);
-//                        editor.apply();
-//                    }
-//                    else {
-//                        editor.clear().commit();
-//                    }
+                    if (saveLoginInfo.isChecked()){
+                        editor.putBoolean("save_login", true);
+                        editor.putString("username", username);
+                        editor.putString("password", password);
+                        editor.apply();
+                    }
+                    else {
+                        editor.clear().commit();
+                    }
                 }
 
             }
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     private void login(String username, String password) {
         Log.d("Beginning login", "Logging into the system via login function");
         Call<UserAuth> call = service.login(username, password);
-        Log.d("Beginnign login", "Invoked service.login");
+        Log.d("Beginning login", "Invoked service.login");
         call.enqueue(new Callback<UserAuth>() {
             @Override
             public void onResponse(Call<UserAuth> call, Response<UserAuth> response) {
@@ -137,8 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "USER ID or PASSWORD IS WRONG", Toast.LENGTH_SHORT).show();
                 }
-                //surveyPage = new Intent(context, SurveyPage.class);
-                //startActivity(surveyPage);
             }
 
             @Override
@@ -151,9 +148,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Couldn't reach the network, try again.", Toast.LENGTH_SHORT).show();
 
                     // logging probably not necessary
-                } else {
-                    //Toast.makeText(MainActivity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                 }
+//                else {
+//                    //Toast.makeText(MainActivity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+//                }
                 //Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });

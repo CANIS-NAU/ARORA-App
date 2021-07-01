@@ -36,7 +36,7 @@
                 style="@style/login_text_views"
                 android:autofillHints="@string/prompt_email"
                 android:hint="@string/prompt_username"
-                android:inputType="textVisiblePassword|textNoSuggestions"
+                android:inputType="textPersonName"
                 android:selectAllOnFocus="true"
                 android:nextFocusDown="@id/login_password_et"
                 android:nextFocusRight="@id/login_password_et"
@@ -53,8 +53,6 @@
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:selectAllOnFocus="true"
-                android:nextFocusDown="@id/login_button"
-                android:nextFocusRight="@id/login_button"
                 style="@style/login_text_views"/>
 
             <CheckBox

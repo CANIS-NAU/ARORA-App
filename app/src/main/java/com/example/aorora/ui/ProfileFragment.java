@@ -1,6 +1,8 @@
 package com.example.aorora.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,10 +42,7 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-//        android.widget.Toast.makeText(getContext(), "2. OnCreate", Toast.LENGTH_SHORT).show();
-//        NetworkCalls.getUserInfo(getUserId(), getContext());
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         userPollenTv = (TextView) rootView.findViewById(R.id.pollen_score_layout_tv_2);
@@ -146,11 +145,35 @@ public class ProfileFragment extends Fragment {
         userNameLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                android.widget.Toast.makeText(getContext(), "Hello "+MainActivity.user_info.getUser_name(), Toast.LENGTH_SHORT).show();
+                SharedPreferences sp;
+                sp = getActivity().getSharedPreferences("AroraPreferences",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear().apply();
+                Intent intent = new Intent(getActivity(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 return true;
             }
         });
 
+        userNameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.widget.Toast.makeText(getContext(), "Hello "+MainActivity.user_info.getUser_name() + " - Long press to logout", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+    public void recreateActivity() {
+        Intent intent = getActivity().getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        getActivity().finish();
+//        overridePendingTransition(0, 0);
+        startActivity(intent);
+//        overridePendingTransition(0, 0);
     }
 
     private void setName() {
