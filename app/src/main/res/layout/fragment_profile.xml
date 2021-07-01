@@ -20,8 +20,6 @@
             android:layout_height="wrap_content"
             android:text="@string/title_profile"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             style="@style/inverse_page_header_text_views"
             android:id="@+id/profile_page_header"/>
 
@@ -55,7 +53,6 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:src="@drawable/orange_butterfly_image"
-
             />
 
         <androidx.cardview.widget.CardView
