@@ -35,6 +35,7 @@ import java.util.Map;
 
 public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeAdapterViewHolder> {
     Context context;
+    TradeRequestActionListener tradeRequestListener;
     //List of displayed trade requests
     ArrayList<TradeRequest> currRequests;
     String[] butterfly_count_names;
@@ -112,12 +113,13 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeAdapter
                         NetworkCalls.updateUserAtrium(currRequest.getUid_sender(), updatedSenderAtrium, context, new RetrofitResponseListener() {
                             @Override
                             public void onSuccess() {
-                                NetworkCalls.deleteTradeRequest(currRequest.getUid_recipient(), context, new RetrofitResponseListener() {
+                                NetworkCalls.deleteTradeRequestById(currRequest.getRequest_id(), context, new RetrofitResponseListener() {
                                     @Override
                                     public void onSuccess() {
                                         //If all calls work, update locally
                                         MainActivity.user_info.update_local_atrium(updatedRecipientAtrium);
                                         Toast.makeText(context, "Trade successful!", Toast.LENGTH_SHORT).show();
+                                        tradeRequestListener.requestCompleted();
                                     }
 
                                     @Override
@@ -155,6 +157,7 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeAdapter
                     @Override
                     public void onSuccess() {
                         Log.d("Decline Button", "Deleted request, please refresh");
+                        tradeRequestListener.requestCompleted();
 
                     }
 
@@ -182,6 +185,14 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeAdapter
     @Override
     public int getItemCount() {
         return currRequests.size();
+    }
+
+    public interface TradeRequestActionListener {
+        public void requestCompleted();
+    }
+
+    public void setTradeRequestActionListener(TradeRequestActionListener newListener){
+        this.tradeRequestListener = newListener;
     }
 
     public class TradeAdapterViewHolder extends RecyclerView.ViewHolder{

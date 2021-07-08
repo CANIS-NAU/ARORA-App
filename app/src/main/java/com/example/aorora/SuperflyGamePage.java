@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class SuperflyGamePage extends AppCompatActivity implements View.OnClickListener {
+public class SuperflyGamePage extends AppCompatActivity implements View.OnClickListener, TradeAdapter.TradeRequestActionListener {
 
     public TradeAdapter tradesAdapter;
     ImageButton backButton;
@@ -152,6 +152,7 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         currTrades = MainActivity.user_info.getCurrentTrades();
         layoutManager = new LinearLayoutManager(this);
         tradesAdapter = new TradeAdapter(this, currTrades);
+        tradesAdapter.setTradeRequestActionListener(this);
         tradesRecyclerView.setAdapter(tradesAdapter);
         tradesRecyclerView.setLayoutManager(layoutManager);
         tradesRecyclerView.setHasFixedSize(true);
@@ -163,7 +164,6 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         startButton.setOnClickListener(this);
         refreshButton.setOnClickListener(this);
         tradeRequestsBtn.setOnClickListener(this);
-
 
         for (ImageView currBubble : participantBubbles) {
             currBubble.setOnClickListener(this);
@@ -614,5 +614,8 @@ public class SuperflyGamePage extends AppCompatActivity implements View.OnClickL
         }
     }
 
-
+    @Override
+    public void requestCompleted() {
+        refreshSession();
+    }
 }
