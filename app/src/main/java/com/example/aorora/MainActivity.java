@@ -3,7 +3,9 @@ package com.example.aorora;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -13,6 +15,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.res.TypedArrayUtils;
 
 import com.example.aorora.model.DailyTask;
 import com.example.aorora.model.UserAuth;
@@ -23,6 +27,8 @@ import com.example.aorora.network.RetrofitClientInstance;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     Button login_button;
     EditText username_et, password_et;
     CheckBox saveLoginInfo;
+    AppCompatImageView butterflyImage;
 
     Intent surveyPage;
     Context context;
@@ -46,18 +53,28 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sp;
     Boolean saveLoginInfoBool;
 
+//    SharedPreferences.Editor editor = sp.edit();
+
+//    Integer []themes = {R.style.THEME_DUSK, R.style.THEME_BLUE, R.style.THEME_EVENING, R.style.THEME_MOUNTAIN, R.style.THEME_STAR};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         sp = getSharedPreferences("AroraPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
+//        int currTheme = sp.getInt("Theme", -1);
+//        Toast.makeText(MainActivity.this, String.valueOf(currTheme), Toast.LENGTH_SHORT).show();
+//        setTheme(currTheme);
+        setContentView(R.layout.activity_main);
+
 
         login_button = findViewById(R.id.login_button);
         username_et = findViewById(R.id.login_email_et);
         password_et = findViewById(R.id.login_password_et);
         saveLoginInfo = findViewById(R.id.saveLoginCheckBox);
+//        butterflyImage = findViewById(R.id.logo_butterfly);
         //Init our backend service
         service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         context = this;
@@ -70,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
             login(username, password);
             Toast.makeText(this, "Welcome back " + sp.getString("username", ""), Toast.LENGTH_SHORT).show();
         }
-
 
 
         // Login button ON click Listener
@@ -96,7 +112,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+//
+//        butterflyImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int newTheme = new Random().nextInt(themes.length);
+//                editor.putInt("Theme", themes[newTheme]).apply();
+//                recreate();
+//            }
+//        });
+//
     }
+
 
     private boolean validateLogin(String username, String password) {
         if (username == null || username.trim().length() == 0) {
@@ -115,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 
     private void login(String username, String password) {
         Log.d("Beginning login", "Logging into the system via login function");
@@ -141,20 +169,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<UserAuth> call, Throwable t) {
                 if (t instanceof IOException) {
-                    //Toast.makeText(MainActivity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
                     Log.e("VERBOSE1", "" + t.getCause());
                     Log.e("VERBOSE2", "" + t.getMessage());
                     Log.e("VERBOSE3", "" + t.toString());
                     Toast.makeText(MainActivity.this, "Couldn't reach the network, try again.", Toast.LENGTH_SHORT).show();
-
-                    // logging probably not necessary
                 }
-//                else {
-//                    //Toast.makeText(MainActivity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-//                }
-                //Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 }

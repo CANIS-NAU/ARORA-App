@@ -172,7 +172,7 @@ public class PracticeFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-//        NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), getContext());
+        NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), getContext());
     }
 
     //Check called before launching the game.

@@ -9,19 +9,66 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.aorora.ui.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_navigation_profile_to_atriumScreen"
+            app:destination="@id/atriumScreen"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_navigation_profile_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/mainActivity"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_practice"
         android:name="com.example.aorora.ui.PracticeFragment"
         android:label="@string/title_practice"
-        tools:layout="@layout/fragment_practice" />
+        tools:layout="@layout/fragment_practice" >
+        <action
+            android:id="@+id/action_navigation_practice_to_ARScreen"
+            app:destination="@id/ARScreen"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_learn"
         android:name="com.example.aorora.ui.LearnFragment"
         android:label="@string/title_learn"
-        tools:layout="@layout/fragment_learn" />
+        tools:layout="@layout/fragment_learn" >
+        <action
+            android:id="@+id/action_navigation_learn_to_mindfullnessBreathing"
+            app:destination="@id/mindfullnessBreathing"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_navigation_learn_to_mindfullnessWalking"
+            app:destination="@id/mindfullnessWalking"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_navigation_learn_to_mindfullnessMeditation"
+            app:destination="@id/mindfullnessMeditation"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_community"
@@ -30,10 +77,44 @@
         tools:layout="@layout/fragment_community"/>
 
     <activity
-        android:id="@+id/profilePage"
-        android:name="com.example.aorora.ProfilePage"
-        android:label="activity_profile_page"
-        tools:layout="@layout/activity_profile_page" />
+        android:id="@+id/ARScreen"
+        android:name="com.example.aorora.ARScreen"
+        android:label="activity_ar_screen"
+        tools:layout="@layout/activity_ar_screen" />
+
+    <activity
+        android:id="@+id/atriumScreen"
+        android:name="com.example.aorora.AtriumScreen"
+        android:label="AtriumScreen"
+        />
+
+    <activity
+        android:id="@+id/atriumDetail"
+        android:name="com.example.aorora.AtriumDetail"
+        android:label="activity_atrium_detail"
+        tools:layout="@layout/activity_atrium_detail" />
+
+    <activity
+        android:id="@+id/mindfullnessBreathing"
+        android:name="com.example.aorora.MindfullnessBreathing"
+        android:label="activity_mindfullness_breathing"
+        tools:layout="@layout/activity_mindfullness_breathing" />
+
+    <activity
+        android:id="@+id/mindfullnessMeditation"
+        android:name="com.example.aorora.MindfullnessMeditation"
+        android:label="activity_mindfullness_meditation"
+        tools:layout="@layout/activity_mindfullness_meditation" />
+
+    <activity
+        android:id="@+id/mindfullnessWalking"
+        android:name="com.example.aorora.MindfullnessWalking"
+        android:label="activity_mindfullness_walking"
+        tools:layout="@layout/activity_mindfullness_walking" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.aorora.MainActivity"
+        android:label="MainActivity" />
 
 
 </navigation>

@@ -12,12 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.aorora.AtriumScreen;
 import com.example.aorora.MainActivity;
 import com.example.aorora.R;
+import com.example.aorora.network.NetworkCalls;
+import org.jetbrains.annotations.NotNull;
 
 
 public class ProfileFragment extends Fragment {
@@ -32,6 +35,21 @@ public class ProfileFragment extends Fragment {
     ImageView userButterflyImgView;
     public ProfileFragment() {
         // Required empty public constructor
+    }
+
+    /**
+     * Called when a fragment is attached as a child of this fragment.
+     *
+     * <p>This is called after the attached fragment's <code>onAttach</code> and before
+     * the attached fragment's <code>onCreate</code> if the fragment has not yet had a previous
+     * call to <code>onCreate</code>.</p>
+     *
+     * @param childFragment child fragment being attached
+     */
+    @Override
+    public void onAttachFragment(@NonNull @NotNull Fragment childFragment) {
+        NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), getContext());
+        super.onAttachFragment(childFragment);
     }
 
     @Override
@@ -61,8 +79,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-//        Toast.makeText(this, 'Hello switching out', 1).show();
-//        android.widget.Toast.makeText(getContext(), "5. OnStop", Toast.LENGTH_SHORT).show();
+        NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), getContext());
     }
 
 
@@ -123,7 +140,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent to_navigate = new Intent(getContext(), AtriumScreen.class);
                 startActivity(to_navigate);
-                
+
             }
         });
 
