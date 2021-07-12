@@ -8,11 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -355,22 +357,26 @@ public class ButterflyGameActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        promptLeaveActivity();
-    }
+    public void onBackPressed() { promptLeaveActivity(); }
 
     public void promptLeaveActivity(){
-        new AlertDialog.Builder(mContext)
-                .setMessage("Are you sure you want to leave the game?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        endOfGameActions();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.ic_baseline_exit_to_app_24)
+                .setTitle(R.string.alert_title_exit)
+//                .setMessage(R.string.mindfullness_breathing_info)
+                .setPositiveButton("Yes, Exit", (dialog, which) -> {gameTimer.cancel(); gameTimer.onFinish();})
+                .setNegativeButton("No, Continue", null)
+                .setCancelable(false);
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.show();
+        ImageView imageView = dialog.findViewById(android.R.id.icon);
+        if (imageView != null)
+//                imageView.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+            imageView.setColorFilter(Color.BLACK);
     }
+
+
 
     /**
      * allows for activity to be fullscreen

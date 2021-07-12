@@ -412,24 +412,28 @@ public class MindfulnessMeditationGame_R extends AppCompatActivity implements Vi
     @Override
     public void onBackPressed() {
 
-        if (pressedTime + 2000 > System.currentTimeMillis()) {
-            //Allow us to leave the Activity as normal, but we need to stop the recording like the x button does.
-            if(theme_music.isPlaying())
-            {
-                Log.e("MUSIC", " STOPPED");
-                theme_music.stop();
-            }
-            myTimer.cancel();
-            super.onBackPressed();
-            finish();
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.ic_baseline_exit_to_app_24)
+                .setTitle(R.string.alert_title_exit)
+//                .setMessage(R.string.mindfullness_breathing_info)
+                .setPositiveButton("Yes, Exit", (dialog, which) -> {
+                    if(theme_music.isPlaying())
+                    {
+                        Log.e("MUSIC", " STOPPED");
+                        theme_music.stop();
+                    }
+                    myTimer.cancel();
+                    super.onBackPressed();
+                    finish();
+                })
+                .setNegativeButton("No, Continue", null)
+                .setCancelable(false);
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.show();
+        ImageView imageView = dialog.findViewById(android.R.id.icon);
+        if (imageView != null)
+//                imageView.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+            imageView.setColorFilter(Color.BLACK);
 
-        } else {
-            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
-        }
-        pressedTime = System.currentTimeMillis();
     }
-
-
-
-
 }
