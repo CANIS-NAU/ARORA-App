@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:background="@drawable/atrium_background">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_learn"
+        android:id="@+id/info_floating_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:tint="@color/black"
+        />
 
     <ImageButton
         android:id="@+id/back_button_atrium"
@@ -28,7 +39,6 @@
         android:layout_height="wrap_content"
         android:text="Atrium"
         style="@style/inverse_page_header_text_views"
-        app:layout_constraintBottom_toTopOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

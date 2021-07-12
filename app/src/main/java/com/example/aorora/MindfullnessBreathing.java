@@ -1,15 +1,20 @@
 package com.example.aorora;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -28,7 +33,7 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
     ImageButton play_button;
     int timerCount = 1;
     Context mindfullnessBreathing;
-    ImageView alpha_channel_iv;
+    ImageView alpha_channel_iv, info_floating_button;
     Animation infinite_blink;
     RecyclerView time_selection_recyler_view;
     com.example.aorora.adapter.HorizontalTimeAdapter horizontalTimeAdapter;
@@ -38,9 +43,8 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_mindfullness_breathing);
         mindfullnessBreathing = this;
 
-        play_button = (ImageButton) findViewById(R.id.play_button_walking);
-        alpha_channel_iv = (ImageView) findViewById(R.id.alpha_channel_breathing_icon);
-
+        play_button = findViewById(R.id.play_button_walking);
+        alpha_channel_iv = findViewById(R.id.alpha_channel_breathing_icon);
         //TODO: implement different breath counts again
         //Removed "5 Breaths" and "15 Breaths" strings from array list for testing purposes
         //List<String> data = Arrays.asList("", "5 Breaths" ,"");
@@ -48,6 +52,9 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
         //time_selection_recyler_view.smoothScrollToPosition(3);
 
         play_button.setOnClickListener(this);
+
+        info_floating_button = findViewById(R.id.info_floating_button);
+        info_floating_button.setOnClickListener(this);
 
         infinite_blink = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.infinite_blink);
@@ -110,6 +117,25 @@ public class MindfullnessBreathing extends AppCompatActivity implements View.OnC
             to_navigate = new Intent(mindfullnessBreathing, MindfullnessBreathingGame.class);
             to_navigate.putExtra("TimerValue", timerCount);
             startActivity(to_navigate);
+        }
+        else if(view_id == info_floating_button.getId()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setIcon(R.drawable.ic_learn)
+                    .setTitle(R.string.alert_title_info)
+                    .setMessage(R.string.mindfullness_breathing_info)
+                    .setPositiveButton("Okay Got It!!!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+            .setCancelable(false);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            ImageView imageView = dialog.findViewById(android.R.id.icon);
+            if (imageView != null)
+//                imageView.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+                imageView.setColorFilter(Color.BLACK);
         }
     }
 }

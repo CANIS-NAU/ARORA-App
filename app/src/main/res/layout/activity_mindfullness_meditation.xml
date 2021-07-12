@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".MindfullnessMeditation">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_learn"
+        android:id="@+id/info_floating_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        />
 
     <TextView
         android:id="@+id/meditation_page_header"

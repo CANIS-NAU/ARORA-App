@@ -1,9 +1,13 @@
 package com.example.aorora;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +45,8 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
     com.example.aorora.adapter.HorizontalAdapter horizontalAdapter;
     com.example.aorora.adapter.HorizontalTimeAdapter horizontalTimeAdapter;
 
+    ImageView info_floating_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -54,6 +60,10 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
         recyclerViewTime = findViewById(R.id.recyclerViewTime);
         recyclerView = findViewById(R.id.horizontal_recycler_view_meditation);
         play_button.setOnClickListener(this);
+
+        info_floating_button = findViewById(R.id.info_floating_button);
+        info_floating_button.setOnClickListener(this);
+
 
         generateDataListHorizontal();
       
@@ -208,6 +218,25 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
             to_navigate.putExtra("Theme",game_theme);
             to_navigate.putExtra("Duration", duration_int);
             startActivity(to_navigate);
+        }
+        else if(view_id == info_floating_button.getId()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setIcon(R.drawable.ic_learn)
+                    .setTitle(R.string.alert_title_info)
+                    .setMessage(R.string.mindfullness_breathing_info)
+                    .setPositiveButton("Okay Got It!!!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setCancelable(false);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            ImageView imageView = dialog.findViewById(android.R.id.icon);
+            if (imageView != null)
+//                imageView.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+                imageView.setColorFilter(Color.BLACK);
         }
     }
 }

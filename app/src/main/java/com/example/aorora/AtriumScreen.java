@@ -1,8 +1,12 @@
 package com.example.aorora;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.aorora.adapter.AtriumAdapter;
@@ -37,6 +42,8 @@ public class AtriumScreen extends AppCompatActivity implements View.OnClickListe
 
     Context atriumScreen;
     Button add_butterflies;
+
+    ImageView info_floating_button;
 
     //Images for the butterflies
     int images[] = {R.drawable.red_1, R.drawable.yellow_1,
@@ -87,6 +94,9 @@ public class AtriumScreen extends AppCompatActivity implements View.OnClickListe
             System.out.println("Adding butterfly for: " + current_butterfly);
         }
 
+        info_floating_button = findViewById(R.id.info_floating_button);
+        info_floating_button.setOnClickListener(this);
+
     }
 
     @Override
@@ -105,6 +115,25 @@ public class AtriumScreen extends AppCompatActivity implements View.OnClickListe
             MainActivity.user_info.update_local_atrium(local_atrium);
             //Once we get the updated local atrium, push the new atrium map to the backend.
             NetworkCalls.updateUserAtrium(userId, local_atrium, atriumScreen);
+        }
+        else if(view_id == info_floating_button.getId()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setIcon(R.drawable.ic_learn)
+                    .setTitle(R.string.alert_title_info)
+                    .setMessage(R.string.mindfullness_breathing_info)
+                    .setPositiveButton("Okay Got It!!!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setCancelable(false);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            ImageView imageView = dialog.findViewById(android.R.id.icon);
+            if (imageView != null)
+//                imageView.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+                imageView.setColorFilter(Color.BLACK);
         }
     }
 }

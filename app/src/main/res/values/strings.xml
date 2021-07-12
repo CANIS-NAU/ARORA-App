@@ -16,6 +16,14 @@
     <string name="pollen_requried_text">10 Pollens required to start the game</string>
     <string name="ARPollenPurchase">"Spend 10 pollen"</string>
 
+    <string name="alert_title_exit">Are you sure you want to leave the game?</string>
+    <string name="alert_title_info">Why are you doing this??</string>
+    <string name="mindfullness_breathing_info">Mindfulness breathing involves taking slow, deep breaths while being aware of yourself, your feelings, and your surroundings.</string>
+    <string name="mindfullness_walking_info">As you do the mindfulness walking activity, pay attention to your surroundings as you interact with nature and look for elements that remind you of what you have thought about in the meditation activity. As you walk, take time to reflect on your positive associations with the natural elements that you see.</string>
+    <!--    <string name="alert_title">Why are you doing this??</string>-->
+    <!--    <string name="alert_title">Why are you doing this??</string>-->
+
+
     <string-array name="breathing_menu_selection">
         <item>1</item>
         <item>2</item>
