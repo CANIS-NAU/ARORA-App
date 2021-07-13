@@ -22,57 +22,89 @@
         >
         <activity
             android:name=".SuperflyFinishPage"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            />
         <activity
             android:name=".SuperflyInvitesPage"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".SuperflyGamePage"
             android:noHistory="true" />
-        <activity android:name=".mMainActivity" />
+        <activity android:name=".mMainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".slider_survey_page"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".SuperflyLobby"
             android:noHistory="true" />
-        <activity android:name=".AtriumDetail" />
+        <activity android:name=".AtriumDetail"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".ARScreen"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".ButterflyGameActivity"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".MindfulnessMeditationGame_R"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".ReceiptPage"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".MindfullnessWalking"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".MindfullnessWalkingGame"
             android:noHistory="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            />
         <activity
             android:name=".MindfullnessMeditation"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".MindfullnessBreathingGame"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".MindfullnessBreathing"
-            android:noHistory="true" />
-        <activity android:name=".AtriumScreen" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
+        <activity android:name=".AtriumScreen"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity
             android:name=".MainActivity"
             android:noHistory="true"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
