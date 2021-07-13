@@ -79,47 +79,36 @@ public class PracticeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         catch_butterfly.setOnClickListener(v -> {
-            Intent toNavigate = new Intent(getContext(), ARScreen.class);
-            startActivity(toNavigate);
-            //                android.widget.Toast.makeText(getContext(), "Game under development", Toast.LENGTH_SHORT).show();
-//                //TODO: Uncomment the below code to Set the message and title from the strings.xml file
-//                builder.setMessage("You are going to spend 10 pollen to catch some butterflies.\n\nPress ok to continue")
-//                        .setTitle("Catch Butterflies")
-//                        .setCancelable(false)
-//                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int id) {
-////
-//                                Toast.makeText(getContext(),"Ok",Toast.LENGTH_SHORT).show();
-//
-//                                if (!hasEnoughPollen()) {
-//                                    Toast.makeText(getContext(), "Sorry! Not enough pollen! Complete some quests!", Toast.LENGTH_SHORT).show();
-//                                    return;
-//                                }
-//                                //Otherwise, we have enough pollen, decrement it and update the backend.
-//                                userPollen -= 10;
-//                                //Finally do the PUT request with the new pollen value. May need to refresh the UI.
-//                                MainActivity.user_info.setUser_pollen(userPollen);
-//                                //This will update the backend and set the current pollen to our decremented value.
-//                                NetworkCalls.updateUserCurrentPoints(MainActivity.user_info.getUser_id(), userPollen, getContext());
-//
-//                                //intent to butterfly game
-//                                startActivity(new Intent(getContext(), ButterflyGameActivity.class));
-//                            }
-//                        })
-//                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int id) {
-//                                        //  Action for 'NO' Button
-//                                        dialog.cancel();
-//                                        Toast.makeText(getContext(), "Cancel", Toast.LENGTH_SHORT).show();
-//                                    }
-//
-//                                    ;
-//                                });
-//                //Creating dialog box
-//                AlertDialog alert = builder.create();
-//                //Setting the title manually
-////                alert.setTitle("AlertDialogExample");
-//                alert.show();
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            builder.setIcon(R.drawable.catch_butterfly)
+                    .setTitle(R.string.ARgame_title)
+                    .setMessage(R.string.pollen_required_text)
+                    .setPositiveButton("Yes, start the game", (dialog, which) -> {
+
+                        if (!hasEnoughPollen()) {
+                            Toast.makeText(getContext(), "Sorry! Not enough pollen! Complete some quests!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        //Otherwise, we have enough pollen, decrement it and update the backend.
+                        userPollen -= 10;
+                        //Finally do the PUT request with the new pollen value. May need to refresh the UI.
+                        MainActivity.user_info.setUser_pollen(userPollen);
+                        //This will update the backend and set the current pollen to our decremented value.
+                        NetworkCalls.updateUserCurrentPoints(MainActivity.user_info.getUser_id(), userPollen, getContext());
+
+                        //intent to butterfly game
+                        startActivity(new Intent(getContext(), ButterflyGameActivity.class));
+
+                    })
+                    .setNegativeButton("No", null)
+                    .setCancelable(false);
+            androidx.appcompat.app.AlertDialog dialog = builder.create();
+            dialog.show();
+            ImageView imageView = dialog.findViewById(android.R.id.icon);
+            if (imageView != null)
+//                imageView.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+                imageView.setColorFilter(Color.BLACK);
+
         });
 
         catch_butterfly.setOnLongClickListener(v -> {
