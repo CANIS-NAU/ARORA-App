@@ -1,8 +1,13 @@
 package com.example.aorora;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,6 +29,7 @@ public class AtriumDetail extends AppCompatActivity implements View.OnClickListe
     //Class member declarations
     Context atriumDetail;
     ImageView displayImageView;
+    ImageView info_floating_button;
     ImageButton back_button;
     TextView descriptionTv;
     int displayImage;
@@ -54,6 +60,9 @@ public class AtriumDetail extends AppCompatActivity implements View.OnClickListe
         getData();
         //Update the ImageView in the UI
         setData();
+
+        info_floating_button = findViewById(R.id.info_floating_button);
+        info_floating_button.setOnClickListener(this);
     }
 
     //Getter for our extras bundled with the navigating Intent. Grabs the atrium image currently.
@@ -79,5 +88,20 @@ public class AtriumDetail extends AppCompatActivity implements View.OnClickListe
              to_navigate = new Intent(this, AtriumScreen.class);
              startActivity(to_navigate);
             }
+
+        else if(view_id == info_floating_button.getId()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setIcon(R.drawable.butterfly_logo)
+                    .setTitle(R.string.butterfly_title_info)
+                    .setMessage(R.string.butterfly_info)
+                    .setPositiveButton("Okay Got It!!!", (dialog, which) -> { })
+                    .setCancelable(false);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            ImageView imageView = dialog.findViewById(android.R.id.icon);
+            if (imageView != null)
+//                imageView.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+                imageView.setColorFilter(Color.BLACK);
+        }
     }
 }

@@ -20,7 +20,7 @@
         android:textAlignment="center"
         android:gravity="center_vertical|center_horizontal"
         style="@style/inverse_text_views"
-        android:text="@string/pollen_requried_text"
+        android:text="@string/pollen_required_text"
         app:layout_constraintTop_toBottomOf="@id/spend_pollen_btn"/>
 
     <Button

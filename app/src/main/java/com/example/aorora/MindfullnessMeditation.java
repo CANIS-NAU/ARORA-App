@@ -221,9 +221,9 @@ public class MindfullnessMeditation extends AppCompatActivity implements View.On
         }
         else if(view_id == info_floating_button.getId()){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setIcon(R.drawable.ic_learn)
-                    .setTitle(R.string.alert_title_info)
-                    .setMessage(R.string.mindfullness_breathing_info)
+            builder.setIcon(R.drawable.mindfullness_meditation_icon)
+                    .setTitle(R.string.meditation_title_info)
+                    .setMessage(R.string.mindfulness_meditation_info)
                     .setPositiveButton("Okay Got It!!!", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

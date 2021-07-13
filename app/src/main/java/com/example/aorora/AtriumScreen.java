@@ -118,15 +118,10 @@ public class AtriumScreen extends AppCompatActivity implements View.OnClickListe
         }
         else if(view_id == info_floating_button.getId()){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setIcon(R.drawable.ic_learn)
-                    .setTitle(R.string.alert_title_info)
-                    .setMessage(R.string.mindfullness_breathing_info)
-                    .setPositiveButton("Okay Got It!!!", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    })
+            builder.setIcon(R.drawable.jar_button)
+                    .setTitle(R.string.atrium_title_info)
+                    .setMessage(R.string.atrium_info)
+                    .setPositiveButton("Okay Got It!!!", null)
                     .setCancelable(false);
             AlertDialog dialog = builder.create();
             dialog.show();

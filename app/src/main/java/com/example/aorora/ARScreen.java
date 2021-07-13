@@ -104,12 +104,6 @@ public class ARScreen extends AppCompatActivity implements View.OnClickListener,
         coordsBtn = (Button) findViewById(R.id.geo_coord_bttn);
 
 
-        //Onclicklisteners for this class.
-//        home_button_bottombar.setOnClickListener(this);
-//        profile_button_bottombar.setOnClickListener(this);
-//        community_button_bottombar.setOnClickListener(this);
-//        quest_button_bottombar.setOnClickListener(this);
-
         //This onClickListener will spend pollen if the user has at least 10 of it.
         spendPollenBtn.setOnClickListener(new View.OnClickListener() {
             @Override

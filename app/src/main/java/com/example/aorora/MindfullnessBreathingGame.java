@@ -314,10 +314,10 @@ public class MindfullnessBreathingGame extends AppCompatActivity {
 //                .setMessage(R.string.mindfullness_breathing_info)
                 .setPositiveButton("Yes, Exit", (dialog, which) -> {
                     if(breathing_music.isPlaying())
-                {
-                    Log.e("MUSIC", " STOPPED");
-                    breathing_music.stop();
-                }
+                    {
+                        Log.e("MUSIC", " STOPPED");
+                        breathing_music.stop();
+                    }
                     myTimer.cancel();
                     super.onBackPressed();
                     finish();})

@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/logo_butterfly"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:src="@drawable/orange_butterfly_image"/>
+        android:src="@drawable/orange_butterfly_image" />
 
 
     <androidx.cardview.widget.CardView
@@ -24,36 +20,34 @@
         android:layout_marginBottom="@dimen/horizontal_margin">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/vertical_margin"
             android:background="#40ffffff"
-            >
+            android:orientation="vertical"
+            android:padding="@dimen/vertical_margin">
 
             <EditText
                 android:id="@+id/login_email_et"
                 style="@style/login_text_views"
                 android:autofillHints="@string/prompt_email"
                 android:hint="@string/prompt_username"
-                android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
-                android:nextFocusDown="@id/login_password_et"
-                android:nextFocusRight="@id/login_password_et"
                 android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:nextFocusRight="@id/login_password_et"
+                android:nextFocusDown="@id/login_password_et"
+                android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:textAlignment="viewStart"
-                />
+                android:textAlignment="viewStart" />
 
             <EditText
                 android:id="@+id/login_password_et"
+                style="@style/login_text_views"
                 android:autofillHints="@string/prompt_password"
                 android:hint="@string/prompt_password"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                android:selectAllOnFocus="true"
-                style="@style/login_text_views"/>
+                android:selectAllOnFocus="true" />
 
             <CheckBox
                 android:id="@+id/saveLoginCheckBox"
@@ -61,30 +55,26 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editTextPassword"
                 android:text="Remember Me"
-                android:textColor="#FFFfff"
-                />
+                android:textColor="#FFFfff" />
 
             <Button
                 android:id="@+id/login_button"
-                android:text="@string/action_login"
                 style="@style/buttons"
-                />
+                android:text="@string/action_login" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
-
 
 
     <TextView
         android:id="@+id/app_name"
 
-        android:layout_below="@id/logo_butterfly"
-        android:layout_centerHorizontal="true"
-
+        style="@style/inverse_page_header_text_views"
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
+        android:layout_below="@id/logo_butterfly"
 
-        android:text="@string/arora"
-        style="@style/inverse_page_header_text_views"/>
-
+        android:layout_centerHorizontal="true"
+        android:text="@string/arora" />
 
 </RelativeLayout>

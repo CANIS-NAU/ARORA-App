@@ -62,9 +62,9 @@ public class MindfullnessWalking extends AppCompatActivity implements View.OnCli
         }
         else if(view_id == info_floating_button.getId()){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setIcon(R.drawable.ic_learn)
-                    .setTitle(R.string.alert_title_info)
-                    .setMessage(R.string.mindfullness_walking_info)
+            builder.setIcon(R.drawable.location_button)
+                    .setTitle(R.string.walking_title_info)
+                    .setMessage(R.string.mindfulness_walking_info)
                     .setPositiveButton("Okay Got It!!!", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

@@ -1,9 +1,12 @@
 package com.example.aorora.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -20,6 +24,9 @@ import com.example.aorora.AtriumScreen;
 import com.example.aorora.MainActivity;
 import com.example.aorora.R;
 import com.example.aorora.network.NetworkCalls;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
 import org.jetbrains.annotations.NotNull;
 
 
@@ -33,6 +40,10 @@ public class ProfileFragment extends Fragment {
 
     CardView pollen_score_card_view, atrium_count_card_view;
     ImageView userButterflyImgView;
+    ImageView info_floating_button;
+
+    BottomNavigationView btmnavview;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -72,6 +83,23 @@ public class ProfileFragment extends Fragment {
         userButterflyImgView = (ImageView) rootView.findViewById(R.id.user_butterfly_imageView);
         userNameLayout = (LinearLayout) rootView.findViewById(R.id.user_name_layout);
         userNameTextView = (TextView) rootView.findViewById(R.id.user_name_text_view);
+
+        info_floating_button = rootView.findViewById(R.id.info_floating_button);
+        info_floating_button.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setIcon(R.drawable.profile_button_unfilled)
+                    .setTitle(R.string.affirmation_title_info)
+                    .setMessage(R.string.affirmation_info)
+                    .setPositiveButton("Okay Got It!!!", null)
+                    .setCancelable(false);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            ImageView imageView = dialog.findViewById(android.R.id.icon);
+            if (imageView != null)
+//                imageView.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+                imageView.setColorFilter(Color.BLACK);
+        });
+
 
         return rootView;
     }
@@ -174,23 +202,21 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        userNameLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                android.widget.Toast.makeText(getContext(), "Hello "+MainActivity.user_info.getUser_name() + " - Long press to logout", Toast.LENGTH_SHORT).show();
-
-            }
+        userNameLayout.setOnClickListener(v ->
+        {
+            Toast.makeText(getActivity(), "Hello " + MainActivity.user_info.getUser_name() + " - Long press to logout", Toast.LENGTH_SHORT).show();
         });
 
+
     }
+
+
 
     public void recreateActivity() {
         Intent intent = getActivity().getIntent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         getActivity().finish();
-//        overridePendingTransition(0, 0);
         startActivity(intent);
-//        overridePendingTransition(0, 0);
     }
 
     private void setName() {

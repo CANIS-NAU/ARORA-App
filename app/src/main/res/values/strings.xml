@@ -13,16 +13,28 @@
     </string>
     <string name="ARPageTitle">Welcome to the AR Page: 10 pollen to start!</string>
     <string name="ARPageTitle2">Catch Butterfly</string>
-    <string name="pollen_requried_text">10 Pollens required to start the game</string>
-    <string name="ARPollenPurchase">"Spend 10 pollen"</string>
+    <string name="pollen_required_text">10 Pollens are required to start the game, are you sure you want to continue?</string>
 
     <string name="alert_title_exit">Are you sure you want to leave the game?</string>
+    <string name="ARgame_title">Want to catch some butterflies?</string>
     <string name="alert_title_info">Why are you doing this??</string>
-    <string name="mindfullness_breathing_info">Mindfulness breathing involves taking slow, deep breaths while being aware of yourself, your feelings, and your surroundings.</string>
-    <string name="mindfullness_walking_info">As you do the mindfulness walking activity, pay attention to your surroundings as you interact with nature and look for elements that remind you of what you have thought about in the meditation activity. As you walk, take time to reflect on your positive associations with the natural elements that you see.</string>
-    <!--    <string name="alert_title">Why are you doing this??</string>-->
-    <!--    <string name="alert_title">Why are you doing this??</string>-->
-
+    <string name="breathing_title_info">The science behind BREATHING</string>
+    <string name="walking_title_info">Why do we WALK?</string>
+    <string name="meditation_title_info">Why do we MEDITATE?</string>
+    <string name="atrium_title_info">What is an Atrium?</string>
+    <string name="butterfly_title_info">What does a BUTTERFLY represent?</string>
+    <string name="learning_title_info">Learn about MINDFULNESS</string>
+    <string name="practice_title_info">Why to practice MINDFULNESS?</string>
+    <string name="affirmation_title_info">What are AFFIRMATIONS?</string>
+    <string name="mindfulness_breathing_info">Mindfulness breathing involves taking slow, deep breaths while being aware of yourself, your feelings, and your surroundings</string>
+    <string name="mindfulness_walking_info">As you do the mindfulness walking activity, pay attention to your surroundings as you interact with nature and look for elements that remind you of what you have thought about in the meditation activity. As you walk, take time to reflect on your positive associations with the natural elements that you see</string>
+    <string name="mindfulness_meditation_info">Mindfulness meditation involves grounding yourself with your surroundings and the earth by taking mindful breaths and thinking about nature. The exercise presents you with relaxing music to listen to as you focus on nature and your presence in the world</string>
+    <string name="atrium_info">Visiting the atrium gives you the opportunity to reflect on what you have learned from each of the mindfulness activities. Each butterfly in the atrium has its own quote that relates to what you have learned by using the app. As you read the quotes in the atrium, take time to review the concepts you have learned and practiced so far</string>
+    <string name="learning_info">Practicing mindfulness means that you are aware of your thoughts, feelings (both emotional and physical), and surroundings. By participating in the mindfulness activities (breathing, meditation, and walking), you can learn about mindfulness and how to practice it</string>
+    <string name="practice_info">There are several activities within ARORA that encourage you to learn about mindful awareness. Superfly, a cooperative AR game, allows you to practice your mindful awareness. By playing Superfly, you practice mindfulness skills such as being aware of your teammate’s needs, your own needs, and your surroundings</string>
+    <string name="butterfly_info">The butterfly is meaningful in many ways, varying between different people. Overall our participants told us that butterflies represented growth, positivity, and grace in both Hopi and Navajo cultures. They also appear to represent the transformations that everyone goes through, as well as transitions, such as to different points of their lives or to different phases of life</string>
+    <string name="superfly_info"> A sense of place and connection with the earth has significant cultural importance. Superfly involves walking around in nature, connecting with the earth, and collaborating with others to achieve a common goal. When playing Superfly with others, you work together, rather than competing against one another</string>
+    <string name="affirmation_info">Mindfulness practices, including affirmations, are consistent with traditional Indigenous beliefs and relate to Indigenious cultural teachings. By practicing affirmations, you can instill positive beliefs within yourself and improve your self-esteem</string>
 
     <string-array name="breathing_menu_selection">
         <item>1</item>

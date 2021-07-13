@@ -1,10 +1,12 @@
 package com.example.aorora.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +22,7 @@ import com.example.aorora.R;
 public class LearnFragment extends Fragment {
 
     CardView mindfulness_breathing, mindfulness_meditation, mindfulness_walking;
+    ImageView info_floating_button;
 
     public LearnFragment() {
         // Required empty public constructor
@@ -41,6 +44,22 @@ public class LearnFragment extends Fragment {
         mindfulness_breathing = (CardView) rootView.findViewById(R.id.mindfulness_breathing);
         mindfulness_meditation = (CardView) rootView.findViewById(R.id.mindfulness_meditation);
         mindfulness_walking = (CardView) rootView.findViewById(R.id.mindfulness_walking);
+
+        info_floating_button = rootView.findViewById(R.id.info_floating_button);
+        info_floating_button.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setIcon(R.drawable.ic_learn_new)
+                    .setTitle(R.string.learning_title_info)
+                    .setMessage(R.string.learning_info)
+                    .setPositiveButton("Okay Got It!!!", null)
+                    .setCancelable(false);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            ImageView imageView = dialog.findViewById(android.R.id.icon);
+            if (imageView != null)
+//                imageView.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+                imageView.setColorFilter(Color.BLACK);
+        });
 
         return rootView;
     }

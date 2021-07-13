@@ -2,10 +2,14 @@ package com.example.aorora.ui;
 
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.aorora.ARScreen;
+import com.example.aorora.ButterflyGameActivity;
 import com.example.aorora.MainActivity;
 import com.example.aorora.R;
 import com.example.aorora.SuperflyGamePage;
@@ -23,9 +28,8 @@ import com.example.aorora.network.RetrofitResponseListener;
 public class PracticeFragment extends Fragment {
 
     CardView catch_butterfly, superfly;
-    AlertDialog.Builder builder;
-    Integer userPollen;
-
+    Integer userPollen, userId;
+    ImageView info_floating_button;
     public PracticeFragment() {
         // Required empty public constructor
     }
@@ -45,7 +49,24 @@ public class PracticeFragment extends Fragment {
         catch_butterfly = rootView.findViewById(R.id.catch_butterfly);
         superfly = rootView.findViewById(R.id.superfly);
 
-//        builder = new AlertDialog.Builder(getContext());
+        userPollen = MainActivity.user_info.getUser_pollen();
+        userId = MainActivity.user_info.getUser_id();
+
+        info_floating_button = rootView.findViewById(R.id.info_floating_button);
+        info_floating_button.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setIcon(R.drawable.butterfly_logo)
+                    .setTitle(R.string.practice_title_info)
+                    .setMessage(R.string.practice_info)
+                    .setPositiveButton("Okay Got It!!!", null)
+                    .setCancelable(false);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            ImageView imageView = dialog.findViewById(android.R.id.icon);
+            if (imageView != null)
+//                imageView.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+                imageView.setColorFilter(Color.BLACK);
+        });
         return rootView;
     }
 
