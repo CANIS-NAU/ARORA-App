@@ -84,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
             // call login function here
             String username = sp.getString("username","");
             String password = sp.getString("password","");
+            username_et.setText(username);
+            password_et.setText(password);
+            saveLoginInfo.setChecked(true);
+//            surveyPage = new Intent(context, slider_survey_page.class);
+//            startActivity(surveyPage);
             login(username, password);
             Toast.makeText(this, "Welcome back " + sp.getString("username", ""), Toast.LENGTH_SHORT).show();
         }

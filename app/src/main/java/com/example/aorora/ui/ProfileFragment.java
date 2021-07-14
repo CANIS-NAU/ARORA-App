@@ -59,7 +59,7 @@ public class ProfileFragment extends Fragment {
      */
     @Override
     public void onAttachFragment(@NonNull @NotNull Fragment childFragment) {
-        NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), getContext());
+//        NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), getContext());
         super.onAttachFragment(childFragment);
     }
 
@@ -107,7 +107,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), getContext());
+//        NetworkCalls.getUserInfo(MainActivity.user_info.getUser_id(), getContext());
     }
 
 
